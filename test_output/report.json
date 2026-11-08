@@ -1,0 +1,1180 @@
+{
+ "seed": 42,
+ "generated": "2026-11-08T19:24:01.847955",
+ "dates": [
+  {
+   "year": 2023,
+   "picked": "2023-01-18",
+   "date": "2023-01-18",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "CAPNET FILES FOR 18-01-2023",
+    "COVERPAGE FOR 18-01-2023",
+    "Daily Official List - Equities for 18-01-2023",
+    "Daily Official List - ETFs for 18-01-2023",
+    "Daily Official List - BONDS for 18-01-2023",
+    "DAILY SUMMARY FOR 18-01-2023",
+    "GAINERS AND PRICE LIST FOR 18-01-2023",
+    "MARKET CAPITALIZATION FOR 18-01-2023",
+    "MEMORANDUM QUOTATION FOR 18-01-2023",
+    "P.E RATIO FOR 18-01-2023",
+    "SHARES OUTSTANDING FOR 18-01-2023"
+   ],
+   "stock_count": 157,
+   "dol_count": 150,
+   "prices1_count": 111,
+   "plist2_count": 157,
+   "by_source": {
+    "DOL": 150,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 135,
+    "Premium Board": 8,
+    "Growth Board": 6,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 4
+   },
+   "compared": 108,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.46,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2023-01-18T18:31:08Z",
+     "modified_utc": "2023-01-18T18:31:31Z",
+     "created_lagos": "2023-01-18T19:31:08+01:00",
+     "modified_lagos": "2023-01-18T19:31:31+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2023-01-18T18:35:12Z",
+     "modified_utc": "2023-01-18T18:35:46Z",
+     "created_lagos": "2023-01-18T19:35:12+01:00",
+     "modified_lagos": "2023-01-18T19:35:46+01:00"
+    },
+    "first_file_created_lagos": "2023-01-18T19:29:22+01:00",
+    "last_file_created_lagos": "2023-01-18T19:39:49+01:00"
+   }
+  },
+  {
+   "year": 2023,
+   "picked": "2023-03-22",
+   "date": "2023-03-22",
+   "rolled_over": [],
+   "files_found": 12,
+   "file_titles": [
+    "CAPNET FILES FOR 22-03-2023",
+    "COVERPAGE FOR 22-03-2023",
+    "Daily Official List - BONDS for 22-03-2023",
+    "Daily Official List - Equities for 22-03-2023",
+    "Daily Official List - ETFs for 22-03-2023",
+    "DAILY SUMMARY FOR 22-03-2023",
+    "FOREIGN EQUITY LISTING FOR 22-03-2023",
+    "GAINERS AND PRICE LIST FOR 22-03-2023",
+    "MARKET CAPITALIZATION FOR 22-03-2023",
+    "MEMORANDUM QUOTATION FOR 22-03-2023",
+    "P.E RATIO FOR 22-03-2023",
+    "SHARES OUTSTANDING FOR 22-03-2023"
+   ],
+   "stock_count": 157,
+   "dol_count": 150,
+   "prices1_count": 101,
+   "plist2_count": 157,
+   "by_source": {
+    "DOL": 150,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 135,
+    "Premium Board": 8,
+    "Growth Board": 6,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 4
+   },
+   "compared": 99,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.39,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2023-03-22T19:19:45Z",
+     "modified_utc": "2023-03-22T19:20:08Z",
+     "created_lagos": "2023-03-22T20:19:45+01:00",
+     "modified_lagos": "2023-03-22T20:20:08+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2023-03-22T19:27:23Z",
+     "modified_utc": "2023-03-22T19:27:49Z",
+     "created_lagos": "2023-03-22T20:27:23+01:00",
+     "modified_lagos": "2023-03-22T20:27:49+01:00"
+    },
+    "first_file_created_lagos": "2023-03-22T16:23:19+01:00",
+    "last_file_created_lagos": "2023-03-22T20:31:57+01:00"
+   }
+  },
+  {
+   "year": 2023,
+   "picked": "2023-06-09",
+   "date": "2023-06-09",
+   "rolled_over": [],
+   "files_found": 13,
+   "file_titles": [
+    "CAPNET FILES FOR 09-06-2023",
+    "COVERPAGE FOR 09-06-2023",
+    "Daily Official List - BONDS for 09-06-2023",
+    "Daily Official List - Equities for 09-06-2023",
+    "Daily Official List - ETFs for 09-06-2023",
+    "DAILY SUMMARY FOR 09-06-2023",
+    "FOREIGN EQUITY LISTING FOR 09-06-2023",
+    "GAINERS AND PRICE LIST FOR 09-06-2023",
+    "MARKET CAPITALIZATION FOR 09-06-2023",
+    "MEMORANDUM QUOTATION FOR 09-06-2023",
+    "P.E RATIO FOR 09-06-2023",
+    "SHARES OUTSTANDING FOR 09-06-2023",
+    "WEEKLY SUMMARY STATISTICS FOR THE WEEK ENDED 09-06-2023"
+   ],
+   "stock_count": 156,
+   "dol_count": 149,
+   "prices1_count": 120,
+   "plist2_count": 156,
+   "by_source": {
+    "DOL": 149,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 134,
+    "Premium Board": 8,
+    "Growth Board": 6,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 4
+   },
+   "compared": 118,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.03,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2023-06-09T14:31:25Z",
+     "modified_utc": "2023-06-09T14:31:38Z",
+     "created_lagos": "2023-06-09T15:31:25+01:00",
+     "modified_lagos": "2023-06-09T15:31:38+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2023-06-09T14:35:21Z",
+     "modified_utc": "2023-06-09T14:35:35Z",
+     "created_lagos": "2023-06-09T15:35:21+01:00",
+     "modified_lagos": "2023-06-09T15:35:35+01:00"
+    },
+    "first_file_created_lagos": "2023-06-09T15:27:32+01:00",
+    "last_file_created_lagos": "2023-06-09T15:38:28+01:00"
+   }
+  },
+  {
+   "year": 2023,
+   "picked": "2023-06-26",
+   "date": "2023-06-26",
+   "rolled_over": [],
+   "files_found": 8,
+   "file_titles": [
+    "COVERPAGE FOR 26-06-2023",
+    "DAILY SUMMARY FOR 26-06-2023",
+    "GAINERS AND PRICE LIST FOR 26-06-2023",
+    "Daily Official List - BONDS for 26-06-2023",
+    "Daily Official List - Equities for 26-06-2023",
+    "FOREIGN EQUITY LISTING FOR 26-06-2023",
+    "P.E RATIO FOR 26-06-2023",
+    "SHARES OUTSTANDING FOR 26-06-2023"
+   ],
+   "stock_count": 156,
+   "dol_count": 149,
+   "prices1_count": 122,
+   "plist2_count": 156,
+   "by_source": {
+    "DOL": 149,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 134,
+    "Premium Board": 8,
+    "Growth Board": 6,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 4
+   },
+   "compared": 120,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.09,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2023-06-26T18:16:28Z",
+     "modified_utc": "2023-06-26T18:16:47Z",
+     "created_lagos": "2023-06-26T19:16:28+01:00",
+     "modified_lagos": "2023-06-26T19:16:47+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2023-06-26T17:41:32Z",
+     "modified_utc": "2023-06-26T17:41:46Z",
+     "created_lagos": "2023-06-26T18:41:32+01:00",
+     "modified_lagos": "2023-06-26T18:41:46+01:00"
+    },
+    "first_file_created_lagos": "2023-06-26T18:23:07+01:00",
+    "last_file_created_lagos": "2023-06-26T19:19:14+01:00"
+   }
+  },
+  {
+   "year": 2023,
+   "picked": "2023-07-17",
+   "date": "2023-07-17",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 17-07-2023",
+    "Daily Official List - BONDS for 17-07-2023",
+    "Daily Official List - Equities for 17-07-2023",
+    "Daily Official List - ETFs for 17-07-2023",
+    "DAILY SUMMARY FOR 17-07-2023",
+    "FOREIGN EQUITY LISTING FOR 17-07-2023",
+    "GAINERS AND PRICE LIST FOR 17-07-2023",
+    "MARKET CAPITALIZATION FOR 17-07-2023",
+    "MEMORANDUM QUOTATION FOR 17-07-2023",
+    "P.E RATIO FOR 17-07-2023",
+    "SHARES OUTSTANDING FOR 17-07-2023"
+   ],
+   "stock_count": 156,
+   "dol_count": 149,
+   "prices1_count": 117,
+   "plist2_count": 156,
+   "by_source": {
+    "DOL": 149,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 134,
+    "Premium Board": 8,
+    "Growth Board": 6,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 4
+   },
+   "compared": 114,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.25,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2023-07-17T20:30:11Z",
+     "modified_utc": "2023-07-17T20:30:40Z",
+     "created_lagos": "2023-07-17T21:30:11+01:00",
+     "modified_lagos": "2023-07-17T21:30:40+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2023-07-17T20:34:02Z",
+     "modified_utc": "2023-07-17T20:34:41Z",
+     "created_lagos": "2023-07-17T21:34:02+01:00",
+     "modified_lagos": "2023-07-17T21:34:41+01:00"
+    },
+    "first_file_created_lagos": "2023-07-17T21:28:42+01:00",
+    "last_file_created_lagos": "2023-07-17T21:42:29+01:00"
+   }
+  },
+  {
+   "year": 2024,
+   "picked": "2024-01-23",
+   "date": "2024-01-23",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 23-01-2024",
+    "Daily Official List - BONDS for 23-01-2024",
+    "Daily Official List - Equities for 23-01-2024",
+    "Daily Official List - ETFs for 23-01-2024",
+    "DAILY SUMMARY FOR 23-01-2024",
+    "FOREIGN EQUITY LISTING FOR 23-01-2024",
+    "GAINERS AND PRICE LIST FOR 23-01-2024",
+    "MARKET CAPITALIZATION FOR 23-01-2024",
+    "MEMORANDUM QUOTATION FOR 23-01-2024",
+    "P.E RATIO FOR 23-01-2024",
+    "SHARES OUTSTANDING FOR 23-01-2024"
+   ],
+   "stock_count": 154,
+   "dol_count": 146,
+   "prices1_count": 124,
+   "plist2_count": 155,
+   "by_source": {
+    "DOL": 146,
+    "PRICES_LIST2": 8
+   },
+   "by_board": {
+    "Main Board": 131,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 4
+   },
+   "compared": 119,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.32,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2024-01-23T15:05:55Z",
+     "modified_utc": "2024-01-23T15:06:08Z",
+     "created_lagos": "2024-01-23T16:05:55+01:00",
+     "modified_lagos": "2024-01-23T16:06:08+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2024-01-23T15:07:39Z",
+     "modified_utc": "2024-01-23T15:07:53Z",
+     "created_lagos": "2024-01-23T16:07:39+01:00",
+     "modified_lagos": "2024-01-23T16:07:53+01:00"
+    },
+    "first_file_created_lagos": "2024-01-23T16:04:57+01:00",
+    "last_file_created_lagos": "2024-01-23T16:09:46+01:00"
+   }
+  },
+  {
+   "year": 2024,
+   "picked": "2024-03-01",
+   "date": "2024-03-01",
+   "rolled_over": [],
+   "files_found": 12,
+   "file_titles": [
+    "COVERPAGE FOR 01-03-2024",
+    "DAILY SUMMARY FOR 01-03-2024",
+    "GAINERS AND PRICE LIST FOR 01-03-2024",
+    "Daily Official List - BONDS for 01-03-2024",
+    "Daily Official List - Equities for 01-03-2024",
+    "Daily Official List - ETFs for 01-03-2024",
+    "FOREIGN EQUITY LISTING FOR 01-03-2024",
+    "P.E RATIO FOR 01-03-2024",
+    "MARKET CAPITALIZATION FOR 01-03-2024",
+    "MEMORANDUM QUOTATION FOR 01-03-2024",
+    "SHARES OUTSTANDING FOR 01-03-2024",
+    "WEEKLY MARKET STATISTICS FOR THE WEEK ENDED 01-03-2024"
+   ],
+   "stock_count": 153,
+   "dol_count": 145,
+   "prices1_count": 124,
+   "plist2_count": 153,
+   "by_source": {
+    "DOL": 145,
+    "PRICES_LIST2": 8
+   },
+   "by_board": {
+    "Main Board": 131,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 119,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.4,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2024-03-01T18:27:02Z",
+     "modified_utc": "2024-03-01T18:27:24Z",
+     "created_lagos": "2024-03-01T19:27:02+01:00",
+     "modified_lagos": "2024-03-01T19:27:24+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2024-03-01T17:40:33Z",
+     "modified_utc": "2024-03-01T18:29:50Z",
+     "created_lagos": "2024-03-01T18:40:33+01:00",
+     "modified_lagos": "2024-03-01T19:29:50+01:00"
+    },
+    "first_file_created_lagos": "2024-03-01T18:38:47+01:00",
+    "last_file_created_lagos": "2024-03-01T19:34:10+01:00"
+   }
+  },
+  {
+   "year": 2024,
+   "picked": "2024-03-13",
+   "date": "2024-03-13",
+   "rolled_over": [],
+   "files_found": 10,
+   "file_titles": [
+    "COVERPAGE FOR 13-03-2024",
+    "Daily Official List - BONDS for 13-03-2024",
+    "Daily Official List - ETFs for 13-03-2024",
+    "DAILY SUMMARY FOR 13-03-2024",
+    "FOREIGN EQUITY LISTING FOR 13-03-2024",
+    "GAINERS AND PRICE LIST FOR 13-03-2024",
+    "MARKET CAPITALIZATION FOR 13-03-2024",
+    "MEMORANDUM QUOTATION FOR 13-03-2024",
+    "P.E RATIO FOR 13-03-2024",
+    "SHARES OUTSTANDING FOR 13-03-2024"
+   ],
+   "stock_count": 154,
+   "dol_count": 0,
+   "prices1_count": 122,
+   "plist2_count": 154,
+   "by_source": {
+    "PRICES_LIST2": 154
+   },
+   "by_board": {
+    "Main Board": 132,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 0,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [
+    "Daily Official List (Equities) PDF not published"
+   ],
+   "mislabelled": [],
+   "dol_fallback_used": true,
+   "seconds": 12.85,
+   "upload_times": {
+    "price_list_zip": {
+     "created_utc": "2024-03-13T17:40:12Z",
+     "modified_utc": "2024-03-13T17:40:30Z",
+     "created_lagos": "2024-03-13T18:40:12+01:00",
+     "modified_lagos": "2024-03-13T18:40:30+01:00"
+    },
+    "first_file_created_lagos": "2024-03-13T18:36:40+01:00",
+    "last_file_created_lagos": "2024-03-13T18:43:11+01:00"
+   }
+  },
+  {
+   "year": 2024,
+   "picked": "2024-04-09",
+   "date": "2024-04-12",
+   "rolled_over": [
+    "2024-04-09",
+    "2024-04-10",
+    "2024-04-11"
+   ],
+   "files_found": 12,
+   "file_titles": [
+    "COVERPAGE FOR 12-04-2024",
+    "Daily Official List - BONDS for 12-04-2024",
+    "Daily Official List - Equities for 12-04-2024",
+    "Daily Official List - ETFs for 12-04-2024",
+    "DAILY SUMMARY FOR 12-04-2024",
+    "FOREIGN EQUITY LISTING FOR 12-04-2024",
+    "GAINERS AND PRICE LIST FOR 12-04-2024",
+    "MARKET CAPITALIZATION FOR 12-04-2024",
+    "MEMORANDUM QUOTATION FOR 12-04-2024",
+    "P.E RATIO FOR 12-04-2024",
+    "SHARES OUTSTANDING FOR 12-04-2024",
+    "WEEKLY MARKET STATISTICS FOR THE WEEK ENDED 12-04-2024"
+   ],
+   "stock_count": 154,
+   "dol_count": 146,
+   "prices1_count": 127,
+   "plist2_count": 154,
+   "by_source": {
+    "DOL": 146,
+    "PRICES_LIST2": 8
+   },
+   "by_board": {
+    "Main Board": 132,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 4,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 123,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 12.88,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2024-04-12T15:14:05Z",
+     "modified_utc": "2024-04-12T15:14:23Z",
+     "created_lagos": "2024-04-12T16:14:05+01:00",
+     "modified_lagos": "2024-04-12T16:14:23+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2024-04-12T15:18:04Z",
+     "modified_utc": "2024-04-12T15:18:20Z",
+     "created_lagos": "2024-04-12T16:18:04+01:00",
+     "modified_lagos": "2024-04-12T16:18:20+01:00"
+    },
+    "first_file_created_lagos": "2024-04-12T16:08:58+01:00",
+    "last_file_created_lagos": "2024-04-12T16:21:05+01:00"
+   }
+  },
+  {
+   "year": 2024,
+   "picked": "2024-10-29",
+   "date": "2024-10-29",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 29-10-2024",
+    "DAILY SUMMARY FOR 29-10-2024",
+    "Daily Official List - BONDS for 29-10-2024",
+    "Daily Official List - Equities for 29-10-2024",
+    "Daily Official List - ETFs for 29-10-2024",
+    "GAINERS AND PRICE LIST FOR 29-10-2024",
+    "FOREIGN EQUITY LISTING FOR 29-10-2024",
+    "MARKET CAPITALIZATION FOR 29-10-2024",
+    "MEMORANDUM QUOTATION FOR 29-10-2024",
+    "P.E RATIO FOR 29-10-2024",
+    "SHARES OUTSTANDING FOR 29-10-2024"
+   ],
+   "stock_count": 152,
+   "dol_count": 144,
+   "prices1_count": 123,
+   "plist2_count": 152,
+   "by_source": {
+    "DOL": 144,
+    "PRICES_LIST2": 8
+   },
+   "by_board": {
+    "Main Board": 131,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 3,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 119,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.39,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2024-10-29T16:29:08Z",
+     "modified_utc": "2024-10-29T16:29:24Z",
+     "created_lagos": "2024-10-29T17:29:08+01:00",
+     "modified_lagos": "2024-10-29T17:29:24+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2024-10-29T16:31:49Z",
+     "modified_utc": "2024-10-29T16:32:13Z",
+     "created_lagos": "2024-10-29T17:31:49+01:00",
+     "modified_lagos": "2024-10-29T17:32:13+01:00"
+    },
+    "first_file_created_lagos": "2024-10-29T17:15:01+01:00",
+    "last_file_created_lagos": "2024-10-29T17:35:44+01:00"
+   }
+  },
+  {
+   "year": 2025,
+   "picked": "2025-01-22",
+   "date": "2025-01-22",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "DAILY SUMMARY FOR 22-01-2025",
+    "GAINERS AND PRICE LIST FOR 22-01-2025",
+    "COVERPAGE FOR 22-01-2025",
+    "Daily Official List - BONDS for 22-01-2025",
+    "Daily Official List - Equities for 22-01-2025",
+    "Daily Official List - ETFs for 22-01-2025",
+    "FOREIGN EQUITY LISTING FOR 22-01-2025",
+    "MARKET CAPITALIZATION FOR 22-01-2025",
+    "MEMORANDUM QUOTATION FOR 22-01-2025",
+    "P.E RATIO FOR 22-01-2025",
+    "SHARES OUTSTANDING FOR 22-01-2025"
+   ],
+   "stock_count": 152,
+   "dol_count": 144,
+   "prices1_count": 124,
+   "plist2_count": 152,
+   "by_source": {
+    "DOL": 144,
+    "PRICES_LIST2": 8
+   },
+   "by_board": {
+    "Main Board": 131,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 3,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 120,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.04,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2025-01-22T16:28:53Z",
+     "modified_utc": "2025-01-22T16:29:20Z",
+     "created_lagos": "2025-01-22T17:28:53+01:00",
+     "modified_lagos": "2025-01-22T17:29:20+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2025-01-22T16:24:53Z",
+     "modified_utc": "2025-01-22T16:25:16Z",
+     "created_lagos": "2025-01-22T17:24:53+01:00",
+     "modified_lagos": "2025-01-22T17:25:16+01:00"
+    },
+    "first_file_created_lagos": "2025-01-22T17:09:48+01:00",
+    "last_file_created_lagos": "2025-01-22T17:33:48+01:00"
+   }
+  },
+  {
+   "year": 2025,
+   "picked": "2025-03-07",
+   "date": "2025-03-07",
+   "rolled_over": [],
+   "files_found": 12,
+   "file_titles": [
+    "DAILY SUMMARY FOR 07-03-2025",
+    "Weekly Summary Statistics for the Week Ended\u202f 07-03-2025",
+    "GAINERS AND PRICE LIST FOR 07-03-2025",
+    "COVERPAGE FOR 07-03-2025",
+    "MEMORANDUM QUOTATION FOR 07-03-2025",
+    "P.E RATIO FOR 07-03-2025",
+    "SHARES OUTSTANDING FOR 07-03-2025",
+    "Daily Official List - BONDS for 07-03-2025",
+    "Daily Official List - Equities for 07-03-2025",
+    "Daily Official List - ETFs for 07-03-2025",
+    "FOREIGN EQUITY LISTING FOR 07-03-2025",
+    "MARKET CAPITALIZATION FOR 07-03-2025"
+   ],
+   "stock_count": 126,
+   "dol_count": 0,
+   "prices1_count": 126,
+   "plist2_count": 0,
+   "by_source": {
+    "PRICES1": 126
+   },
+   "by_board": {
+    "Main Board": 110,
+    "Premium Board": 7,
+    "Growth Board": 4,
+    "": 1,
+    "ASeM": 1,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 0,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [
+    "DOL is mislabelled: file for 07-03-2025 contains data for 06-03-2025; ignored",
+    "PRICES_LIST2.pdf missing in zip"
+   ],
+   "mislabelled": [
+    "DOL"
+   ],
+   "dol_fallback_used": true,
+   "seconds": 17.86,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2025-03-07T18:59:02Z",
+     "modified_utc": "2025-03-07T18:59:15Z",
+     "created_lagos": "2025-03-07T19:59:02+01:00",
+     "modified_lagos": "2025-03-07T19:59:15+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2025-03-07T18:53:06Z",
+     "modified_utc": "2025-03-07T18:53:28Z",
+     "created_lagos": "2025-03-07T19:53:06+01:00",
+     "modified_lagos": "2025-03-07T19:53:28+01:00"
+    },
+    "first_file_created_lagos": "2025-03-07T19:25:25+01:00",
+    "last_file_created_lagos": "2025-03-07T20:04:27+01:00"
+   }
+  },
+  {
+   "year": 2025,
+   "picked": "2025-06-05",
+   "date": "2025-06-05",
+   "rolled_over": [],
+   "files_found": 12,
+   "file_titles": [
+    "COVERPAGE FOR 05-06-2025",
+    "Daily Official List - BONDS for 05-06-2025",
+    "Daily Official List - Equities for 05-06-2025",
+    "Daily Official List - ETFs for 05-06-2025",
+    "DAILY SUMMARY FOR 05-06-2025",
+    "FOREIGN EQUITY LISTING FOR 05-06-2025",
+    "GAINERS AND PRICE LIST FOR 05-06-2025",
+    "MARKET CAPITALIZATION FOR 05-06-2025",
+    "MEMORANDUM QUOTATION FOR 05-06-2025",
+    "P.E RATIO FOR 05-06-2025",
+    "SHARES OUTSTANDING FOR 05-06-2025",
+    "Weekly Summary Statistics for the Week Ended\u202f05-06-2025"
+   ],
+   "stock_count": 148,
+   "dol_count": 141,
+   "prices1_count": 126,
+   "plist2_count": 148,
+   "by_source": {
+    "DOL": 141,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 128,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 2,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 121,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.77,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2025-06-05T14:18:11Z",
+     "modified_utc": "2025-06-05T14:18:36Z",
+     "created_lagos": "2025-06-05T15:18:11+01:00",
+     "modified_lagos": "2025-06-05T15:18:36+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2025-06-05T14:22:26Z",
+     "modified_utc": "2025-06-05T14:22:47Z",
+     "created_lagos": "2025-06-05T15:22:26+01:00",
+     "modified_lagos": "2025-06-05T15:22:47+01:00"
+    },
+    "first_file_created_lagos": "2025-06-05T15:15:36+01:00",
+    "last_file_created_lagos": "2025-06-05T17:44:30+01:00"
+   }
+  },
+  {
+   "year": 2025,
+   "picked": "2025-06-17",
+   "date": "2025-06-17",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 17-06-2025",
+    "Daily Official List - BONDS for 17-06-2025",
+    "Daily Official List - Equities for 17-06-2025",
+    "Daily Official List - ETFs for 17-06-2025",
+    "DAILY SUMMARY FOR 17-06-2025",
+    "FOREIGN EQUITY LISTING FOR 17-06-2025",
+    "FOREIGN EQUITY LISTING FOR 17-06-2025",
+    "MARKET CAPITALIZATION FOR 17-06-2025",
+    "MEMORANDUM QUOTATION FOR 17-06-2025",
+    "P.E RATIO FOR 17-06-2025",
+    "SHARES OUTSTANDING FOR 17-06-2025"
+   ],
+   "stock_count": 148,
+   "dol_count": 141,
+   "prices1_count": 128,
+   "plist2_count": 148,
+   "by_source": {
+    "DOL": 141,
+    "PRICES_LIST2": 7
+   },
+   "by_board": {
+    "Main Board": 128,
+    "Premium Board": 8,
+    "Growth Board": 7,
+    "ASeM": 2,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 123,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.49,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2025-06-17T14:55:35Z",
+     "modified_utc": "2025-06-17T14:55:59Z",
+     "created_lagos": "2025-06-17T15:55:35+01:00",
+     "modified_lagos": "2025-06-17T15:55:59+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2025-06-17T14:59:28Z",
+     "modified_utc": "2025-06-17T14:59:43Z",
+     "created_lagos": "2025-06-17T15:59:28+01:00",
+     "modified_lagos": "2025-06-17T15:59:43+01:00"
+    },
+    "first_file_created_lagos": "2025-06-17T15:54:10+01:00",
+    "last_file_created_lagos": "2025-06-17T16:01:25+01:00"
+   }
+  },
+  {
+   "year": 2025,
+   "picked": "2025-12-29",
+   "date": "2025-12-29",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 29-12-2025",
+    "Daily Official List - BONDS for 29-12-2025",
+    "Daily Official List - Equities for 29-12-2025",
+    "Daily Official List - ETFs for 29-12-2025",
+    "DAILY SUMMARY FOR 29-12-2025",
+    "FOREIGN EQUITY LISTING FOR 29-12-2025",
+    "GAINERS AND PRICE LIST FOR 29-12-2025",
+    "MARKET CAPITALIZATION FOR 29-12-2025",
+    "MEMORANDUM QUOTATION FOR 29-12-2025",
+    "P.E RATIO FOR 29-12-2025",
+    "SHARES OUTSTANDING FOR 29-12-2025"
+   ],
+   "stock_count": 147,
+   "dol_count": 138,
+   "prices1_count": 127,
+   "plist2_count": 146,
+   "by_source": {
+    "DOL": 138,
+    "PRICES_LIST2": 8,
+    "PRICES1": 1
+   },
+   "by_board": {
+    "Main Board": 127,
+    "Premium Board": 8,
+    "Growth Board": 8,
+    "Non-Interest Finance Board": 1,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 120,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.58,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2025-12-29T14:37:00Z",
+     "modified_utc": "2025-12-29T14:37:20Z",
+     "created_lagos": "2025-12-29T15:37:00+01:00",
+     "modified_lagos": "2025-12-29T15:37:20+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2025-12-29T14:53:26Z",
+     "modified_utc": "2025-12-29T14:53:43Z",
+     "created_lagos": "2025-12-29T15:53:26+01:00",
+     "modified_lagos": "2025-12-29T15:53:43+01:00"
+    },
+    "first_file_created_lagos": "2025-12-29T15:35:52+01:00",
+    "last_file_created_lagos": "2025-12-29T15:55:42+01:00"
+   }
+  },
+  {
+   "year": 2026,
+   "picked": "2026-01-09",
+   "date": "2026-01-09",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 09-01-2026",
+    "Daily Official List - BONDS for 09-01-2026",
+    "Daily Official List - Equities for 09-01-2026",
+    "Daily Official List - ETFs for 09-01-2026",
+    "DAILY SUMMARY FOR 09-01-2026",
+    "FOREIGN EQUITY LISTING FOR 09-01-2026",
+    "GAINERS AND PRICE LIST FOR 09-01-2026",
+    "MARKET CAPITALIZATION FOR 09-01-2026",
+    "MEMORANDUM QUOTATION FOR 09-01-2026",
+    "P.E RATIO FOR 09-01-2026",
+    "SHARES OUTSTANDING FOR 09-01-2026"
+   ],
+   "stock_count": 148,
+   "dol_count": 139,
+   "prices1_count": 130,
+   "plist2_count": 147,
+   "by_source": {
+    "DOL": 139,
+    "PRICES_LIST2": 8,
+    "PRICES1": 1
+   },
+   "by_board": {
+    "Main Board": 128,
+    "Premium Board": 8,
+    "Growth Board": 8,
+    "Non-Interest Finance Board": 1,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 123,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.35,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2026-01-09T15:49:51Z",
+     "modified_utc": "2026-01-09T15:50:15Z",
+     "created_lagos": "2026-01-09T16:49:51+01:00",
+     "modified_lagos": "2026-01-09T16:50:15+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2026-01-09T15:52:45Z",
+     "modified_utc": "2026-01-09T15:53:05Z",
+     "created_lagos": "2026-01-09T16:52:45+01:00",
+     "modified_lagos": "2026-01-09T16:53:05+01:00"
+    },
+    "first_file_created_lagos": "2026-01-09T16:48:23+01:00",
+    "last_file_created_lagos": "2026-01-09T16:56:32+01:00"
+   }
+  },
+  {
+   "year": 2026,
+   "picked": "2026-03-12",
+   "date": "2026-03-12",
+   "rolled_over": [],
+   "files_found": 10,
+   "file_titles": [
+    "COVERPAGE FOR 12-03-2026",
+    "DAILY SUMMARY FOR 12-03-2026",
+    "Daily Official List - Equities for 12-03-2026",
+    "Daily Official List - ETFs for 12-03-2026",
+    "FOREIGN EQUITY LISTING FOR 12-03-2026",
+    "MARKET CAPITALIZATION FOR 12-03-2026",
+    "GAINERS AND PRICE LIST FOR 12-03-2026",
+    "MEMORANDUM QUOTATION FOR 12-03-2026",
+    "P.E RATIO FOR 12-03-2026",
+    "SHARES OUTSTANDING FOR 12-03-2026"
+   ],
+   "stock_count": 138,
+   "dol_count": 138,
+   "prices1_count": 0,
+   "plist2_count": 0,
+   "by_source": {
+    "DOL": 138
+   },
+   "by_board": {
+    "Main Board": 127,
+    "Premium Board": 8,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 0,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [
+    "PRICES1 is mislabelled: file for 12-03-2026 contains data for 13-03-2026; ignored",
+    "PRICES_LIST2 is mislabelled: file for 12-03-2026 contains data for 13-03-2026; ignored"
+   ],
+   "mislabelled": [
+    "PRICES1",
+    "PRICES_LIST2"
+   ],
+   "dol_fallback_used": false,
+   "seconds": 5.99,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2026-03-12T17:36:25Z",
+     "modified_utc": "2026-03-12T17:36:50Z",
+     "created_lagos": "2026-03-12T18:36:25+01:00",
+     "modified_lagos": "2026-03-12T18:36:50+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2026-03-12T17:43:07Z",
+     "modified_utc": "2026-03-13T14:04:39Z",
+     "created_lagos": "2026-03-12T18:43:07+01:00",
+     "modified_lagos": "2026-03-13T15:04:39+01:00"
+    },
+    "first_file_created_lagos": "2026-03-12T18:26:02+01:00",
+    "last_file_created_lagos": "2026-03-12T18:46:44+01:00"
+   }
+  },
+  {
+   "year": 2026,
+   "picked": "2026-07-21",
+   "date": "2026-07-21",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 21-07-2026",
+    "Daily Official List - BONDS for 21-07-2026",
+    "Daily Official List - Equities for 21-07-2026",
+    "Daily Official List - ETFs for 21-07-2026",
+    "DAILY SUMMARY FOR 21-07-2026",
+    "FOREIGN EQUITY LISTING FOR 21-07-2026",
+    "GAINERS AND PRICE LIST FOR 21-07-2026",
+    "MARKET CAPITALIZATION FOR 21-07-2026",
+    "MEMORANDUM QUOTATION FOR 21-07-2026",
+    "P.E RATIO FOR 21-07-2026",
+    "SHARES OUTSTANDING FOR 21-07-2026"
+   ],
+   "stock_count": 146,
+   "dol_count": 136,
+   "prices1_count": 134,
+   "plist2_count": 146,
+   "by_source": {
+    "DOL": 136,
+    "PRICES_LIST2": 9,
+    "PRICES1": 1
+   },
+   "by_board": {
+    "Main Board": 125,
+    "Premium Board": 8,
+    "Growth Board": 9,
+    "Non-Interest Finance Board": 1,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 126,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 7.4,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2026-07-21T16:01:01Z",
+     "modified_utc": "2026-07-21T16:01:27Z",
+     "created_lagos": "2026-07-21T17:01:01+01:00",
+     "modified_lagos": "2026-07-21T17:01:27+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2026-07-21T16:06:48Z",
+     "modified_utc": "2026-07-21T16:07:15Z",
+     "created_lagos": "2026-07-21T17:06:48+01:00",
+     "modified_lagos": "2026-07-21T17:07:15+01:00"
+    },
+    "first_file_created_lagos": "2026-07-21T16:58:29+01:00",
+    "last_file_created_lagos": "2026-07-21T17:12:11+01:00"
+   }
+  },
+  {
+   "year": 2026,
+   "picked": "2026-08-05",
+   "date": "2026-08-05",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 05-08-2026",
+    "DAILY SUMMARY FOR 05-08-2026",
+    "MEMORANDUM QUOTATION FOR 05-08-2026",
+    "FOREIGN EQUITY LISTING FOR 05-08-2026",
+    "Daily Official List - BONDS for 05-08-2026",
+    "Daily Official List - Equities for 05-08-2026",
+    "Daily Official List - ETFs for 05-08-2026",
+    "GAINERS AND PRICE LIST FOR 05-08-2026",
+    "MARKET CAPITALIZATION FOR 05-08-2026",
+    "P.E RATIO FOR 05-08-2026",
+    "SHARES OUTSTANDING FOR 05-08-2026"
+   ],
+   "stock_count": 146,
+   "dol_count": 137,
+   "prices1_count": 0,
+   "plist2_count": 147,
+   "by_source": {
+    "DOL": 137,
+    "PRICES_LIST2": 9
+   },
+   "by_board": {
+    "Main Board": 126,
+    "Premium Board": 8,
+    "Growth Board": 9,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 0,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [
+    "PRICES1.pdf missing in zip"
+   ],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 6.58,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2026-08-05T20:28:32Z",
+     "modified_utc": "2026-08-05T20:28:53Z",
+     "created_lagos": "2026-08-05T21:28:32+01:00",
+     "modified_lagos": "2026-08-05T21:28:53+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2026-08-05T20:30:53Z",
+     "modified_utc": "2026-08-05T20:31:15Z",
+     "created_lagos": "2026-08-05T21:30:53+01:00",
+     "modified_lagos": "2026-08-05T21:31:15+01:00"
+    },
+    "first_file_created_lagos": "2026-08-05T21:20:33+01:00",
+    "last_file_created_lagos": "2026-08-05T21:35:14+01:00"
+   }
+  },
+  {
+   "year": 2026,
+   "picked": "2026-09-15",
+   "date": "2026-09-15",
+   "rolled_over": [],
+   "files_found": 11,
+   "file_titles": [
+    "COVERPAGE FOR 15-09-2026",
+    "Daily Official List - BONDS for 15-09-2026",
+    "Daily Official List - Equities for 15-09-2026",
+    "Daily Official List - ETFs for 15-09-2026",
+    "DAILY SUMMARY FOR 15-09-2026",
+    "FOREIGN EQUITY LISTING FOR 15-09-2026",
+    "GAINERS AND PRICE LIST FOR 15-09-2026",
+    "MARKET CAPITALIZATION FOR 15-09-2026",
+    "MEMORANDUM QUOTATION FOR 15-09-2026",
+    "P.E RATIO FOR 15-09-2026",
+    "SHARES OUTSTANDING FOR 15-09-2026"
+   ],
+   "stock_count": 147,
+   "dol_count": 137,
+   "prices1_count": 133,
+   "plist2_count": 147,
+   "by_source": {
+    "DOL": 137,
+    "PRICES_LIST2": 9,
+    "PRICES1": 1
+   },
+   "by_board": {
+    "Main Board": 126,
+    "Premium Board": 8,
+    "Growth Board": 9,
+    "Non-Interest Finance Board": 1,
+    "REIT & Closed-End Fund": 3
+   },
+   "compared": 125,
+   "mismatch_count": 0,
+   "mismatches": [],
+   "errors": [],
+   "mislabelled": [],
+   "dol_fallback_used": false,
+   "seconds": 9.89,
+   "upload_times": {
+    "dol_equities": {
+     "created_utc": "2026-09-15T15:49:00Z",
+     "modified_utc": "2026-09-15T15:49:19Z",
+     "created_lagos": "2026-09-15T16:49:00+01:00",
+     "modified_lagos": "2026-09-15T16:49:19+01:00"
+    },
+    "price_list_zip": {
+     "created_utc": "2026-09-15T15:57:50Z",
+     "modified_utc": "2026-09-15T15:58:08Z",
+     "created_lagos": "2026-09-15T16:57:50+01:00",
+     "modified_lagos": "2026-09-15T16:58:08+01:00"
+    },
+    "first_file_created_lagos": "2026-09-15T16:39:42+01:00",
+    "last_file_created_lagos": "2026-09-15T17:03:11+01:00"
+   }
+  }
+ ]
+}
