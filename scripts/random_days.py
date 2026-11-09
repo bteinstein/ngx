@@ -1,4 +1,5 @@
-"""Run ngxprices on 5 random weekdays per year (seed 42) and write a CSV + JSON report."""
+"""Run ngxprices on 5 random weekdays per year (seed 42) and write a CSV + JSON report
+(prices, volume, size, fundamentals and dividends, with per-day cross-checks and field coverage)."""
 import collections
 import datetime as dt
 import json
@@ -7,7 +8,7 @@ import sys
 import time
 from pathlib import Path
 
-from ngxprices import Fetcher, compare_dol_prices1, fetch_sources, list_files, merge, write_csv
+from ngxprices import FIELDS, Fetcher, compare_dol_prices1, fetch_sources, list_files, merge, validate, write_csv
 from ngxprices.core import DOL_TITLE, ZIP_TITLE, find_file, nearby_name_map
 
 OUT = Path(__file__).resolve().parent.parent / "test_output"
@@ -48,7 +49,8 @@ def main():
         try:
             s = fetch_sources(d, f, files=files)
             nm = nearby_name_map(d, f) if not s["dol"] else None
-            rows = merge(d, s["dol"], s["prices1"], s["plist2"], nm)
+            rows = merge(d, s["dol"], s["prices1"], s["plist2"], nm, shares=s["shares"])
+            v = validate(d, sources=s)
             mm = compare_dol_prices1(s["dol"], s["prices1"])
             entry.update(stock_count=len(rows), dol_count=len(s["dol"]), prices1_count=len(s["prices1"]),
                          plist2_count=len(s["plist2"]),
@@ -56,7 +58,17 @@ def main():
                          by_board=dict(collections.Counter(r["board"] for r in rows)),
                          compared=sum(1 for r in s["dol"] if r["symbol"] in s["prices1"]),
                          mismatch_count=len(mm), mismatches=mm, errors=s["errors"],
-                         mislabelled=s["mislabelled"], dol_fallback_used=nm is not None)
+                         mislabelled=s["mislabelled"], dol_fallback_used=nm is not None,
+                         shares_count=len(s["shares"]),
+                         checks={k: dict(compared=v[k].get("compared"), status=v[k]["status"],
+                                         mismatches=len(v[k].get("mismatches", v[k].get("failures", []))),
+                                         **({"pass_rate": v[k]["pass_rate"]} if "pass_rate" in v[k] else {}))
+                                 for k in ("close_dol_vs_prices1", "close_dol_vs_shares",
+                                           "volume_prices1_vs_prices_list2", "market_cap_check")},
+                         coverage_pct={k: round(100 * sum(1 for r in rows if r.get(k) not in (None, "")) / len(rows), 1)
+                                       for k in ("volume", "value_ngn", "shares_outstanding", "market_cap_ngn",
+                                                 "week52_high", "eps", "pe", "div_final", "div_paid_date")}
+                         if rows else {})
             all_rows += rows
         except Exception as e:  # noqa: BLE001
             entry.update(stock_count=0, mismatch_count=None, errors=[f"{type(e).__name__}: {e}"])
@@ -74,7 +86,8 @@ def main():
         entry["upload_times"] = times
         report.append(entry)
         print(f"{entry['picked']} -> {entry['date']}: files={entry['files_found']} stocks={entry.get('stock_count')} "
-              f"mismatch={entry.get('mismatch_count')} err={entry.get('errors')} {entry['seconds']}s", flush=True)
+              f"checks={ {k[:12]: x['status'] for k, x in entry.get('checks', {}).items()} } "
+              f"err={entry.get('errors')} {entry['seconds']}s", flush=True)
 
     OUT.mkdir(exist_ok=True)
     write_csv(all_rows, OUT / "random_days.csv")

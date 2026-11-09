@@ -1,6 +1,6 @@
 {
  "seed": 42,
- "generated": "2026-11-08T19:24:01.847955",
+ "generated": "2026-11-08T20:38:48.602009",
  "dates": [
   {
    "year": 2023,
@@ -42,7 +42,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.46,
+   "shares_count": 156,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 108,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 150,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 111,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 156,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 82.2,
+    "eps": 92.4,
+    "pe": 65.6,
+    "div_final": 89.2,
+    "div_paid_date": 89.2
+   },
+   "seconds": 3.98,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2023-01-18T18:31:08Z",
@@ -101,7 +136,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.39,
+   "shares_count": 156,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 99,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 150,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 101,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 156,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 82.8,
+    "eps": 92.4,
+    "pe": 65.6,
+    "div_final": 89.8,
+    "div_paid_date": 89.8
+   },
+   "seconds": 4.19,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2023-03-22T19:19:45Z",
@@ -161,7 +231,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.03,
+   "shares_count": 155,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 118,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 149,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 120,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 155,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 81.4,
+    "eps": 92.3,
+    "pe": 66.0,
+    "div_final": 89.7,
+    "div_paid_date": 89.7
+   },
+   "seconds": 4.18,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2023-06-09T14:31:25Z",
@@ -216,7 +321,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.09,
+   "shares_count": 155,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 120,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 149,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 122,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 155,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 80.1,
+    "eps": 92.3,
+    "pe": 66.0,
+    "div_final": 89.7,
+    "div_paid_date": 89.7
+   },
+   "seconds": 3.9,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2023-06-26T18:16:28Z",
@@ -274,7 +414,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.25,
+   "shares_count": 155,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 114,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 149,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 117,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 155,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 81.4,
+    "eps": 92.3,
+    "pe": 66.0,
+    "div_final": 89.7,
+    "div_paid_date": 89.7
+   },
+   "seconds": 3.78,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2023-07-17T20:30:11Z",
@@ -332,7 +507,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.32,
+   "shares_count": 153,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 119,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 146,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 124,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 153,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 81.2,
+    "eps": 90.3,
+    "pe": 63.6,
+    "div_final": 88.3,
+    "div_paid_date": 88.3
+   },
+   "seconds": 4.03,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2024-01-23T15:05:55Z",
@@ -391,7 +601,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.4,
+   "shares_count": 152,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 119,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 145,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 124,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 152,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 100.0,
+    "week52_high": 81.7,
+    "eps": 90.2,
+    "pe": 63.4,
+    "div_final": 88.2,
+    "div_paid_date": 88.2
+   },
+   "seconds": 3.94,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2024-03-01T18:27:02Z",
@@ -449,7 +694,42 @@
    ],
    "mislabelled": [],
    "dol_fallback_used": true,
-   "seconds": 12.85,
+   "shares_count": 153,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 77,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 153,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 0.0,
+    "eps": 0.0,
+    "pe": 0.0,
+    "div_final": 0.0,
+    "div_paid_date": 0.0
+   },
+   "seconds": 7.61,
    "upload_times": {
     "price_list_zip": {
      "created_utc": "2024-03-13T17:40:12Z",
@@ -506,7 +786,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 12.88,
+   "shares_count": 153,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 123,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 146,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 127,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 153,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.4,
+    "market_cap_ngn": 100.0,
+    "week52_high": 82.5,
+    "eps": 89.6,
+    "pe": 63.0,
+    "div_final": 87.7,
+    "div_paid_date": 87.7
+   },
+   "seconds": 8.5,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2024-04-12T15:14:05Z",
@@ -564,7 +879,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.39,
+   "shares_count": 150,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 119,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 143,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 123,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 150,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 98.7,
+    "market_cap_ngn": 100.0,
+    "week52_high": 83.6,
+    "eps": 88.2,
+    "pe": 63.2,
+    "div_final": 86.8,
+    "div_paid_date": 86.8
+   },
+   "seconds": 4.07,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2024-10-29T16:29:08Z",
@@ -622,7 +972,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.04,
+   "shares_count": 150,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 120,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 143,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 124,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 150,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 98.7,
+    "market_cap_ngn": 100.0,
+    "week52_high": 82.9,
+    "eps": 87.5,
+    "pe": 62.5,
+    "div_final": 86.8,
+    "div_paid_date": 86.8
+   },
+   "seconds": 3.88,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2025-01-22T16:28:53Z",
@@ -660,19 +1045,20 @@
     "FOREIGN EQUITY LISTING FOR 07-03-2025",
     "MARKET CAPITALIZATION FOR 07-03-2025"
    ],
-   "stock_count": 126,
+   "stock_count": 149,
    "dol_count": 0,
    "prices1_count": 126,
    "plist2_count": 0,
    "by_source": {
-    "PRICES1": 126
+    "SHARES": 148,
+    "PRICES1": 1
    },
    "by_board": {
-    "Main Board": 110,
+    "Main Board": 128,
     "Premium Board": 7,
-    "Growth Board": 4,
+    "Growth Board": 7,
+    "ASeM": 3,
     "": 1,
-    "ASeM": 1,
     "REIT & Closed-End Fund": 3
    },
    "compared": 0,
@@ -686,7 +1072,42 @@
     "DOL"
    ],
    "dol_fallback_used": true,
-   "seconds": 17.86,
+   "shares_count": 148,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 148,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 99.3,
+    "week52_high": 0.0,
+    "eps": 0.0,
+    "pe": 0.0,
+    "div_final": 0.0,
+    "div_paid_date": 0.0
+   },
+   "seconds": 9.29,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2025-03-07T18:59:02Z",
@@ -745,7 +1166,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.77,
+   "shares_count": 147,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 121,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 140,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 126,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 147,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 99.3,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 100.0,
+    "week52_high": 86.5,
+    "eps": 87.2,
+    "pe": 63.5,
+    "div_final": 88.5,
+    "div_paid_date": 88.5
+   },
+   "seconds": 4.12,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2025-06-05T14:18:11Z",
@@ -803,7 +1259,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.49,
+   "shares_count": 147,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 123,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 140,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 128,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 147,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 100.0,
+    "week52_high": 86.5,
+    "eps": 87.2,
+    "pe": 63.5,
+    "div_final": 88.5,
+    "div_paid_date": 88.5
+   },
+   "seconds": 4.0,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2025-06-17T14:55:35Z",
@@ -862,7 +1353,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.58,
+   "shares_count": 145,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 120,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 137,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 126,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 145,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 99.3,
+    "shares_outstanding": 98.6,
+    "market_cap_ngn": 99.3,
+    "week52_high": 83.7,
+    "eps": 84.4,
+    "pe": 61.9,
+    "div_final": 87.1,
+    "div_paid_date": 87.1
+   },
+   "seconds": 3.9,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2025-12-29T14:37:00Z",
@@ -921,7 +1447,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.35,
+   "shares_count": 146,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 123,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 138,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 129,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 146,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 98.6,
+    "market_cap_ngn": 99.3,
+    "week52_high": 83.1,
+    "eps": 83.8,
+    "pe": 61.5,
+    "div_final": 86.5,
+    "div_paid_date": 86.5
+   },
+   "seconds": 4.18,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2026-01-09T15:49:51Z",
@@ -957,16 +1518,18 @@
     "P.E RATIO FOR 12-03-2026",
     "SHARES OUTSTANDING FOR 12-03-2026"
    ],
-   "stock_count": 138,
+   "stock_count": 147,
    "dol_count": 138,
    "prices1_count": 0,
    "plist2_count": 0,
    "by_source": {
-    "DOL": 138
+    "DOL": 138,
+    "SHARES": 9
    },
    "by_board": {
     "Main Board": 127,
     "Premium Board": 8,
+    "": 9,
     "REIT & Closed-End Fund": 3
    },
    "compared": 0,
@@ -981,7 +1544,42 @@
     "PRICES_LIST2"
    ],
    "dol_fallback_used": false,
-   "seconds": 5.99,
+   "shares_count": 146,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 137,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 146,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 0.0,
+    "value_ngn": 0.0,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 99.3,
+    "week52_high": 84.4,
+    "eps": 83.7,
+    "pe": 61.2,
+    "div_final": 86.4,
+    "div_paid_date": 86.4
+   },
+   "seconds": 2.42,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2026-03-12T17:36:25Z",
@@ -1024,8 +1622,7 @@
    "plist2_count": 146,
    "by_source": {
     "DOL": 136,
-    "PRICES_LIST2": 9,
-    "PRICES1": 1
+    "PRICES_LIST2": 10
    },
    "by_board": {
     "Main Board": 125,
@@ -1040,7 +1637,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 7.4,
+   "shares_count": 145,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 126,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 135,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 134,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 145,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 100.0,
+    "week52_high": 86.3,
+    "eps": 82.9,
+    "pe": 61.0,
+    "div_final": 85.6,
+    "div_paid_date": 85.6
+   },
+   "seconds": 4.05,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2026-07-21T16:01:01Z",
@@ -1077,18 +1709,19 @@
     "P.E RATIO FOR 05-08-2026",
     "SHARES OUTSTANDING FOR 05-08-2026"
    ],
-   "stock_count": 146,
+   "stock_count": 147,
    "dol_count": 137,
    "prices1_count": 0,
    "plist2_count": 147,
    "by_source": {
     "DOL": 137,
-    "PRICES_LIST2": 9
+    "PRICES_LIST2": 10
    },
    "by_board": {
     "Main Board": 126,
     "Premium Board": 8,
     "Growth Board": 9,
+    "Non-Interest Finance Board": 1,
     "REIT & Closed-End Fund": 3
    },
    "compared": 0,
@@ -1099,7 +1732,42 @@
    ],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 6.58,
+   "shares_count": 146,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 136,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 0,
+     "status": "not compared",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 146,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 8.8,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 100.0,
+    "week52_high": 86.4,
+    "eps": 82.3,
+    "pe": 60.5,
+    "div_final": 85.0,
+    "div_paid_date": 85.0
+   },
+   "seconds": 3.49,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2026-08-05T20:28:32Z",
@@ -1142,8 +1810,7 @@
    "plist2_count": 147,
    "by_source": {
     "DOL": 137,
-    "PRICES_LIST2": 9,
-    "PRICES1": 1
+    "PRICES_LIST2": 10
    },
    "by_board": {
     "Main Board": 126,
@@ -1158,7 +1825,42 @@
    "errors": [],
    "mislabelled": [],
    "dol_fallback_used": false,
-   "seconds": 9.89,
+   "shares_count": 146,
+   "checks": {
+    "close_dol_vs_prices1": {
+     "compared": 125,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "close_dol_vs_shares": {
+     "compared": 136,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "volume_prices1_vs_prices_list2": {
+     "compared": 132,
+     "status": "ok",
+     "mismatches": 0
+    },
+    "market_cap_check": {
+     "compared": 146,
+     "status": "ok",
+     "mismatches": 0,
+     "pass_rate": 1.0
+    }
+   },
+   "coverage_pct": {
+    "volume": 100.0,
+    "value_ngn": 100.0,
+    "shares_outstanding": 99.3,
+    "market_cap_ngn": 100.0,
+    "week52_high": 86.4,
+    "eps": 82.3,
+    "pe": 60.5,
+    "div_final": 85.0,
+    "div_paid_date": 85.0
+   },
+   "seconds": 4.2,
    "upload_times": {
     "dol_equities": {
      "created_utc": "2026-09-15T15:49:00Z",

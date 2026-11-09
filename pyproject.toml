@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ngxprices"
-version = "0.1.0"
-description = "Download and parse Nigerian Exchange (NGX) daily equity closing prices"
+version = "0.3.0"
+description = "Download and parse Nigerian Exchange (NGX) daily equity prices, volume and metadata"
 requires-python = ">=3.9"
 dependencies = ["requests", "pdfplumber"]
 
@@ -13,7 +13,7 @@ dependencies = ["requests", "pdfplumber"]
 test = ["pytest"]
 
 [project.scripts]
-ngxprices = "ngxprices.cli:main"
+ngxprices = "ngxprices.cli:_entry"
 
 [tool.setuptools.packages.find]
 where = ["src"]
