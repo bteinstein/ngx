@@ -26,6 +26,7 @@ pip install -e '.[test]'
 ngxprices fetch --date 2025-12-31 --out day.csv
 ngxprices range --start 2025-12-01 --end 2025-12-31 --out dec.csv
 ngxprices validate --date 2025-12-31
+ngxprices live --out now.csv                         # NGX's live prices (30-minute delay) + latest metadata
 ngxprices --fields basic fetch --date 2025-12-31   # only the v0.1 columns
 ngxprices files --date 2025-12-31
 ```
@@ -47,6 +48,20 @@ rows = get_daily_prices("2025-12-31")  # one dict per stock, columns below
 | Provenance | source, sources_used |
 
 Untraded stocks get volume 0, with open, high, low and close equal to the previous close. If NGX's activity files are missing for a day, activity columns are blank rather than 0. `last_trade_qty` is the size of the last trade, not the day's volume.
+
+## Live prices (delayed)
+
+```bash
+ngxprices live --out now.csv            # every stock, NGX's 30-minute-delayed prices + latest metadata
+ngxprices live --meta-date 2026-11-06   # take shares/EPS/P/E/dividends from a chosen day
+```
+
+`get_live()` / `ngxprices live` reads NGX's free live API (prices delayed 30 minutes by NGX) and adds shares
+outstanding, EPS, P/E, dividends and the 52-week range from the most recent day with published files
+(`metadata_date` column). Market cap is recomputed as shares x live price. Checked against end-of-day files for
+6 Nov 2026: closes matched for all 146 stocks; volume matched for 145. FIRSTHOLDCO's live volume was 11.2m vs
+18.9m in both end-of-day files, so treat live volume as provisional and the end-of-day files as final.
+Real-time (undelayed) data is a paid NGX service (X-DataPortal, brokers, data vendors).
 
 ## How it works
 

@@ -1,6 +1,6 @@
 ---
 name: ngx-prices
-description: Download and parse Nigerian Exchange (NGX / Nigerian Stock Exchange) daily equity data for any trading day or date range, using the `ngxprices` Python package and CLI. Gives closing price, open/high/low, change, trades, volume, value traded, shares outstanding, market cap, 52-week range, EPS, P/E and dividends per stock. Use when the user asks for NGX/Nigerian stock prices, trading volume or turnover, market capitalisation, shares outstanding, EPS/P/E, dividends, historical NGX data, year-end or month-end figures for Nigerian listed companies, or wants a CSV/history for NGX tickers (e.g. MTNN, DANGCEM, GTCO, ZENITHBANK).
+description: Download and parse Nigerian Exchange (NGX / Nigerian Stock Exchange) equity data for any trading day, date range, or right now (live prices, 30-minute delayed), using the `ngxprices` Python package and CLI. Gives closing price, open/high/low, change, trades, volume, value traded, shares outstanding, market cap, 52-week range, EPS, P/E and dividends per stock. Use when the user asks for NGX/Nigerian stock prices, trading volume or turnover, market capitalisation, shares outstanding, EPS/P/E, dividends, historical NGX data, year-end or month-end figures for Nigerian listed companies, or wants a CSV/history for NGX tickers (e.g. MTNN, DANGCEM, GTCO, ZENITHBANK).
 ---
 
 # NGX daily equity data (`ngxprices`)
@@ -14,6 +14,7 @@ If `import ngxprices` fails, install it from a clone: `pip install -e '<path to 
 ngxprices fetch --date 2025-12-31 --out day.csv              # one day, all fields (exit 1 if no files that day)
 ngxprices range --start 2025-12-01 --end 2025-12-31 --out dec.csv   # skips weekends + holidays
 ngxprices --fields basic fetch --date 2025-12-31             # v0.1 columns only (date..close, source)
+ngxprices live --out now.csv                                # live prices (NGX 30-min delay) + latest metadata
 ngxprices validate --date 2025-12-31 [--details]             # cross-check the day's files (JSON)
 ngxprices files --date 2025-12-31                            # JSON list of every NGX document for that day
 # global options (before the subcommand): --cache DIR  --delay SECONDS (default 1.0)  --fields full|basic
@@ -48,11 +49,26 @@ rows = get_range("2025-01-01", "2025-01-31")
 v = validate("2025-12-31")                 # cross-checks; each has compared / mismatches / status
 s = fetch_sources("2025-12-31")            # raw parsed dol / prices1 / plist2 / shares + errors + mislabelled
 files = list_files("2025-12-31")           # [{title,url,created,modified}] (UTC upload times)
-live = get_live_prices()                   # today's snapshot from NGX JSON API (not cached)
+rows, info = get_live()                    # live rows (LIVE_FIELDS) + info: trade_date, metadata_date, notes
+live = get_live_prices()                   # raw snapshot from NGX JSON API (not cached)
 f = Fetcher(cache_dir="...", delay=1.5, retries=3)   # pass as fetcher= to any function
 ```
 Downloads are cached in `~/.cache/ngxprices` (override with `$NGXPRICES_CACHE` or `--cache`). Index results are
 cached only for dates older than 3 days. Requests are spaced by `delay` seconds and retried with backoff.
+
+## Live prices (delayed)
+
+```bash
+ngxprices live --out now.csv            # every stock, NGX's 30-minute-delayed prices + latest metadata
+ngxprices live --meta-date 2026-11-06   # take shares/EPS/P/E/dividends from a chosen day
+```
+
+`get_live()` / `ngxprices live` reads NGX's free live API (prices delayed 30 minutes by NGX) and adds shares
+outstanding, EPS, P/E, dividends and the 52-week range from the most recent day with published files
+(`metadata_date` column). Market cap is recomputed as shares x live price. Checked against end-of-day files for
+6 Nov 2026: closes matched for all 146 stocks; volume matched for 145. FIRSTHOLDCO's live volume was 11.2m vs
+18.9m in both end-of-day files, so treat live volume as provisional and the end-of-day files as final.
+Real-time (undelayed) data is a paid NGX service (X-DataPortal, brokers, data vendors).
 
 ## Sources (doclib.ngxgroup.com, no auth)
 1. The SharePoint index `_api/Web/Lists/GetByTitle('DownloadsContent')/items?$filter=substringof('DD-MM-YYYY',Title)`
@@ -85,7 +101,7 @@ was missing, so the check proves nothing that day. On 20 random days (2023 to 20
   EQUITY LISTING"), so files are matched by URL name too. Check `fetch_sources(d)["errors"]`.
 - **Publication timing:** the market closes 14:30 Lagos time (UTC+1). Files are uploaded typically 15:15-21:30
   Lagos time (median about 17:30; sometimes replaced the next day). Before that, `list_files(today)` is empty;
-  use `get_live_prices()` for today, or fetch after 22:00. Don't treat an empty result for today as a holiday.
+  use `get_live()` / `ngxprices live` for today, or fetch after 22:00. Don't treat an empty result for today as a holiday.
 - Only equities (Main, Premium, Growth, ASeM, Non-Interest, REIT & Closed-End Fund boards). ETFs, bonds and
   mutual funds are excluded.
 

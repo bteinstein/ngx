@@ -5,7 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from ngxprices import FIELDS, compare_dol_prices1, merge, validate
+import json
+
+from ngxprices import FIELDS, LIVE_FIELDS, combine_live, compare_dol_prices1, merge, validate
 from ngxprices.core import _zip_member, ngx_date, to_date
 from ngxprices.parsers import parse_dol, parse_prices1, parse_prices_list2, parse_shares_outstanding
 
@@ -114,6 +116,25 @@ def test_cross_checks(sources, shares):
     assert v["volume_prices1_vs_prices_list2"]["compared"] > 100
     assert v["volume_prices1_vs_prices_list2"]["mismatches"] == []
     assert v["market_cap_check"]["pass_rate"] >= 0.95
+
+
+def test_combine_live(full_rows):
+    live = json.loads((FIX / "live_06-11-2026.json").read_text())
+    rows = {r["symbol"]: r for r in combine_live(live, list(full_rows.values()), "2025-12-31")}
+    assert len(rows) == len(live)
+    for r in rows.values():
+        assert set(LIVE_FIELDS) <= set(r)
+        assert r["source"] == "LIVE" and r["date"] == "2026-11-06"
+    m = rows["MTNN"]
+    assert (m["close"], m["prev_close"], m["volume"], m["trades"]) == (837.0, 850.0, 2467576, 2333)
+    assert m["shares_outstanding"] == 20995560103  # from the metadata rows
+    assert m["market_cap_ngn"] == round(20995560103 * 837.0, 2)  # recomputed at the live price
+    assert m["metadata_date"] == "2025-12-31"
+    mec = rows["MECURE"]  # no trade moved the price: high/low null in the API
+    assert mec["high"] == mec["low"] == mec["close"] == 56.2 and mec["change"] == 0
+    assert rows["MECURE"]["board"] == "Growth Board"
+    new = [r for r in rows.values() if r["symbol"] not in full_rows]  # e.g. renamed tickers
+    assert all(r["metadata_date"] == "" and r["shares_outstanding"] is None for r in new)
 
 
 def test_zip_member_glob(tmp_path):

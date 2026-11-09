@@ -474,10 +474,108 @@ def get_range(start, end, fetcher: Fetcher | None = None, on_error: str = "warn"
 
 
 def get_live_prices(fetcher: Fetcher | None = None) -> list[dict]:
-    """Current-day equities snapshot from the NGX JSON API (not cached)."""
+    """Raw current-day equities snapshot from the NGX JSON API (not cached).
+
+    NGX states that these prices are delayed by 30 minutes. Fields: Symbol, PrevClosingPrice,
+    OpeningPrice, HighPrice, LowPrice, ClosePrice, Change, PercChange, Trades, Volume, Value,
+    Market, Sector, TradeDate. See :func:`get_live` for rows in the package's own format.
+    """
     f = _fetcher(fetcher)
     data = f.get(LIVE_URL, headers={"Accept": "application/json"}).json()
     return data if isinstance(data, list) else data.get("data", data)
+
+
+LIVE_FIELDS = FIELDS + ["metadata_date"]
+# fields copied from the most recent end-of-day rows (they are not in the live API)
+_META_FIELDS = ("name", "subsector", "nominal_value", "shares_outstanding", "week52_high", "week52_low",
+                "last_trade_price", "last_trade_date", "last_trade_qty", "eps", "pe", "last_exdiv_date",
+                "last_exscrip_date", "div_paid_date", "div_interim", "div_final")
+
+
+def combine_live(live: list[dict], meta_rows: list[dict], meta_date=None) -> list[dict]:
+    """Turn raw live-API records into :data:`LIVE_FIELDS` rows.
+
+    Prices, trades, volume and value come from ``live``. Shares outstanding, EPS, P/E, dividends,
+    52-week range and names come from ``meta_rows`` (end-of-day rows from :func:`get_daily_prices`
+    for ``meta_date``, usually the previous trading day). Market cap is recomputed as
+    shares outstanding x live close; EPS/P/E are as of ``meta_date``.
+    """
+    meta = {r["symbol"]: r for r in meta_rows}
+    md = to_date(meta_date).isoformat() if meta_date else ""
+    out = []
+    for x in live:
+        sym = (x.get("Symbol") or "").strip()
+        if not sym:
+            continue
+        close, prev = x.get("ClosePrice"), x.get("PrevClosingPrice")
+        op = x.get("OpeningPrice") if x.get("OpeningPrice") is not None else prev
+        hi, lo = x.get("HighPrice"), x.get("LowPrice")
+        if hi is None and close is not None and op is not None:
+            hi = max(op, close)  # NGX leaves high/low empty when no trade moved the price
+        if lo is None and close is not None and op is not None:
+            lo = min(op, close)
+        chg = x.get("Change")
+        if chg is None and close is not None and prev is not None:
+            chg = round(close - prev, 6)
+        pct = x.get("PercChange")
+        if pct is None and chg is not None and prev:
+            pct = round(chg / prev * 100, 2)
+        m = meta.get(sym, {})
+        board = BOARD_NAMES.get((x.get("Market") or "").upper(), x.get("Market") or m.get("board", ""))
+        r = dict(date=(x.get("TradeDate") or "")[:10], symbol=sym, board=board,
+                 sector=x.get("Sector") or m.get("sector", ""), close=close, prev_close=prev, open=op,
+                 high=hi, low=lo, change=chg, pct_change=pct, trades=x.get("Trades"), volume=x.get("Volume"),
+                 value_ngn=x.get("Value"), source="LIVE", metadata_date=md if m else "")
+        for k in _META_FIELDS:
+            r[k] = m.get(k, "" if k in ("name", "subsector") or k.endswith("_date") else None)
+        if not r["name"]:
+            r["name"] = (x.get("Company2") or sym).strip()
+        sh = r["shares_outstanding"]
+        r["market_cap_ngn"] = round(sh * close, 2) if sh and close is not None else None
+        r["sources_used"] = "LIVE" + ("+" + m["sources_used"] if m.get("sources_used") else "")
+        for k in _COUNT_FIELDS:
+            if isinstance(r.get(k), float) and r[k].is_integer():
+                r[k] = int(r[k])
+        out.append(r)
+    return sorted(out, key=lambda r: r["symbol"])
+
+
+def latest_trading_day(on_or_before, fetcher: Fetcher | None = None, max_days: int = 10) -> dt.date | None:
+    """Most recent date on or before ``on_or_before`` for which NGX has published files."""
+    f = _fetcher(fetcher)
+    d = to_date(on_or_before)
+    for _ in range(max_days + 1):
+        if d.weekday() < 5 and list_files(d, f):
+            return d
+        d -= dt.timedelta(days=1)
+    return None
+
+
+def get_live(fetcher: Fetcher | None = None, meta_date=None) -> tuple[list[dict], dict]:
+    """Live (30-minute delayed) prices for every equity, with end-of-day metadata attached.
+
+    Metadata (shares, EPS, P/E, dividends, 52-week range) comes from ``meta_date`` if given,
+    else from the most recent day with published files up to the live trade date.
+    Returns (rows, info) where info has trade_date, metadata_date, stock count and notes.
+    """
+    f = _fetcher(fetcher)
+    live = get_live_prices(f)
+    trade_dates = sorted({(x.get("TradeDate") or "")[:10] for x in live if x.get("TradeDate")})
+    td = trade_dates[-1] if trade_dates else dt.date.today().isoformat()
+    md = to_date(meta_date) if meta_date else latest_trading_day(td, f)
+    meta_rows = get_daily_prices(md, f) if md else []
+    rows = combine_live(live, meta_rows, md)
+    notes = ["NGX states that live prices are delayed by 30 minutes."]
+    if md and md.isoformat() != td:
+        notes.append(f"Shares, EPS, P/E, dividends and 52-week range are from {md.isoformat()}; "
+                     "market cap uses those shares x the live price.")
+    if not md:
+        notes.append("No end-of-day files found for metadata; only live price fields are filled.")
+    missing = sum(1 for r in rows if not r["metadata_date"])
+    if md and missing:
+        notes.append(f"{missing} stock(s) had no end-of-day row for metadata.")
+    info = dict(trade_date=td, metadata_date=md.isoformat() if md else None, stocks=len(rows), notes=notes)
+    return rows, info
 
 
 def write_csv(rows: list[dict], path, fields: list[str] | None = None) -> None:
