@@ -284,5 +284,16 @@
   "day_pl_pct": -0.001725131140303931,
   "holdings": 39,
   "note": "No trades. Market up (ASI +0.15%). Seplat went ex-dividend: NGX cut its price by the \u20a6258.10 Q3 dividend ($0.19 at \u20a61,358.34/$) to \u20a616,241.90 and it closed unchanged there, so its -\u20a612.9K is the dividend leaving the price, not a sell-off; you should receive about \u20a612.9K before 10% withholding tax (about \u20a611.6K net), which this log does not count. Without that, the day was -\u20a65K. CWG fell 2.8% to \u20a617.50 (-\u20a610K) and AXA Mansard 1.8% to \u20a613.70 (-\u20a62.7K). FirstHoldco rose 1.8% to \u20a6107 (+\u20a62.8K), Ellah Lakes 2.9% to \u20a67.20 (+\u20a62K), NGX Group (+\u20a61.4K), UBA (+\u20a61.1K) and LASACO 9.2% to \u20a61.90 (+\u20a60.8K). International Breweries closed unchanged at \u20a68.40, still below its \u20a68.50 trigger. Closes from APT Securities' NGX price list, cross-checked against GTI Research."
+ },
+ {
+  "date": "2026-11-16",
+  "value": 10429724.4,
+  "cost": 8023767.46,
+  "gain": 2405956.94,
+  "cash_in": 0,
+  "day_pl": 64368.3,
+  "day_pl_pct": 0.00620994584064507,
+  "holdings": 39,
+  "note": "No trades. Prices from NGX's live feed at 18:36 WAT, after the 14:30 close, so they are the final closes; volumes are provisional until NGX publishes its official files tonight. NGX Group (+\u20a623.2K) led; International Breweries jumped 9.5% to \u20a69.20 (+\u20a620.8K), back above its \u20a68.50 trigger; CWG +\u20a615K, VFD and Wema +\u20a65K each. UBA (-\u20a63.4K), Fidelity and PZ (-\u20a62.6K each), Oando (-\u20a62.1K) and Ellah Lakes (-\u20a62K) were the main drags. All watchlist stocks closed above their triggers."
  }
 ]

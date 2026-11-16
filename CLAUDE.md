@@ -1,7 +1,7 @@
 # NGX portfolio: memory for Claude Code
 
 Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is current to the
-**Fri 13 Nov 2026 close**. The owner (Babatunde Adebayo) works mostly from his Android phone.
+**Mon 16 Nov 2026 close** (live-feed closes; official volumes for 16 Nov still to load). The owner (Babatunde Adebayo) works mostly from his Android phone.
 
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):
@@ -9,8 +9,9 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
   - `accounts.json` — Account 1 Meristem (larger portfolio + 12 Oct buys), Account 2 AfriInvest
     (10 stocks), Account 3 InvestNaija (MTN). Check every new contract note against this.
   - `transactions.json` — every buy/sell from contract notes (so far the four 12 Oct Meristem buys).
-  - `prices_2026-11-13.json` — latest closes, prev close, 1-day and 7-day change.
-  - `price_history.json` — dated closes and volumes per stock (972 rows).
+  - `prices_<date>.json` — closes for that day: prev close, 1-day and 7-day change, volume, trades, value.
+    The newest file is the latest; older ones are kept as snapshots.
+  - `price_history.json` — dated closes, volumes, trades and value per stock.
   - `daily_log.json` — one row per trading day: value, cost, gain, day P/L, note. 9 Oct is the baseline.
   - `watchlist.json` — triggers for the six losers + Presco.
   - `plan_2_2M.json` — the example ₦2.2M plan (started 12 Oct 2026).
@@ -37,13 +38,17 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 - Okomu Oil 11 Nov official close is ₦1,148.60 (−10.0%); the earlier ₦1,137.10 was wrong.
 - Linkage Assurance 13 Nov volume 3,102,325,900 is confirmed by NGX (44 trades, ₦3.72bn; likely a block).
 - Seplat went ex-dividend 13 Nov (₦258.10 cut to ₦16,241.90). The daily log does not count dividends.
-- For new days use `ngxprices fetch --date <day>` (official, after 22:00 WAT). This environment can reach
-  `*.ngxgroup.com`; a new cloud environment may need it allowed in its network settings.
-- NGX closes 14:30 Lagos time (WAT, UTC+1). End-of-day files appear 15:15–21:30; fetch after 22:00.
-  `ngxprices live` is ~30 min delayed; from 15:00 its prices equal the close, volume is provisional.
+- Data is pulled ON DEMAND, whenever the owner asks; never tell him to wait:
+  - first try `ngxprices fetch --date <day>` (official files; they appear 15:15–21:30 WAT);
+  - if NGX has not published yet, use `ngxprices live` (NGX live feed, ~30 min delayed). After the 14:30
+    close its prices are the final closes; its volume is provisional. During trading, prices are
+    intraday and many stocks show no price until enough shares trade (use the previous close then).
+  - mark live-sourced rows as such, and replace them with official figures on the next update.
+- 16 Nov rows are from the live feed (18:36 WAT): replace volumes with official ones next time.
+- This environment can reach `*.ngxgroup.com`; a new cloud environment may need it allowed.
 
-## Portfolio at 13 Nov 2026 close
-Value ₦10,365,356 · cost ₦8,023,767 · gain ₦2,341,589 · day −₦17,913 (−0.17%). No trades since 12 Oct
+## Portfolio at 16 Nov 2026 close
+Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 (+0.62%). No trades since 12 Oct
 (owner confirmed on 9 Nov; nothing reported since).
 
 ## Watchlist (trigger = lowest close in the 2 weeks to 6 Nov)
@@ -51,9 +56,9 @@ SUNUASSUR ₦2.65 · LASACO ₦1.60 · INTBREW ₦8.50 · OANDO ₦31.50 · AFRI
 PRESCO = average cost ₦1,497.65 (gain-protection).
 A close below the trigger means selling is continuing. Check volume and dividend dates before calling
 a breach. Selling fees are about 1.8–2%.
-- Status at 13 Nov: **INTBREW closed ₦8.40 on 12 and 13 Nov, below ₦8.50** (AfriInvest, 25,999 units,
-  avg cost ₦16.06; a capital reorganisation has been proposed). Sunu dipped below on 10 Nov, then
-  recovered to ₦2.88 on 12 Nov. The others were above their triggers.
+- Status at 16 Nov: all above their triggers. INTBREW closed ₦9.20 (+9.5%) after ₦8.40 on 12 and 13 Nov
+  (below ₦8.50 then; AfriInvest, 25,999 units, avg cost ₦16.06; a capital reorganisation has been
+  proposed). Sunu dipped below on 10 Nov, then recovered (₦3.00 on 16 Nov).
 - The 11 Nov decision date passed. The owner hasn't said whether to keep or reset the triggers. Ask.
 
 ## ₦2.2M plan (from 12 Oct 2026)
@@ -62,9 +67,11 @@ Buy-stops (buy only on a close above): Aradel ₦400K above ₦1,740; GTCO ₦30
 Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in any account.
 
 ## How the owner works
-- "update the dashboard" / "refresh" = get the latest NGX closes for all 43 holdings, add a row to
-  `daily_log.json`, update prices and price history, then report value, day P/L, biggest movers and
-  any watchlist breaches. Name the price source. Never add contract notes twice.
+- "update the dashboard" / "refresh" = get the latest NGX data for all tracked stocks (on demand, see
+  Data status), add a row to `daily_log.json`, update prices and price history, update the claude.ai
+  dashboard (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7: upload the new JSON files as assets and
+  repoint its `prices`, `price_history` and `daily` datasets), then report value, day P/L, biggest movers,
+  volume and any watchlist breaches. Name the price source. Never add contract notes twice.
 - "update my losers" = refresh prices, then report which watchlist stocks crossed their triggers.
 - Price sources used so far: NGX official files (ngxprices), GTI Research price lists, APT Securities,
   Century Securities, Kobo Terminal. Cross-check two sources when not official.
