@@ -179,7 +179,23 @@ def parse_dol(src) -> list[dict]:
 
 # ---------------------------------------------------------------- PRICES1
 
-_P1_ROW = re.compile(r"^(\d+) (\S+)" + r" (\S+)" * 13 + r"$")
+_P1_HEAD = re.compile(r"^(\d+) ([A-Za-z][A-Za-z0-9&.\-]*) (.*)$")  # symbols upper-cased below (NGX printed "FirstHoldCo" in Mar 2025)
+_P1_DEC = r"\s*(-?\d{1,3}(?:,\d{3})*\.\d{2}|-(?![\d]))"   # 2-decimal number, or "-"
+_P1_INT = r"\s*(\d{1,3}(?:,\d{3})*|-(?![\d]))"              # comma-grouped whole number, or "-"
+# PCLOSE OOPEN OPEN HIGH LOW %SPREAD OCLOSE CLOSE CHANGE %CHANGE TRADES VOLUME VALUE
+_P1_FIELDS = re.compile("^" + _P1_DEC * 10 + _P1_INT * 2 + _P1_DEC + r"\s*$")
+
+
+def _p1_fields(rest: str):
+    """Split the 13 numeric fields of a PRICES1 row by their shape, not by spaces.
+
+    NGX's PDF sometimes prints neighbouring values with no space between them, e.g. volume and
+    value as "343,802,23134,776,520,008.50" (343,802,231 shares, N34,776,520,008.50) or two prices
+    as "1,296.001,296.00". Every price/percentage has exactly 2 decimals and counts are
+    comma-grouped integers, so the fields can be told apart.
+    """
+    m = _P1_FIELDS.match(rest)
+    return m.groups() if m else None
 
 
 def parse_prices1(src) -> dict[str, dict]:
@@ -194,9 +210,10 @@ def parse_prices1(src) -> dict[str, dict]:
                     continue
                 if not section or "EQUITY" not in section:
                     continue
-                m = _P1_ROW.match(line)
-                if m:
-                    g = m.groups()
+                h = _P1_HEAD.match(line)
+                f = _p1_fields(h.group(3)) if h else None
+                if f:
+                    g = (h.group(1), h.group(2).upper()) + f
                     # S/N SYM PCLOSE OOPEN OPEN HIGH LOW %SPREAD OCLOSE CLOSE CHANGE %CHANGE TRADES VOLUME VALUE
                     out.setdefault(g[1], dict(
                         symbol=g[1], pclose=_num(g[2]), official_open=_num(g[3]), open=_num(g[4]),

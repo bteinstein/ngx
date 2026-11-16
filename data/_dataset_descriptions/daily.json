@@ -1,5 +1,5 @@
 {
-  "description": "One row for each trading day: the portfolio value at the close, new money put in, the day profit or loss from price moves, and the total profit. 9 Oct is the starting point. Dividends are not counted in the value; the 13 Nov row explains Seplat's ex-dividend drop.",
+  "description": "One row for each trading day: the portfolio value at the close, new money put in, the day profit or loss from price moves, and the total profit. 9 Oct is the starting point. Dividends are not counted in the value; the 13 Nov row explains Seplat's ex-dividend drop. On 16 Nov 2026 the values for 9, 12, 13, 14 and 19 Oct, 28-30 Oct and 11 Nov were recalculated from NGX official closes (the earlier figures used broker snapshots taken before the close or carried-forward prices); each changed row's note gives the old figure. Day P/L moved accordingly, mainly between 12 Oct and 13 Oct.",
   "edit": {
     "at": "2026-11-13T19:00:00Z",
     "via": "claude"
@@ -13,7 +13,7 @@
   "staleAfterHours": 96,
   "title": "Daily portfolio log",
   "updated": {
-    "at": "2026-11-13T19:00:00Z",
+    "at": "2026-11-16T15:00:00Z",
     "by": "Claude"
   }
 }

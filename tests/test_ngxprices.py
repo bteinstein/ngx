@@ -137,6 +137,20 @@ def test_combine_live(full_rows):
     assert all(r["metadata_date"] == "" and r["shares_outstanding"] is None for r in new)
 
 
+def test_prices1_fields_run_together():
+    from ngxprices.parsers import _p1_fields
+    # volume and value printed with no space (FIRSTHOLDCO, 29 Oct 2026)
+    f = _p1_fields("139.50 - 139.50 145.00 125.55 13.41 125.55 125.55 -13.95 -10.00 1,968 343,802,23134,776,520,008.50")
+    assert f[-3:] == ("1,968", "343,802,231", "34,776,520,008.50")
+    # two prices run together (ARADEL, 2 Nov 2026)
+    f = _p1_fields("1,439.90 1,296.001,296.00 1,296.00 1,296.00 - - 1,296.00 -143.90 -9.99 2,507 2,028,317 2,628,698,832.00")
+    assert f[1:5] == ("1,296.00",) * 4 and f[-2] == "2,028,317"
+    # three prices run together (SEPLAT)
+    f = _p1_fields("16,000.10 - 16,000.1016,500.0016,050.00 2.73 - 16,500.00 499.90 3.12 288 455,240 7,300,000.00")
+    assert f[2:5] == ("16,000.10", "16,500.00", "16,050.00")
+    assert _p1_fields("6.40 - 6.40 - - - - 6.40 - - 33 68,998 482,894.00")[-2] == "68,998"
+
+
 def test_zip_member_glob(tmp_path):
     p = tmp_path / "x.zip"
     with zipfile.ZipFile(p, "w") as zf:

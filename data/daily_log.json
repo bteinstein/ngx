@@ -1,47 +1,47 @@
 [
  {
   "date": "2026-10-09",
-  "value": 10094325.0,
+  "value": 10094430.25,
   "cost": 7146219.68,
-  "gain": 2948105.32,
+  "gain": 2948210.57,
   "cash_in": 0,
   "day_pl": null,
   "day_pl_pct": null,
   "holdings": 40,
-  "note": "Baseline: Friday close, before today's buys"
+  "note": "Baseline: Friday close, before today's buys [16 Nov 2026: value recalculated from NGX official closes, +105 vs the original \u20a610,094,325.]"
  },
  {
   "date": "2026-10-12",
-  "value": 10931937.4,
+  "value": 10968527.8,
   "cost": 8023767.49,
-  "gain": 2908169.91,
+  "gain": 2944760.31,
   "cash_in": 877547.78,
-  "day_pl": -39935.38,
-  "day_pl_pct": -0.0036397961223899335,
+  "day_pl": -3450.23,
+  "day_pl_pct": -0.0003417954173292742,
   "holdings": 39,
-  "note": "Bought MTNN, SEPLAT, ZENITHBANK via Meristem"
+  "note": "Bought MTNN, SEPLAT, ZENITHBANK via Meristem [16 Nov 2026: value recalculated from NGX official closes, +36,590 vs the original \u20a610,931,937.]"
  },
  {
   "date": "2026-10-13",
-  "value": 10930193.3,
+  "value": 10932274.7,
   "cost": 8023767.46,
-  "gain": 2906425.84,
+  "gain": 2908507.24,
   "cash_in": 0,
-  "day_pl": -1744.1,
-  "day_pl_pct": -0.0001595417112432422,
+  "day_pl": -36253.1,
+  "day_pl_pct": -0.003305192881035502,
   "holdings": 39,
-  "note": "No trades. Sterling +\u20a635K offset most losses (Dangote Sugar, CWG, Wema)"
+  "note": "No trades. Sterling +\u20a635K offset most losses (Dangote Sugar, CWG, Wema) [16 Nov 2026: value recalculated from NGX official closes, +2,081 vs the original \u20a610,930,193.]"
  },
  {
   "date": "2026-10-14",
-  "value": 10929770.1,
+  "value": 10929795.1,
   "cost": 8023767.46,
-  "gain": 2906002.64,
+  "gain": 2906027.64,
   "cash_in": 0,
-  "day_pl": -423.2,
-  "day_pl_pct": -3.8718436937535e-05,
+  "day_pl": -2479.6,
+  "day_pl_pct": -0.00022681464453138924,
   "holdings": 39,
-  "note": "No trades. Wema +\u20a69K and Africa Prudential, Access, Ellah Lakes gains almost offset Dangote Sugar (-\u20a69.4K), UPDC REIT and NB"
+  "note": "No trades. Wema +\u20a69K and Africa Prudential, Access, Ellah Lakes gains almost offset Dangote Sugar (-\u20a69.4K), UPDC REIT and NB [16 Nov 2026: value recalculated from NGX official closes, +25 vs the original \u20a610,929,770.]"
  },
  {
   "date": "2026-10-15",
@@ -49,10 +49,10 @@
   "cost": 8023767.46,
   "gain": 2928352.39,
   "cash_in": 0,
-  "day_pl": 22349.75,
-  "day_pl_pct": 0.002044850879342833,
+  "day_pl": 22324.75,
+  "day_pl_pct": 0.0020425588765154434,
   "holdings": 39,
-  "note": "No trades. CWG +\u20a636K and Intl Breweries +\u20a611.7K outweighed Dangote Sugar (-\u20a613.3K), MTN (-\u20a68.3K) and VFD (-\u20a67.5K)"
+  "note": "No trades. CWG +\u20a636K and Intl Breweries +\u20a611.7K outweighed Dangote Sugar (-\u20a613.3K), MTN (-\u20a68.3K) and VFD (-\u20a67.5K) [16 Nov 2026: day P/L recalculated to +22,325 (was +22,350) because the previous day's value was corrected to NGX official closes.]"
  },
  {
   "date": "2026-10-16",
@@ -67,14 +67,14 @@
  },
  {
   "date": "2026-10-19",
-  "value": 10894271.2,
+  "value": 10899827.0,
   "cost": 8023767.46,
-  "gain": 2870503.74,
+  "gain": 2876059.54,
   "cash_in": 0,
-  "day_pl": -67686.0,
-  "day_pl_pct": -0.006174627282799463,
+  "day_pl": -62130.2,
+  "day_pl_pct": -0.005667801731610483,
   "holdings": 39,
-  "note": "No trades. Dangote Cement (-\u20a611.7K), VFD (-\u20a611.3K), Wema (-\u20a610K), Custodian (-\u20a67.9K) and NGX Group (-\u20a67K) led losses. Sterling (+\u20a62.5K) and FCMB (+\u20a6325) were the only gains."
+  "note": "No trades. Dangote Cement (-\u20a611.7K), VFD (-\u20a611.3K), Wema (-\u20a610K), Custodian (-\u20a67.9K) and NGX Group (-\u20a67K) led losses. Sterling (+\u20a62.5K) and FCMB (+\u20a6325) were the only gains. [16 Nov 2026: value recalculated from NGX official closes, +5,556 vs the original \u20a610,894,271.]"
  },
  {
   "date": "2026-10-20",
@@ -82,10 +82,10 @@
   "cost": 8023767.46,
   "gain": 2865627.94,
   "cash_in": 0,
-  "day_pl": -4875.8,
-  "day_pl_pct": -0.00044755632666827684,
+  "day_pl": -10431.6,
+  "day_pl_pct": -0.0009570427126962658,
   "holdings": 39,
-  "note": "No trades. Custodian (+\u20a67.9K) and VFD (+\u20a63.8K) recovered, but Dangote Sugar (-\u20a67.8K), NGX Group (-\u20a67K) and PZ (-\u20a62K) outweighed them."
+  "note": "No trades. Custodian (+\u20a67.9K) and VFD (+\u20a63.8K) recovered, but Dangote Sugar (-\u20a67.8K), NGX Group (-\u20a67K) and PZ (-\u20a62K) outweighed them. [16 Nov 2026: day P/L recalculated to -10,432 (was -4,876) because the previous day's value was corrected to NGX official closes.]"
  },
  {
   "date": "2026-10-21",
@@ -144,36 +144,36 @@
  },
  {
   "date": "2026-10-28",
-  "value": 10663398.2,
+  "value": 10664323.2,
   "cost": 8023767.46,
-  "gain": 2639630.74,
+  "gain": 2640555.74,
   "cash_in": 0,
-  "day_pl": -6840.8,
-  "day_pl_pct": -0.0006411102881575567,
+  "day_pl": -5915.8,
+  "day_pl_pct": -0.0005544205710856149,
   "holdings": 39,
-  "note": "No trades. First HoldCo fell 10% to \u20a6139.50 (-\u20a623.3K) and BUA Cement (-\u20a610.8K) led losses. Dangote Sugar (+\u20a615.7K across both accounts), UBA (+\u20a65.9K), Sterling (+\u20a65K) and Access (+\u20a62.2K) almost offset them. UPDC REIT didn't trade; its 27 Oct close is carried."
+  "note": "No trades. First HoldCo fell 10% to \u20a6139.50 (-\u20a623.3K) and BUA Cement (-\u20a610.8K) led losses. Dangote Sugar (+\u20a615.7K across both accounts), UBA (+\u20a65.9K), Sterling (+\u20a65K) and Access (+\u20a62.2K) almost offset them. UPDC REIT didn't trade; its 27 Oct close is carried. [16 Nov 2026: value recalculated from NGX official closes, +925 vs the original \u20a610,663,398.]"
  },
  {
   "date": "2026-10-29",
-  "value": 10683019.7,
+  "value": 10683944.7,
   "cost": 8023767.46,
-  "gain": 2659252.24,
+  "gain": 2660177.24,
   "cash_in": 0,
   "day_pl": 19621.5,
-  "day_pl_pct": 0.0018400794598479875,
+  "day_pl_pct": 0.00183991985539223,
   "holdings": 39,
-  "note": "No trades. VFD Group (+\u20a617.5K) and Dangote Cement (+\u20a615.6K, up 5.8% to \u20a61,420) led gains; NGX Group (+\u20a64.2K), Access (+\u20a63.6K) and FCMB (+\u20a62.6K) added. First HoldCo hit the 10% limit down again to \u20a6125.55 (-\u20a620.9K); Ellah Lakes (-\u20a64K) also fell. UPDC REIT didn't trade; its last close is carried."
+  "note": "No trades. VFD Group (+\u20a617.5K) and Dangote Cement (+\u20a615.6K, up 5.8% to \u20a61,420) led gains; NGX Group (+\u20a64.2K), Access (+\u20a63.6K) and FCMB (+\u20a62.6K) added. First HoldCo hit the 10% limit down again to \u20a6125.55 (-\u20a620.9K); Ellah Lakes (-\u20a64K) also fell. UPDC REIT didn't trade; its last close is carried. [16 Nov 2026: value recalculated from NGX official closes, +925 vs the original \u20a610,683,020.]"
  },
  {
   "date": "2026-10-30",
-  "value": 10691803.2,
+  "value": 10692728.2,
   "cost": 8023767.46,
-  "gain": 2668035.74,
+  "gain": 2668960.74,
   "cash_in": 0,
   "day_pl": 8783.5,
-  "day_pl_pct": 0.0008221926240574096,
+  "day_pl_pct": 0.0008221214398460899,
   "holdings": 39,
-  "note": "No trades. PZ (+\u20a612.9K, up 9.85% to \u20a671.95), Wema (+\u20a610K), MTN (+\u20a68.6K, up 3% to \u20a6850), Fidelity (+\u20a65.2K) and CWG (+\u20a65K) led gains. First HoldCo fell another 5.1% to \u20a6119.15 (-\u20a69.6K); Access (-\u20a65.9K), VFD (-\u20a63.8K), Sterling (-\u20a63.3K) and Zenith (-\u20a63.1K) also dipped. UPDC REIT didn't trade; its last close is carried."
+  "note": "No trades. PZ (+\u20a612.9K, up 9.85% to \u20a671.95), Wema (+\u20a610K), MTN (+\u20a68.6K, up 3% to \u20a6850), Fidelity (+\u20a65.2K) and CWG (+\u20a65K) led gains. First HoldCo fell another 5.1% to \u20a6119.15 (-\u20a69.6K); Access (-\u20a65.9K), VFD (-\u20a63.8K), Sterling (-\u20a63.3K) and Zenith (-\u20a63.1K) also dipped. UPDC REIT didn't trade; its last close is carried. [16 Nov 2026: value recalculated from NGX official closes, +925 vs the original \u20a610,691,803.]"
  },
  {
   "date": "2026-11-02",
@@ -181,10 +181,10 @@
   "cost": 8023767.46,
   "gain": 2603208.14,
   "cash_in": 0,
-  "day_pl": -64827.6,
-  "day_pl_pct": -0.0060632990326645745,
+  "day_pl": -65752.6,
+  "day_pl_pct": -0.00614928190169465,
   "holdings": 39,
-  "note": "No trades. International Breweries fell 8.6% to \u20a68.50 (-\u20a620.8K), the biggest drag; VFD (-\u20a618.8K), CWG (-\u20a615K), Access (-\u20a613.9K, down 7.3%), Zenith (-\u20a69.2K) and Sunu Assurance (-\u20a68.6K) also fell. Dangote Cement (+\u20a614K, up 4.9% to \u20a61,490), BUA Cement (+\u20a613.8K) and AXA Mansard (+\u20a611K, up 9.3%) helped. UPDC REIT traded again at \u20a621.10 (+\u20a6925 vs its carried \u20a619.25)."
+  "note": "No trades. International Breweries fell 8.6% to \u20a68.50 (-\u20a620.8K), the biggest drag; VFD (-\u20a618.8K), CWG (-\u20a615K), Access (-\u20a613.9K, down 7.3%), Zenith (-\u20a69.2K) and Sunu Assurance (-\u20a68.6K) also fell. Dangote Cement (+\u20a614K, up 4.9% to \u20a61,490), BUA Cement (+\u20a613.8K) and AXA Mansard (+\u20a611K, up 9.3%) helped. UPDC REIT traded again at \u20a621.10 (+\u20a6925 vs its carried \u20a619.25). [16 Nov 2026: day P/L recalculated to -65,753 (was -64,828) because the previous day's value was corrected to NGX official closes.]"
  },
  {
   "date": "2026-11-03",
@@ -254,14 +254,14 @@
  },
  {
   "date": "2026-11-11",
-  "value": 10358006.55,
+  "value": 10360306.55,
   "cost": 8023767.46,
-  "gain": 2334239.09,
+  "gain": 2336539.09,
   "cash_in": 0,
-  "day_pl": -60851.8,
-  "day_pl_pct": -0.005840543940210003,
+  "day_pl": -58551.8,
+  "day_pl_pct": -0.005619790387110888,
   "holdings": 39,
-  "note": "No trades. Official closes (from the 12 Nov price list) match the live snapshot except Okomu Oil, which closed at \u20a61,137.10, down 10.9% (-\u20a627.8K), not the provisional \u20a61,148.60. VFD dropped 6.7% to \u20a611.20 (-\u20a620K); CWG (-\u20a67K), FirstHoldco (-\u20a66K, down 3.7% to \u20a6103), Ellah Lakes (-\u20a64K), Access (-\u20a63K) and UBA (-\u20a62.2K) also fell. Wema rose 3.4% to \u20a633 (+\u20a611K); Dangote Sugar, Oando and Transcorp edged up."
+  "note": "No trades. Official closes (from the 12 Nov price list) match the live snapshot except Okomu Oil, which closed at \u20a61,137.10, down 10.9% (-\u20a627.8K), not the provisional \u20a61,148.60. VFD dropped 6.7% to \u20a611.20 (-\u20a620K); CWG (-\u20a67K), FirstHoldco (-\u20a66K, down 3.7% to \u20a6103), Ellah Lakes (-\u20a64K), Access (-\u20a63K) and UBA (-\u20a62.2K) also fell. Wema rose 3.4% to \u20a633 (+\u20a611K); Dangote Sugar, Oando and Transcorp edged up. [16 Nov 2026: value recalculated from NGX official closes, +2,300 vs the original \u20a610,358,007.]"
  },
  {
   "date": "2026-11-12",
@@ -269,10 +269,10 @@
   "cost": 8023767.46,
   "gain": 2359501.14,
   "cash_in": 0,
-  "day_pl": 25262.05,
-  "day_pl_pct": 0.0024388911011066004,
+  "day_pl": 22962.05,
+  "day_pl_pct": 0.0022163485114250793,
   "holdings": 39,
-  "note": "No trades. Market up (ASI +0.21%). Seplat rose 3.1% to \u20a616,500 (+\u20a625K), VFD 4.5% to \u20a611.70 (+\u20a612.5K), Sunu 9.9% to \u20a62.88 (+\u20a67.4K), AXA Mansard 3% to \u20a613.95 (+\u20a64.4K), FirstHoldco 2.1% to \u20a6105.15 (+\u20a63.2K) and Stanbic 2.5% to \u20a6165 (+\u20a62.1K). International Breweries fell 7.2% to \u20a68.40 (-\u20a616.9K), below its \u20a68.50 watchlist trigger; Wema (-\u20a65K), Sterling (-\u20a64.8K), Custodian (-\u20a62.6K) and Fidelity (-\u20a61.8K) also fell. Closes from APT Securities' NGX price list, cross-checked against GTI Research."
+  "note": "No trades. Market up (ASI +0.21%). Seplat rose 3.1% to \u20a616,500 (+\u20a625K), VFD 4.5% to \u20a611.70 (+\u20a612.5K), Sunu 9.9% to \u20a62.88 (+\u20a67.4K), AXA Mansard 3% to \u20a613.95 (+\u20a64.4K), FirstHoldco 2.1% to \u20a6105.15 (+\u20a63.2K) and Stanbic 2.5% to \u20a6165 (+\u20a62.1K). International Breweries fell 7.2% to \u20a68.40 (-\u20a616.9K), below its \u20a68.50 watchlist trigger; Wema (-\u20a65K), Sterling (-\u20a64.8K), Custodian (-\u20a62.6K) and Fidelity (-\u20a61.8K) also fell. Closes from APT Securities' NGX price list, cross-checked against GTI Research. [16 Nov 2026: day P/L recalculated to +22,962 (was +25,262) because the previous day's value was corrected to NGX official closes.]"
  },
  {
   "date": "2026-11-13",

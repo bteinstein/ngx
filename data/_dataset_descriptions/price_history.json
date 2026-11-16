@@ -1,7 +1,7 @@
 {
-  "description": "Dated closing prices and volumes for each researched stock. Points up to 5 Nov come from news and NGX price lists, and their volumes may be undercounted. 6 Nov comes from NGX's own data via your ngxprices tool. 9 and 10 Nov come from GTI Research's published NGX price lists. 11 Nov closes are official (Okomu Oil corrected to ₦1,137.10); its volumes are official for six stocks and from the live snapshot for the rest. 12 and 13 Nov come from APT Securities' NGX price lists, cross-checked against GTI Research. Seplat's 13 Nov close (₦16,241.90) is ex-dividend. Linkage Assurance's 13 Nov volume (3.1 billion shares) is as APT printed it and looks unusual; treat it with caution until the official file confirms it.",
+  "description": "Dated closing prices and volumes for each researched stock. From 2 Oct to 13 Nov 2026 every close, volume, trades and value figure is NGX official, taken on 16 Nov 2026 from NGX's Daily Official List and price lists with the ngxprices tool (30 Oct from NGX's Daily Summary, the only file NGX published that day; it has no value traded). NGX published no files at all for 5 Nov, so 5 Nov keeps the Mansa Markets board figures. Fifteen closes were corrected (each corrected row has a note with the old figure), including Okomu Oil 11 Nov (\u20a61,148.60 official, down 10.0%; the earlier \u20a61,137.10 was wrong) and UPDC REIT 28-30 Oct (\u20a621.10, not \u20a619.25). Linkage Assurance's 13 Nov volume of 3,102,325,900 shares is confirmed by NGX (44 trades, \u20a63.72bn, likely one negotiated block). Points before 2 Oct come from news and NGX price lists and their volumes may be undercounted. Seplat's 13 Nov close (\u20a616,241.90) is ex-dividend.",
   "edit": {
-    "at": "2026-11-13T19:00:00Z",
+    "at": "2026-11-16T15:00:00Z",
     "via": "claude"
   },
   "schedule": "Claude adds a point when you ask for a price update",
@@ -13,7 +13,7 @@
   "staleAfterHours": 96,
   "title": "Price history",
   "updated": {
-    "at": "2026-11-13T19:00:00Z",
+    "at": "2026-11-16T15:00:00Z",
     "by": "Claude"
   }
 }

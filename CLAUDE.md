@@ -24,18 +24,21 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 - `history/CONVERSATIONS.md` — summary of every past chat in the project.
 - Research paper on collecting NGX prices (Claude Doc, still on claude.ai):
   https://claude.ai/artifact/37pd12a6W2bFwfpi5EdobX
-- ngxprices tool v0.3.0: private repo github.com/bteinstein/ngx, branch
-  `feature/volume-and-metadata`. Install with `pip install -e .`
+- ngxprices tool v0.3.1: this repo (`src/ngxprices`). Install with `pip install -e .`
+  v0.3.1 (branch `portfolio-import`) fixes rows where NGX's PDF runs volume and value together;
+  v0.3.0 is on `feature/volume-and-metadata` (PR #1). Research paper copy: `docs/research-paper.md`.
 
 ## Data status (as of 13 Nov 2026)
-- Closes 6 Nov and 11 Nov are NGX official. 9–10 Nov from GTI Research; 12–13 Nov from APT Securities,
-  cross-checked against GTI. Before 6 Nov: news and broker lists; volumes may be undercounted.
+- 2 Oct to 13 Nov: closes, volumes, trades and value in `price_history.json` are NGX official (fetched
+  16 Nov with ngxprices; 30 Oct from NGX's Daily Summary, which has no value traded). NGX published no
+  files for 5 Nov, so 5 Nov keeps Mansa Markets board figures. Before 2 Oct: news and broker lists.
+- 16 Nov corrections: 15 closes fixed (each row's `note` has the old figure), and the daily log values for
+  9, 12–14, 19 Oct, 28–30 Oct and 11 Nov were recalculated from official closes (notes give old values).
+- Okomu Oil 11 Nov official close is ₦1,148.60 (−10.0%); the earlier ₦1,137.10 was wrong.
+- Linkage Assurance 13 Nov volume 3,102,325,900 is confirmed by NGX (44 trades, ₦3.72bn; likely a block).
 - Seplat went ex-dividend 13 Nov (₦258.10 cut to ₦16,241.90). The daily log does not count dividends.
-- Linkage Assurance 13 Nov volume (3.1bn shares) looks wrong; unconfirmed.
-- Okomu Oil official 11 Nov close ₦1,137.10 (−10.9%, beyond the usual 10% limit; worth checking).
-- Open job: replace estimated volumes with official ones:
-  `ngxprices range --start 2026-10-01 --end <latest trading day> --out data/oct_nov.csv`
-  The cloud environment needs network access to `*.ngxgroup.com` (default network blocks it).
+- For new days use `ngxprices fetch --date <day>` (official, after 22:00 WAT). This environment can reach
+  `*.ngxgroup.com`; a new cloud environment may need it allowed in its network settings.
 - NGX closes 14:30 Lagos time (WAT, UTC+1). End-of-day files appear 15:15–21:30; fetch after 22:00.
   `ngxprices live` is ~30 min delayed; from 15:00 its prices equal the close, volume is provisional.
 
