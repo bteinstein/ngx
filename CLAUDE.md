@@ -26,8 +26,8 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 - Research paper on collecting NGX prices (Claude Doc, still on claude.ai):
   https://claude.ai/artifact/37pd12a6W2bFwfpi5EdobX
 - ngxprices tool v0.4.0: this repo (`src/ngxprices`), incl. `ngxprices portfolio …`. Install with `pip install -e .`
-  v0.3.1 (branch `portfolio-import`) fixes rows where NGX's PDF runs volume and value together;
-  v0.3.0 is on `feature/volume-and-metadata` (PR #1). Research paper copy: `docs/research-paper.md`.
+  Everything is on `main` (PR #1 and `portfolio-import` merged 16 Nov); commit new work to `main`.
+  Research paper copy: `docs/research-paper.md`.
 
 ## Data status (as of 13 Nov 2026)
 - 2 Oct to 13 Nov: closes, volumes, trades and value in `price_history.json` are NGX official (fetched
