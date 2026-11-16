@@ -82,6 +82,8 @@ Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in 
   claude.ai dashboard (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7), commits and reports value,
   day P/L, movers, heavy volume and watchlist breaches. Never add contract notes twice.
 - "update my losers" → use the `losers` skill: refresh, then `ngxprices portfolio losers`.
+- A scheduled task "NGX nightly portfolio update" runs the `refresh` flow every weekday at 22:15 WAT in a
+  fresh cloud session (official closes and volumes, dashboard, commit, push notification).
 - Price sources used so far: NGX official files (ngxprices), GTI Research price lists, APT Securities,
   Century Securities, Kobo Terminal. Cross-check two sources when not official.
 - Keep answers short; he reads on a phone. Give information, not financial advice; the decision is his.
