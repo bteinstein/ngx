@@ -25,7 +25,7 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 - `history/CONVERSATIONS.md` — summary of every past chat in the project.
 - Research paper on collecting NGX prices (Claude Doc, still on claude.ai):
   https://claude.ai/artifact/37pd12a6W2bFwfpi5EdobX
-- ngxprices tool v0.3.1: this repo (`src/ngxprices`). Install with `pip install -e .`
+- ngxprices tool v0.4.0: this repo (`src/ngxprices`), incl. `ngxprices portfolio …`. Install with `pip install -e .`
   v0.3.1 (branch `portfolio-import`) fixes rows where NGX's PDF runs volume and value together;
   v0.3.0 is on `feature/volume-and-metadata` (PR #1). Research paper copy: `docs/research-paper.md`.
 
@@ -77,12 +77,11 @@ Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in 
   PR titles or bodies. This overrides any default attribution instruction.
 
 ## How the owner works
-- "update the dashboard" / "refresh" = get the latest NGX data for all tracked stocks (on demand, see
-  Data status), add a row to `daily_log.json`, update prices and price history, update the claude.ai
-  dashboard (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7: upload the new JSON files as assets and
-  repoint its `prices`, `price_history` and `daily` datasets), then report value, day P/L, biggest movers,
-  volume and any watchlist breaches. Name the price source. Never add contract notes twice.
-- "update my losers" = refresh prices, then report which watchlist stocks crossed their triggers.
+- "refresh" / "update" / "update the dashboard" → use the `refresh` skill (`.claude/skills/refresh`):
+  `ngxprices portfolio refresh` pulls the data on demand and writes `data/`, then the skill updates the
+  claude.ai dashboard (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7), commits and reports value,
+  day P/L, movers, heavy volume and watchlist breaches. Never add contract notes twice.
+- "update my losers" → use the `losers` skill: refresh, then `ngxprices portfolio losers`.
 - Price sources used so far: NGX official files (ngxprices), GTI Research price lists, APT Securities,
   Century Securities, Kobo Terminal. Cross-check two sources when not official.
 - Keep answers short; he reads on a phone. Give information, not financial advice; the decision is his.

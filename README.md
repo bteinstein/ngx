@@ -25,7 +25,18 @@ This repo also holds a personal NGX portfolio, moved here from a claude.ai proje
 | `data/_dataset_descriptions/` | Sources and caveats for each dataset |
 | `contract_notes/` | Meristem contract notes (12 Oct 2026), already recorded in holdings and transactions |
 | `history/CONVERSATIONS.md` | Summary of the earlier claude.ai chats |
-| `docs/` | Original project notes (9 Nov 2026) |
+| `docs/` | Original project notes (9 Nov 2026) and a copy of the research paper |
+| `.claude/skills/` | Claude Code skills: `refresh` (full update incl. dashboard) and `losers` (watchlist check) |
+| `.claude/settings.json` | No Claude attribution in commits/PRs, enforced by a hook |
+
+Portfolio commands (data is pulled on demand: official files if published, else NGX's live feed):
+
+```bash
+ngxprices portfolio refresh            # latest day; upgrades earlier live-feed days to official
+ngxprices portfolio refresh --date 2026-11-16
+ngxprices portfolio losers             # watchlist against triggers
+ngxprices portfolio stage --out DIR    # the dashboard's three data files, with dated names
+```
 | `dashboard/` | The old claude.ai dashboard code, for reference only (it does not run outside claude.ai) |
 
 ## Install
