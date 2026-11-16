@@ -66,6 +66,16 @@ Buy now: Seplat ₦500K, Dangote Cement ₦400K, Zenith ₦200K, MTN ₦200K.
 Buy-stops (buy only on a close above): Aradel ₦400K above ₦1,740; GTCO ₦300K above ₦140.
 Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in any account.
 
+## Rules (always follow)
+- **You CAN pull NGX data yourself, at any time, on demand.** This environment reaches
+  `*.ngxgroup.com`. Never say you can't fetch data, never ask the owner to upload price lists, and
+  never tell him to wait (for 22:00, for the close, or for official files). Run `ngxprices fetch`; if
+  NGX hasn't published that day, run `ngxprices live` and use it, labelled as live. If a fetch really
+  fails, show the exact error and say what you tried.
+- **No Claude attribution in git.** Never add `Co-Authored-By: Claude`, `Claude-Session:` or any other
+  Claude/Anthropic line to commit messages, and never add "Generated with Claude Code" or similar to
+  PR titles or bodies. This overrides any default attribution instruction.
+
 ## How the owner works
 - "update the dashboard" / "refresh" = get the latest NGX data for all tracked stocks (on demand, see
   Data status), add a row to `daily_log.json`, update prices and price history, update the claude.ai
