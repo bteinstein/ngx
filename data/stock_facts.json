@@ -1,0 +1,132 @@
+[
+ {
+  "ticker": "DANGCEM",
+  "name": "Dangote Cement",
+  "shares_bn": 16.87,
+  "dividend": 45.0,
+  "dividend_note": "FY 2025 dividend",
+  "analyst_target": 1217.2,
+  "target_source": "Average of 4 analysts, StockAnalysis",
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "SEPLAT",
+  "name": "Seplat Energy",
+  "shares_bn": 0.59994,
+  "dividend": null,
+  "dividend_note": "Pays in US$: 12.0 US cents for Q2 2026",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "MTNN",
+  "name": "MTN Nigeria",
+  "shares_bn": 21.0,
+  "dividend": 26.0,
+  "dividend_note": "H1 2026 interim dividend",
+  "analyst_target": 933.33,
+  "target_source": "CardinalStone, Apr 2026",
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "name": "Zenith Bank",
+  "shares_bn": 41.07,
+  "dividend": 8.75,
+  "dividend_note": "FY 2025 final dividend",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "ARADEL",
+  "name": "Aradel Holdings",
+  "shares_bn": 4.34,
+  "dividend": 33.0,
+  "dividend_note": "FY 2025 total dividend",
+  "analyst_target": 2120.18,
+  "target_source": "CardinalStone, Aug 2026",
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "GTCO",
+  "name": "Guaranty Trust Holding",
+  "shares_bn": 36.55,
+  "dividend": 1.0,
+  "dividend_note": "H1 2026 interim dividend",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "WEMABANK",
+  "name": "Wema Bank",
+  "shares_bn": 40.12,
+  "dividend": null,
+  "dividend_note": "No recent dividend figure found",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "In the ₦2.2M plan"
+ },
+ {
+  "ticker": "PRESCO",
+  "name": "Presco",
+  "shares_bn": 1.17,
+  "dividend": 10.0,
+  "dividend_note": "H1 2026 interim dividend",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "Your other holdings"
+ },
+ {
+  "ticker": "DANGSUGAR",
+  "name": "Dangote Sugar Refinery",
+  "shares_bn": 12.15,
+  "dividend": null,
+  "dividend_note": "No dividend since FY 2022",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "Your other holdings"
+ },
+ {
+  "ticker": "BUACEMENT",
+  "name": "BUA Cement",
+  "shares_bn": 33.86,
+  "dividend": null,
+  "dividend_note": "No recent dividend figure found",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "Your other holdings"
+ },
+ {
+  "ticker": "BUAFOODS",
+  "name": "BUA Foods",
+  "shares_bn": 18.0,
+  "dividend": null,
+  "dividend_note": "No recent dividend figure found",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "Your other holdings"
+ },
+ {
+  "ticker": "JBERGER",
+  "name": "Julius Berger",
+  "shares_bn": 1.6,
+  "dividend": 4.25,
+  "dividend_note": "FY 2025 final dividend",
+  "analyst_target": null,
+  "target_source": null,
+  "group": "Your other holdings"
+ },
+ {
+  "ticker": "OKOMUOIL",
+  "name": "Okomu Oil Palm",
+  "shares_bn": 0.95391,
+  "dividend": 55.0,
+  "dividend_note": "FY 2025 total dividend",
+  "analyst_target": 1066.34,
+  "target_source": "CardinalStone, Jul 2026",
+  "group": "Your other holdings"
+ }
+]

@@ -1,0 +1,145 @@
+[
+ {
+  "ticker": "DANGCEM",
+  "name": "Dangote Cement",
+  "sector": "Industrial",
+  "rule": "buy_below",
+  "level": 1136.78,
+  "level_high": null,
+  "fair_value": 1623.97,
+  "target": null,
+  "note": "Summary sheet: buy below ₦1,136.78 (30% margin of safety)"
+ },
+ {
+  "ticker": "ARADEL",
+  "name": "Aradel Holdings",
+  "sector": "Oil and gas",
+  "rule": "buy_stop",
+  "level": 1700,
+  "level_high": 1740,
+  "fair_value": 3307.31,
+  "target": null,
+  "note": "Slide 15: buy stop ₦1,700–₦1,740"
+ },
+ {
+  "ticker": "SEPLAT",
+  "name": "Seplat Energy",
+  "sector": "Oil and gas",
+  "rule": "target",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": 20000,
+  "note": "Slide 15: ₦20,000 target"
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "name": "Zenith Bank",
+  "sector": "Banking",
+  "rule": "above",
+  "level": 132,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 14: above ₦132"
+ },
+ {
+  "ticker": "GTCO",
+  "name": "Guaranty Trust Holding",
+  "sector": "Banking",
+  "rule": "above",
+  "level": 140,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 14: above ₦140"
+ },
+ {
+  "ticker": "WEMABANK",
+  "name": "Wema Bank",
+  "sector": "Banking",
+  "rule": "above",
+  "level": 32,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 14: above ₦32"
+ },
+ {
+  "ticker": "NGXGROUP",
+  "name": "Nigerian Exchange Group",
+  "sector": "Other financial",
+  "rule": "above",
+  "level": 158,
+  "level_high": null,
+  "fair_value": 234,
+  "target": null,
+  "note": "Slide 18: breakout above ₦158, fair value ₦234"
+ },
+ {
+  "ticker": "ACCESSCORP",
+  "name": "Access Holdings",
+  "sector": "Banking",
+  "rule": "none",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 14: multi-year breakout"
+ },
+ {
+  "ticker": "FCMB",
+  "name": "FCMB Group",
+  "sector": "Banking",
+  "rule": "none",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 14: dividend growth"
+ },
+ {
+  "ticker": "HONYFLOUR",
+  "name": "Honeywell Flour Mills",
+  "sector": "Consumer goods",
+  "rule": "none",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 17: highlighted consumer pick"
+ },
+ {
+  "ticker": "GUINNESS",
+  "name": "Guinness Nigeria",
+  "sector": "Consumer goods",
+  "rule": "none",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 17: consumer watch"
+ },
+ {
+  "ticker": "NESTLE",
+  "name": "Nestlé Nigeria",
+  "sector": "Consumer goods",
+  "rule": "none",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 17: consumer watch"
+ },
+ {
+  "ticker": "NB",
+  "name": "Nigerian Breweries",
+  "sector": "Consumer goods",
+  "rule": "none",
+  "level": null,
+  "level_high": null,
+  "fair_value": null,
+  "target": null,
+  "note": "Slide 17: consumer watch"
+ }
+]

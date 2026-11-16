@@ -1,0 +1,13 @@
+{
+  "description": "The stocks, entry rules, fair values and target prices from the GlobFolio monthly webinar slides and the CoachOge DCF sheets.",
+  "source": {
+    "kind": "file",
+    "name": "webinar.json",
+    "url": "/_blob/76e254e7e519facee9e1055422c86703"
+  },
+  "title": "Webinar stocks and levels",
+  "updated": {
+    "at": "2026-10-11T22:00:00Z",
+    "by": "Claude"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "description": "The units and the unit cost of each holding. Account 1 is Meristem: the larger portfolio from your 11 Oct 2026 screenshot plus the buys from your Meristem contract notes of 12 Oct 2026 (fees included in the unit cost; Seplat and Zenith are blended with your older shares). Account 2 is AfriInvest: the 10 stocks from your other 11 Oct screenshot. Account 3 is InvestNaija. You confirmed this mapping on 13 Oct 2026. Claude made the sector groups.",
+  "source": {
+    "kind": "file",
+    "name": "holdings.json",
+    "url": "/_blob/9761f7c331a48f7c4fb645e1b46babd4"
+  },
+  "title": "Holdings, all accounts",
+  "updated": {
+    "at": "2026-10-13T17:15:00Z",
+    "by": "Claude"
+  }
+}

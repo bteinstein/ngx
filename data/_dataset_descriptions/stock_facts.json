@@ -1,0 +1,13 @@
+{
+  "description": "Shares in issue, the latest dividend and an analyst target for each researched stock. Shares come from the Kobo Terminal board.",
+  "source": {
+    "kind": "file",
+    "name": "stock_facts.json",
+    "url": "/_blob/bad34acb336f6ce5790c1e4d554d21e5"
+  },
+  "title": "Stock facts",
+  "updated": {
+    "at": "2026-10-12T00:30:00Z",
+    "by": "Claude"
+  }
+}

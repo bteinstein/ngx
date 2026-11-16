@@ -1,0 +1,13 @@
+{
+  "description": "Revenue or gross earnings, profit after tax, earnings per share and a margin for the plan stocks and your researched holdings, for the same period in two or three years. Claude collected these from company filings and financial news.",
+  "source": {
+    "kind": "file",
+    "name": "results.json",
+    "url": "/_blob/e56f2395349541ac20b460c45699de17"
+  },
+  "title": "Company results",
+  "updated": {
+    "at": "2026-10-12T00:30:00Z",
+    "by": "Claude"
+  }
+}

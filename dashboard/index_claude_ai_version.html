@@ -1,0 +1,1486 @@
+<style>
+.ngx{--ngx-muted:light-dark(var(--cds-gray-500),var(--color-fg-muted));--ngx-shadow:light-dark(0 1px 2px rgb(56 52 40 / .06),0 0 0 transparent);--ngx-field:light-dark(var(--cds-gray-0),var(--color-bg));font-family:var(--font-anthropic-sans);color:var(--color-fg);container-type:inline-size;display:grid;gap:var(--cds-gap-lg);max-width:76rem;margin-inline:auto;font-variant-numeric:tabular-nums}
+.ngx ::selection{background:color-mix(in srgb,var(--color-fg) 18%,transparent)}
+.ngx h1{font-family:var(--font-anthropic-serif);font-weight:400;font-size:calc(var(--cds-font-size-title) * 1.35);line-height:1.15;margin:0;text-wrap:balance}
+.ngx h2{font-size:var(--cds-font-size-heading);font-weight:var(--cds-font-weight-medium);margin:0}
+.ngx-head{display:grid;gap:var(--cds-gap-xs)}
+.ngx-take{font-size:var(--cds-font-size-body);max-width:62ch;margin:var(--cds-gap-xs) 0 0;line-height:1.5}
+.ngx .ngx-take b{font-weight:var(--cds-font-weight-medium)}
+.ngx-note{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);max-width:68ch;margin:0;line-height:1.5}
+
+.ngx-tabs{display:flex;gap:var(--cds-gap-lg);border-bottom:1px solid var(--color-border-line);overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:2;background:var(--color-bg)}
+.ngx-tabs::-webkit-scrollbar{display:none}
+.ngx-tab{all:unset;cursor:pointer;white-space:nowrap;padding:var(--cds-pad-sm) 0;font-size:var(--cds-font-size-body);color:var(--ngx-muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color var(--cds-dur-slow)}
+.ngx-tab:hover{color:var(--color-fg)}
+.ngx-tab[aria-selected=true]{color:var(--color-fg);border-bottom-color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.ngx-tab:focus-visible{outline:2px solid var(--color-fg);outline-offset:2px;border-radius:2px}
+
+.ngx-pane{display:grid;gap:var(--cds-gap-xl);align-content:start;padding-top:var(--cds-pad-sm)}
+.ngx-pane[hidden]{display:none}
+.ngx-block{display:grid;gap:var(--cds-gap-sm);align-content:start;min-width:0}
+.ngx-block-head{display:grid;gap:var(--cds-gap-xs)}
+
+.ngx-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--cds-gap-lg) var(--cds-gap-xl)}
+.ngx-fig{display:grid;gap:var(--cds-gap-xs);align-content:start}
+.ngx-fig-label{font-size:var(--cds-font-size-caption);color:var(--ngx-muted)}
+.ngx-fig-num{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title);line-height:1.1;min-height:1.1em}
+.ngx-fig-sub{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);min-height:1.2em}
+.ngx-check{display:flex;gap:var(--cds-gap-sm);align-items:flex-start;padding:var(--cds-pad-md, .75rem) var(--cds-pad-lg);border-radius:var(--cds-radius);border:1px solid var(--color-border-line);font-size:var(--cds-font-size-caption);line-height:1.45}
+.ngx-check.is-bad{border-color:var(--color-bad);color:var(--color-fg)}
+.ngx-check.is-ok{color:var(--ngx-muted)}
+.ngx-check i{flex:none;width:.5rem;height:.5rem;margin-top:.35rem;border-radius:50%;background:var(--color-ok)}
+.ngx-check.is-bad i{background:var(--color-bad)}
+.ngx-check ul{margin:.25rem 0 0;padding-left:1.1rem}
+.ngx-st{display:inline-block;font-size:var(--cds-font-size-caption);padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.ngx-watch-note{color:var(--ngx-muted);font-size:var(--cds-font-size-caption);max-width:34ch}
+.ngx-good{color:var(--color-ok)}.ngx-bad{color:var(--color-bad)}.ngx-wait{color:var(--color-warn)}
+
+.ngx-panel,.ngx-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-lg);min-width:0;box-shadow:var(--ngx-shadow)}
+.ngx-card.ngx-figs,.ngx-card.ngx-pl{padding:var(--cds-pad-lg) var(--cds-pad-lg)}
+.ngx-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:var(--cds-gap-xl)}
+
+.ngx-legend{display:flex;flex-wrap:wrap;gap:var(--cds-gap-xs) var(--cds-gap-md);font-size:var(--cds-font-size-caption);color:var(--ngx-muted)}
+.ngx-legend span{display:inline-flex;align-items:center;gap:var(--cds-gap-xs)}
+.ngx-key-dot{width:.7rem;height:.7rem;border-radius:50%;background:var(--color-ok)}
+.ngx-key-dot.w{background:var(--color-warn)}
+.ngx-key-zone{width:1.4rem;height:.4rem;border-radius:.2rem;opacity:.4}
+.ngx-key-tick{width:2px;height:.9rem;background:var(--cds-chart-reference)}
+.ngx-key-ring{width:.6rem;height:.6rem;border-radius:50%;border:1.5px solid var(--color-fg-muted)}
+
+.ngx-seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:2px;border:1px solid var(--color-border-line);border-radius:var(--cds-radius);background:light-dark(var(--cds-gray-60),var(--color-panel));justify-self:start}
+.ngx-seg button{all:unset;cursor:pointer;padding:var(--cds-pad-xs) var(--cds-pad-sm);border-radius:calc(var(--cds-radius) - 2px);font-size:var(--cds-font-size-caption);color:var(--ngx-muted)}
+.ngx-seg button[aria-pressed=true]{background:var(--ngx-field);box-shadow:var(--ngx-shadow);color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+.ngx-seg button:focus-visible{outline:2px solid var(--color-fg);outline-offset:1px}
+.ngx-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--cds-gap-md)}
+
+.ngx-rails{display:grid;min-height:20rem;align-content:start}
+.ngx-rail{display:grid;grid-template-columns:minmax(9rem,13rem) minmax(0,1fr) minmax(10rem,14rem);gap:var(--cds-gap-lg);align-items:center;padding-block:var(--cds-pad-md);border-bottom:1px solid var(--color-border-line)}
+.ngx-rail:last-child{border-bottom:0}
+.ngx-bought{display:inline-flex;align-items:center;gap:.35rem;margin-top:.35rem;padding:1px .5rem;border-radius:999px;font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);color:var(--color-fg);background:light-dark(var(--cds-gray-60),var(--color-bg));border:1px solid var(--color-border-line)}
+.ngx-bought .ngx-tick{width:.35rem;height:.6rem;margin-right:.1rem;color:var(--color-ok)}
+.ngx-bought-line{font-size:var(--cds-font-size-caption);line-height:1.4;margin-top:.2rem}
+.ngx-rail-name{font-weight:var(--cds-font-weight-medium)}
+.ngx-rail-sub{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);line-height:1.4}
+.ngx-rail-status{font-weight:var(--cds-font-weight-medium)}
+.ngx-rail.is-met .ngx-rail-status{color:var(--color-ok)}
+.ngx-rail.is-waiting .ngx-rail-status{color:var(--color-warn)}
+.ngx-rail.is-none .ngx-rail-status{color:var(--ngx-muted);font-weight:400}
+.ngx-rail-viz{min-width:0;min-height:56px;display:flex;align-items:center}
+.ngx-rail-viz svg{display:block;overflow:visible}
+.ngx-key-buy{display:inline-block;width:8px;height:8px;margin-right:.35rem;background:var(--color-fg);transform:rotate(45deg)}
+.ngx-rail-none{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);border-top:1px dashed var(--color-border-line);padding-top:var(--cds-pad-xs);width:100%}
+.ngx-empty{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);padding:var(--cds-pad-lg) 0}
+
+.ngx-scroll{overflow-x:auto}
+.ngx-scroll,.ngx-hold,.ngx-tabs{scrollbar-width:thin;scrollbar-color:var(--cds-alpha-3) transparent}
+.ngx-table{width:100%;border-collapse:collapse;font-size:var(--cds-font-size-body)}
+.ngx-table th{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);font-weight:400;text-align:left;padding:var(--cds-pad-xs) var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line);white-space:nowrap}
+.ngx-table td{padding:var(--cds-pad-sm);border-bottom:1px solid var(--color-border-line);vertical-align:middle}
+.ngx-table tr:last-child td{border-bottom:0}
+.ngx-table .n{text-align:right;white-space:nowrap}
+.ngx-table th.n{text-align:right}
+.ngx-table th button{all:unset;cursor:pointer;border-radius:4px}
+.ngx-table th button:hover{color:var(--color-fg)}
+.ngx-table th button:focus-visible{outline:2px solid var(--color-fg);outline-offset:2px}
+.ngx-table th[aria-sort] button{color:var(--color-fg)}
+.ngx-table th[aria-sort=ascending] button::after{content:" ↑"}
+.ngx-table th[aria-sort=descending] button::after{content:" ↓"}
+.ngx-table tbody tr:hover td{background:color-mix(in srgb,var(--color-fg) 4%,transparent)}
+.ngx-hold{max-height:36rem;overflow:auto}
+.ngx-hold th{position:sticky;top:0;background:var(--color-panel);z-index:1}
+.ngx-link{cursor:pointer}
+.ngx-link .ngx-tk{text-decoration:underline;text-decoration-color:var(--color-border-line);text-underline-offset:3px}
+.ngx-link:focus-visible{outline:2px solid var(--color-fg);outline-offset:-2px}
+.ngx-pick{display:inline-flex;align-items:center;gap:var(--cds-gap-sm);font-size:var(--cds-font-size-caption);color:var(--ngx-muted);justify-self:start}
+.ngx-pick select{font:inherit;font-size:var(--cds-font-size-body);color:var(--color-fg);background:var(--ngx-field);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-xs) var(--cds-pad-sm);max-width:100%}
+.ngx-pick select:focus-visible{outline:2px solid var(--color-fg);outline-offset:1px}
+.ngx-tk{font-weight:var(--cds-font-weight-medium)}
+.ngx-bar{display:flex;align-items:center;justify-content:flex-end;gap:var(--cds-gap-sm)}
+.ngx-bar i{display:block;height:6px;border-radius:3px;background:light-dark(var(--cds-gray-300),var(--cds-gray-550))}
+.ngx-pl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:var(--cds-gap-lg) var(--cds-gap-xl)}
+.ngx-pl .ngx-fig-num{font-size:var(--cds-font-size-heading);font-family:var(--font-anthropic-serif)}
+.ngx h3{font-size:var(--cds-font-size-body);font-weight:var(--cds-font-weight-medium);margin:0}
+.ngx-detail{display:grid;gap:var(--cds-gap-xl)}
+.ngx-detail-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--cds-gap-sm) var(--cds-gap-lg)}
+.ngx-detail-head h2{font-family:var(--font-anthropic-serif);font-weight:400;font-size:var(--cds-font-size-title)}
+.ngx-detail-sub{font-size:var(--cds-font-size-caption);color:var(--ngx-muted)}
+.ngx-detail-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(min(100%,16rem),1fr);gap:var(--cds-gap-xl)}
+.ngx-pchart{position:relative;min-height:290px}
+.ngx-pchart svg{display:block;overflow:visible}
+.ngx-tip{position:absolute;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);white-space:nowrap;z-index:3}
+.ngx-tip .d{color:var(--cds-text-secondary)}
+.ngx-facts{display:grid;grid-template-columns:auto 1fr;gap:var(--cds-gap-sm) var(--cds-gap-md);margin:0;align-content:start;min-height:12rem}
+.ngx-facts dt{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);align-self:baseline}
+.ngx-facts dd{margin:0;text-align:right;align-self:baseline}
+.ngx-facts dd small{display:block;font-size:var(--cds-font-size-caption);color:var(--ngx-muted)}
+.ngx-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--cds-gap-lg);min-height:8rem}
+.ngx-metric{display:grid;gap:var(--cds-gap-xs);align-content:start}
+.ngx-metric-name{font-size:var(--cds-font-size-caption);color:var(--ngx-muted)}
+.ngx-chg{font-size:var(--cds-font-size-caption)}
+@container (max-width: 44rem){.ngx-detail-grid{grid-template-columns:1fr}}
+.ngx-search{font:inherit;font-size:var(--cds-font-size-body);color:var(--color-fg);background:var(--ngx-field);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:var(--cds-pad-xs) var(--cds-pad-sm);min-width:min(100%,18rem);caret-color:var(--color-fg)}
+.ngx-search::placeholder{color:var(--ngx-muted)}
+.ngx-search:focus-visible{outline:2px solid var(--color-fg);outline-offset:1px}
+
+.ngx-hbars{display:grid;gap:var(--cds-gap-sm);min-height:16rem;align-content:start}
+.ngx-hrow{display:grid;grid-template-columns:minmax(6.5rem,9rem) minmax(0,1fr) auto;gap:var(--cds-gap-sm);align-items:center;font-size:var(--cds-font-size-caption)}
+.ngx-hrow-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ngx-htrack{display:grid;gap:3px}
+.ngx-htrack i{display:block;border-radius:3px;min-width:2px}
+.ngx-htrack i.now{height:10px}
+.ngx-htrack i.after{height:4px}
+.ngx-hval{text-align:right;color:var(--ngx-muted);white-space:nowrap}
+.ngx-hval b{color:var(--color-fg);font-weight:var(--cds-font-weight-medium)}
+
+.ngx-fail{display:flex;align-items:center;justify-content:center;gap:var(--cds-gap-xs);color:var(--ngx-muted);font-size:var(--cds-font-size-caption);width:100%;min-height:inherit}
+.ngx-fail i{width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+.ngx [data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+.ngx [data-dash-source-state=empty]{color:transparent}
+.ngx-dbars{position:relative;min-height:12rem}
+.ngx-dbars svg{display:block;overflow:visible}
+.ngx-tx td.ngx-sub{color:var(--ngx-muted);font-size:var(--cds-font-size-caption)}
+.ngx-done td{color:var(--ngx-muted)}
+.ngx-done td.ngx-tk{color:var(--color-fg)}
+.ngx-st-done{color:var(--color-ok);white-space:nowrap}
+.ngx-tick{display:inline-block;width:.5rem;height:.85rem;margin-right:.45rem;border:solid currentColor;border-width:0 2px 2px 0;transform:translateY(-2px) rotate(45deg)}
+.ngx-sub-n{color:var(--ngx-muted)}
+.ngx-foot{font-size:var(--cds-font-size-caption);color:var(--ngx-muted);border-top:1px solid var(--color-border-line);padding-top:var(--cds-pad-md);margin:var(--cds-gap-lg) 0 0;line-height:1.5;max-width:80ch}
+@media (prefers-reduced-motion: reduce){.ngx-tab{transition:none}}
+@container (max-width: 44rem){
+  .ngx-rail{grid-template-columns:1fr auto;gap:var(--cds-gap-sm) var(--cds-gap-md)}
+  .ngx-rail-viz{grid-column:1 / -1;order:3}
+  .ngx-rail-read{text-align:right}
+  .ngx-table .opt{display:none}
+}
+</style>
+
+<div class="ngx">
+  <header class="ngx-head" id="top">
+    <h1>My NGX portfolio</h1>
+    <p class="ngx-take">Your portfolio value is <b class="dash-skeleton" data-source="summary" data-field="value" data-row="0">—</b>. Your total <span class="ngx-dir">profit</span> is <b class="dash-skeleton" data-source="summary" data-field="gain" data-row="0">—</b>. <b class="dash-skeleton" data-source="pick_count" data-field="met" data-row="0">—</b> of the <b class="dash-skeleton" data-source="pick_count" data-field="total" data-row="0">—</b> webinar stocks meet the entry rule at the last closing price.</p>
+    <p class="ngx-note">The prices are the closing prices on <span class="dash-skeleton" data-source="prices" data-field="as_of" data-row="0">—</span>. The figures include all your accounts.</p>
+  </header>
+
+  <nav class="ngx-tabs" role="tablist" aria-label="Dashboard sections">
+    <button class="ngx-tab" role="tab" id="tab-overview" aria-controls="overview" aria-selected="true">Summary</button>
+    <button class="ngx-tab" role="tab" id="tab-watch" aria-controls="watch" aria-selected="false" tabindex="-1">Watchlist</button>
+    <button class="ngx-tab" role="tab" id="tab-daily" aria-controls="daily" aria-selected="false" tabindex="-1">Day on day</button>
+    <button class="ngx-tab" role="tab" id="tab-picks" aria-controls="picks" aria-selected="false" tabindex="-1">Webinar stocks</button>
+    <button class="ngx-tab" role="tab" id="tab-plan" aria-controls="plan" aria-selected="false" tabindex="-1">₦2.2M plan</button>
+    <button class="ngx-tab" role="tab" id="tab-research" aria-controls="research" aria-selected="false" tabindex="-1">Stock research</button>
+    <button class="ngx-tab" role="tab" id="tab-holdings" aria-controls="holdings" aria-selected="false" tabindex="-1">Holdings</button>
+  </nav>
+
+  <section class="ngx-pane" id="overview" role="tabpanel" aria-labelledby="tab-overview">
+    <div class="ngx-figs ngx-card" id="figures">
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Portfolio value</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="summary" data-field="value" data-row="0">—</div>
+        <div class="ngx-fig-sub">Amount paid: <span class="dash-skeleton" data-source="summary" data-field="cost" data-row="0">—</span></div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Total profit or loss</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="summary" data-field="gain" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="summary" data-field="gain_pct" data-row="0">—</span> of the amount paid</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Change on the last trading day</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="summary" data-field="day_change" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="summary" data-field="day_change_pct" data-row="0">—</span> change</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Largest holding</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="summary" data-field="top_name" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="summary" data-field="top_weight" data-row="0">—</span> of the portfolio value</div>
+      </div>
+    </div>
+    <div class="ngx-two">
+      <div class="ngx-block ngx-card" id="overview-sectors">
+        <div class="ngx-block-head">
+          <h2>Value by sector</h2>
+          <p class="ngx-note">This chart shows the percentage of the portfolio value in each sector.</p>
+        </div>
+        <div class="ngx-hbars dash-skeleton" id="sector-now" data-source="sector_mix"></div>
+      </div>
+      <div class="ngx-block ngx-card" id="overview-top">
+        <div class="ngx-block-head">
+          <h2>Largest holdings</h2>
+          <p class="ngx-note">This chart shows your eight largest holdings and the return on each holding.</p>
+        </div>
+        <div class="ngx-hbars dash-skeleton" id="top-positions" data-source="positions"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ngx-pane" id="watch" role="tabpanel" aria-labelledby="tab-watch" hidden>
+    <div class="ngx-block-head">
+      <h2 id="watch-title">Watchlist: decide by Wednesday 11 Nov</h2>
+      <p class="ngx-note">Your six biggest losers plus Presco. Each loser's trigger is its lowest close in the two weeks to 6 Nov; Presco's is your average cost. A close below the trigger means the selling is continuing. The status uses the last closing price, so it changes only when you ask Claude for a price update.</p>
+    </div>
+    <div class="ngx-figs ngx-card" id="watch-figs">
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Closed below trigger</div>
+        <div class="ngx-fig-num ngx-bad dash-skeleton" data-source="watch_summary" data-field="below" data-row="0">—</div>
+        <div class="ngx-fig-sub">of <span class="dash-skeleton" data-source="watch_summary" data-field="count" data-row="0">—</span> stocks watched</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Within 5% of trigger</div>
+        <div class="ngx-fig-num ngx-wait dash-skeleton" data-source="watch_summary" data-field="near" data-row="0">—</div>
+        <div class="ngx-fig-sub">stocks</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Value of the six losers</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="watch_summary" data-field="losers_value" data-row="0">—</div>
+        <div class="ngx-fig-sub">Loss so far: <span class="ngx-bad dash-skeleton" data-source="watch_summary" data-field="losers_gain" data-row="0">—</span></div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Presco above your cost</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="watch" data-field="gap" data-where="ticker=PRESCO">—</div>
+        <div class="ngx-fig-sub">room before the gain is gone</div>
+      </div>
+    </div>
+    <div class="ngx-scroll">
+      <table class="ngx-table" id="watch-table" data-source="watch" data-row-key="ticker">
+        <thead><tr>
+          <th data-field="ticker">Stock</th>
+          <th data-field="price" class="n">Last close</th>
+          <th data-field="trigger" class="n">Trigger</th>
+          <th data-field="gap" class="n">Above trigger</th>
+          <th data-field="chg_since" class="n opt">Since 23 Oct</th>
+          <th data-field="gain" class="n opt">Profit / loss</th>
+          <th data-field="status">Status</th>
+          <th data-field="note" class="opt">What to watch</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ngx-pane" id="daily" role="tabpanel" aria-labelledby="tab-daily" hidden>
+    <div class="ngx-block-head">
+      <h2 id="daily-title">How the portfolio changed on <span class="dash-skeleton" data-source="day_summary" data-field="date_label" data-row="0">—</span></h2>
+      <p class="ngx-note">The day's profit or loss counts only price moves. Money you put in to buy shares is shown apart, so a buy does not look like a gain.</p>
+    </div>
+    <div class="ngx-figs ngx-card" id="daily-figures">
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Value at the previous close</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="day_summary" data-field="prev_value" data-row="0">—</div>
+        <div class="ngx-fig-sub">Holdings before the day's trades</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">New money invested</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="day_summary" data-field="cash_in" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="day_summary" data-field="trades" data-row="0">—</span> contracts, fees included</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Profit or loss for the day</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="day_summary" data-field="day_pl" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="day_summary" data-field="day_pl_pct" data-row="0">—</span> of the money at work</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Value at this close</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="day_summary" data-field="value" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="day_summary" data-field="value_diff" data-row="0">—</span> from the previous close</div>
+      </div>
+    </div>
+    <div class="ngx-pl ngx-card" id="daily-split">
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Price moves on shares you already held</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="day_summary" data-field="move_old" data-row="0">—</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">The day's buys, at the closing price</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="day_summary" data-field="move_new" data-row="0">—</div>
+      </div>
+    </div>
+    <div class="ngx-two">
+      <div class="ngx-block ngx-card" id="daily-history">
+        <div class="ngx-block-head">
+          <h2>Daily log</h2>
+          <p class="ngx-note">One line for each trading day. Claude adds a line each time you ask for the day's update.</p>
+        </div>
+        <div class="ngx-dbars dash-skeleton" id="daily-chart" data-source="daily"></div>
+        <div class="ngx-scroll">
+          <table class="ngx-table" id="daily-table" data-source="daily" data-row-key="date">
+            <thead><tr>
+              <th data-field="date">Date</th>
+              <th data-field="value" class="n">Value</th>
+              <th data-field="cash_in" class="n opt">New money</th>
+              <th data-field="day_pl" class="n">Day profit / loss</th>
+              <th data-field="day_pl_pct" class="n">Day %</th>
+              <th data-field="gain" class="n opt">Total profit</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="ngx-block ngx-card" id="daily-movers">
+        <div class="ngx-block-head">
+          <h2>What moved</h2>
+          <p class="ngx-note">Each holding's profit or loss for the day, largest first. Holdings with no change are left out.</p>
+        </div>
+        <div class="ngx-scroll">
+          <table class="ngx-table" id="movers-table" data-source="positions" data-row-key="ticker">
+            <thead><tr>
+              <th data-field="ticker">Ticker</th>
+              <th data-field="prev_close" class="n opt">Previous close</th>
+              <th data-field="price" class="n opt">Close</th>
+              <th data-field="chg_1d_pct" class="n">Change</th>
+              <th data-field="day_pl" class="n">Day profit / loss</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="ngx-block ngx-card" id="daily-trades">
+      <div class="ngx-block-head">
+        <h2>Transactions</h2>
+        <p class="ngx-note">Every contract note you have sent. The total includes commission, VAT, SEC fees and stamp duty.</p>
+      </div>
+      <div class="ngx-scroll">
+        <table class="ngx-table ngx-tx" id="tx-table" data-source="transactions" data-row-key="id">
+          <thead><tr>
+            <th data-field="date">Date</th>
+            <th data-field="id" class="opt">Contract</th>
+            <th data-field="broker" class="opt">Broker</th>
+            <th data-field="side" class="opt">Side</th>
+            <th data-field="ticker">Ticker</th>
+            <th data-field="units" class="n">Units</th>
+            <th data-field="price" class="n opt">Price</th>
+            <th data-field="fees" class="n opt">Fees</th>
+            <th data-field="total" class="n">Total</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="ngx-pane" id="picks" role="tabpanel" aria-labelledby="tab-picks" hidden>
+    <div class="ngx-block-head">
+      <p class="ngx-note">Each line shows the important prices for one stock. The dot shows the last closing price. The shaded part shows where the entry rule is met. The tick shows the entry level. The ring shows the fair value or the target price. The diamond shows your average buy price. A “Bought” tag shows the buys from your contract notes: what you paid, fees included, and what those shares are worth now.</p>
+    </div>
+    <div class="ngx-toolbar">
+      <div class="ngx-seg" role="group" aria-label="Show stocks">
+        <button data-show="all" aria-pressed="true">All</button>
+        <button data-show="met" aria-pressed="false">Rule met</button>
+        <button data-show="waiting" aria-pressed="false">Rule not met</button>
+        <button data-show="none" aria-pressed="false">No entry level</button>
+        <button data-show="bought" aria-pressed="false">Bought</button>
+      </div>
+      <div class="ngx-legend" aria-hidden="true">
+        <span><span class="ngx-key-dot"></span>Rule met</span>
+        <span><span class="ngx-key-dot w"></span>Rule not met</span>
+        <span><span class="ngx-key-zone ngx-k-zone"></span>Entry zone</span>
+        <span><span class="ngx-key-tick"></span>Entry level</span>
+        <span><span class="ngx-key-ring"></span>Fair value or target price</span>
+        <span><span class="ngx-key-buy"></span>Your average buy price</span>
+      </div>
+    </div>
+    <div class="ngx-panel">
+      <div class="ngx-rails dash-skeleton" id="picks-rails" data-source="picks"></div>
+    </div>
+  </section>
+
+  <section class="ngx-pane" id="plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+    <p class="ngx-note">This plan is an example from our conversation. It is not a recommendation. A line changes to “Bought” when a contract note for that stock arrives, and a conditional order changes to “Trigger reached” when a closing price is above the trigger level.</p>
+    <div class="ngx-figs ngx-card" id="plan-figures">
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Spent so far</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="plan_progress" data-field="spent" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="plan_progress" data-field="spent_pct" data-row="0">—</span> of <span class="dash-skeleton" data-source="plan_progress" data-field="amount" data-row="0">—</span>, fees included</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Left to invest</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="plan_progress" data-field="left" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="plan_progress" data-field="done" data-row="0">—</span> of <span class="dash-skeleton" data-source="plan_progress" data-field="lines" data-row="0">—</span> lines done</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Ready to buy now</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="plan_progress" data-field="ready_amount" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="plan_progress" data-field="ready_lines" data-row="0">—</span> line(s) with no trigger, incl. what is left of part-bought lines</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Waiting on a trigger</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="plan_progress" data-field="waiting_lines" data-row="0">—</div>
+        <div class="ngx-fig-sub">Price still below the trigger level</div>
+      </div>
+    </div>
+    <div class="ngx-two">
+      <div class="ngx-block" id="plan-orders">
+        <h2>Orders</h2>
+        <div class="ngx-panel ngx-scroll">
+          <table class="ngx-table" id="plan-table" data-source="plan_rows" data-row-key="ticker">
+            <thead><tr>
+              <th data-field="name">Stock</th>
+              <th data-field="action" class="opt">Action</th>
+              <th data-field="amount" class="n opt">Planned</th>
+              <th data-field="spent" class="n">Spent</th>
+              <th data-field="left" class="n">Left</th>
+              <th data-field="buy_price" class="n opt">Price</th>
+              <th data-field="units" class="n opt">Units</th>
+              <th data-field="gain_now" class="n">Gain now</th>
+              <th data-field="status">Status</th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="ngx-block ngx-card" id="plan-sectors">
+        <h2>Value by sector, now and after the rest of the plan</h2>
+        <div class="ngx-legend" aria-hidden="true">
+          <span><span class="ngx-key-zone ngx-k-now"></span>Now</span>
+          <span><span class="ngx-key-zone ngx-k-after"></span>After what is left</span>
+        </div>
+        <div class="ngx-hbars dash-skeleton" id="sector-chart" data-source="sector_mix"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ngx-pane" id="research" role="tabpanel" aria-labelledby="tab-research" hidden>
+  <div class="ngx-block" id="stock-detail">
+    <div class="ngx-block-head">
+      <h2>Stock details</h2>
+      <p class="ngx-note">Select a stock to see its price, its key figures and its results. You can also select a row in the Holdings table. The price chart has only a small number of points now. Claude adds one point each time you ask for a price update.</p>
+    </div>
+    <label class="ngx-pick">Stock <select id="stock-picker" data-source="stock_facts"></select></label>
+    <div class="ngx-panel ngx-detail">
+      <div class="ngx-detail-head">
+        <h2 id="detail-name">—</h2>
+        <span class="ngx-detail-sub" id="detail-sub"></span>
+      </div>
+      <div class="ngx-detail-grid">
+        <div class="ngx-block" id="detail-price">
+          <h3>Price and volume</h3>
+          <div class="ngx-pchart dash-skeleton" id="price-chart" data-source="price_history webinar"></div>
+          <p class="ngx-note">A solid dot is a reported closing price. A hollow dot is a price calculated from a 7-day change. A dashed line shows a webinar level. Volume bars show only for days with a known volume.</p>
+        </div>
+        <div class="ngx-block" id="detail-facts-block">
+          <h3>Key figures</h3>
+          <dl class="ngx-facts dash-skeleton" id="detail-facts" data-source="detail_facts"></dl>
+        </div>
+      </div>
+      <div class="ngx-block" id="detail-results">
+        <h3>Results for the same period, year on year</h3>
+        <div class="ngx-results dash-skeleton" id="results-chart" data-source="results"></div>
+        <p class="ngx-note" id="results-src"></p>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section class="ngx-pane" id="holdings" role="tabpanel" aria-labelledby="tab-holdings" hidden>
+    <div class="ngx-block ngx-card" id="accounts-block">
+      <div class="ngx-block-head">
+        <h2>Your accounts</h2>
+        <p class="ngx-note">Each brokerage account, the numbers that identify it, and how you confirmed it. Every contract note is checked against this list before it is added.</p>
+      </div>
+      <div class="ngx-check dash-skeleton" id="accounts-check" data-source="account_check"></div>
+      <div class="ngx-scroll">
+        <table class="ngx-table" id="accounts-table" data-source="account_summary" data-row-key="account">
+          <thead><tr>
+            <th data-field="account">Account</th>
+            <th data-field="broker">Broker</th>
+            <th data-field="ids" class="opt">Account numbers</th>
+            <th data-field="stocks" class="n">Stocks</th>
+            <th data-field="value" class="n">Value</th>
+            <th data-field="evidence" class="opt">How it was confirmed</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ngx-pl ngx-card" id="holdings-pl">
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Total profit or loss</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="pl_summary" data-field="net" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="pl_summary" data-field="net_pct" data-row="0">—</span> of the <span class="dash-skeleton" data-source="pl_summary" data-field="cost" data-row="0">—</span> paid</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Holdings with a profit</div>
+        <div class="ngx-fig-num ngx-good dash-skeleton" data-source="pl_summary" data-field="profit" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="pl_summary" data-field="winners" data-row="0">—</span> holdings</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Holdings with a loss</div>
+        <div class="ngx-fig-num ngx-bad dash-skeleton" data-source="pl_summary" data-field="loss" data-row="0">—</div>
+        <div class="ngx-fig-sub"><span class="dash-skeleton" data-source="pl_summary" data-field="losers" data-row="0">—</span> holdings</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Largest profit</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="pl_summary" data-field="best_name" data-row="0">—</div>
+        <div class="ngx-fig-sub ngx-good dash-skeleton" data-source="pl_summary" data-field="best_gain" data-row="0">—</div>
+      </div>
+      <div class="ngx-fig">
+        <div class="ngx-fig-label">Largest loss</div>
+        <div class="ngx-fig-num dash-skeleton" data-source="pl_summary" data-field="worst_name" data-row="0">—</div>
+        <div class="ngx-fig-sub ngx-bad dash-skeleton" data-source="pl_summary" data-field="worst_gain" data-row="0">—</div>
+      </div>
+    </div>
+    <div class="ngx-toolbar">
+      <div class="ngx-seg" id="pl-filter" role="group" aria-label="Show holdings">
+        <button data-pl="all" aria-pressed="true">All</button>
+        <button data-pl="profit" aria-pressed="false">With a profit</button>
+        <button data-pl="loss" aria-pressed="false">With a loss</button>
+      </div>
+      <input class="ngx-search" type="search" placeholder="Type a name, ticker or sector" aria-label="Search holdings">
+    </div>
+    <p class="ngx-note">Profit or loss is the current value minus the amount you paid. Selling fees are not included, so the values can be different from your broker app. Select a column heading to sort the table. Select an underlined ticker to open its research.</p>
+    <div class="ngx-panel">
+      <div class="ngx-hold">
+        <table class="ngx-table" id="holdings-table" data-source="positions" data-row-key="ticker">
+          <thead><tr>
+            <th data-field="ticker"><button data-sort="ticker">Ticker</button></th>
+            <th data-field="name" class="opt"><button data-sort="name">Company</button></th>
+            <th data-field="sector" class="opt"><button data-sort="sector">Sector</button></th>
+            <th data-field="accounts" class="opt"><button data-sort="accounts">Account</button></th>
+            <th data-field="units" class="n opt"><button data-sort="units">Units</button></th>
+            <th data-field="avg_cost" class="n opt"><button data-sort="avg_cost">Average cost</button></th>
+            <th data-field="price" class="n opt"><button data-sort="price">Price</button></th>
+            <th data-field="cost" class="n opt"><button data-sort="cost">Paid</button></th>
+            <th data-field="value" class="n"><button data-sort="value">Value</button></th>
+            <th data-field="gain" class="n"><button data-sort="gain">Profit / loss</button></th>
+            <th data-field="gain_pct" class="n"><button data-sort="gain_pct">Return</button></th>
+            <th data-field="weight" class="n opt"><button data-sort="weight">Portfolio %</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="ngx-foot">Source of prices: Kobo Terminal NGX closing prices. Transactions come from the contract notes you sent. Source of entry levels and fair values: GlobFolio monthly webinar slides and CoachOge DCF sheets. The NGX Group levels come from a small slide image, so make sure that they are correct. Claude made the sector groups. This information helps you make your decision. It is not financial advice.</p>
+</div>
+
+<script>
+dash.calc('positions', {
+  title: 'Combined positions',
+  description: 'Your holdings from all your accounts, combined by ticker, with the broker of each account. The value uses the last closing price. The day profit or loss separates shares bought that day.',
+  inputs: ['holdings', 'prices', 'transactions', 'accounts'],
+  fn: (holdings, prices, transactions, accounts) => {
+    const px = new Map(prices.map((p) => [p.ticker, p]));
+    const brk = new Map(accounts.map((a) => [a.account, a.short]));
+    const asOf = prices.length ? prices[0].as_of : null;
+    const today = new Map();
+    for (const t of transactions) {
+      if (t.date !== asOf) continue;
+      const k = today.get(t.ticker) || { units: 0, total: 0 };
+      const sgn = t.side === 'Sell' ? -1 : 1;
+      k.units += sgn * Number(t.units); k.total += sgn * Number(t.total);
+      today.set(t.ticker, k);
+    }
+    const by = new Map();
+    for (const h of holdings) {
+      const r = by.get(h.ticker) || { ticker: h.ticker, name: h.name, sector: h.sector, accounts: [], units: 0, cost: 0 };
+      r.accounts.push(brk.get(h.account) || h.account);
+      r.units += Number(h.units);
+      r.cost += Number(h.units) * Number(h.unit_cost);
+      by.set(h.ticker, r);
+    }
+    const rows = [...by.values()].map((r) => {
+      const p = px.get(r.ticker);
+      const price = p ? Number(p.price) : null;
+      const value = price == null ? 0 : Math.round(r.units * price * 100) / 100;
+      const cost = Math.round(r.cost * 100) / 100;
+      return {
+        ticker: r.ticker, name: r.name, sector: r.sector, accounts: r.accounts.join(' + '),
+        units: r.units, avg_cost: Math.round((r.cost / r.units) * 100) / 100, cost, price, value,
+        gain: Math.round((value - cost) * 100) / 100, gain_pct: (value - cost) / cost,
+        chg_1d_pct: p ? Number(p.chg_1d_pct) : 0,
+        ...(() => {
+          const b = today.get(r.ticker) || { units: 0, total: 0 };
+          const prevClose = p ? Number(p.prev_close ?? price / (1 + Number(p.chg_1d_pct) / 100)) : null;
+          const held = r.units - b.units;
+          const moveOld = price == null ? 0 : held * (price - prevClose);
+          const moveNew = price == null ? 0 : b.units * price - b.total;
+          return {
+            prev_close: prevClose, units_prev: held, prev_value: Math.round(held * (prevClose || 0) * 100) / 100,
+            bought_units: b.units, bought_total: Math.round(b.total * 100) / 100,
+            move_old: Math.round(moveOld * 100) / 100, move_new: Math.round(moveNew * 100) / 100,
+            day_pl: Math.round((moveOld + moveNew) * 100) / 100,
+          };
+        })(),
+      };
+    });
+    const total = rows.reduce((a, r) => a + r.value, 0);
+    return rows.map((r) => ({ ...r, weight: r.value / total })).sort((a, b) => b.value - a.value);
+  },
+});
+
+dash.calc('account_summary', {
+  title: 'Accounts register',
+  description: 'Each brokerage account with its identifiers, number of stocks and value at the last close.',
+  inputs: ['accounts', 'holdings', 'prices'],
+  fn: (accounts, holdings, prices) => {
+    const px = new Map(prices.map((p) => [p.ticker, Number(p.price)]));
+    return accounts.map((a) => {
+      const hs = holdings.filter((h) => h.account === a.account);
+      const value = hs.reduce((s, h) => s + Number(h.units) * (px.get(h.ticker) || 0), 0);
+      const ids = [a.broker_account && 'A/C ' + a.broker_account, a.customer_no && 'Customer ' + a.customer_no, a.cscs && 'CSCS ' + a.cscs].filter(Boolean).join(', ');
+      return { account: a.account, broker: a.broker, short: a.short, ids: ids || 'Not known yet', stocks: hs.length, value: Math.round(value * 100) / 100, evidence: a.evidence, note: a.note, confirmed: a.confirmed };
+    });
+  },
+});
+
+dash.calc('account_check', {
+  title: 'Account checks',
+  description: 'Problems found when matching holdings and contract notes to the accounts register. No rows means everything matches.',
+  inputs: ['accounts', 'holdings', 'transactions'],
+  fn: (accounts, holdings, transactions) => {
+    const reg = new Map(accounts.map((a) => [a.account, a]));
+    const norm = (x) => String(x || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const issues = [];
+    for (const h of holdings) if (!reg.has(h.account)) issues.push({ kind: 'holding', ref: h.id, text: h.ticker + ' is filed under ' + h.account + ', which is not in the accounts register.' });
+    for (const t of transactions) {
+      const a = reg.get(t.account);
+      if (!a) { issues.push({ kind: 'note', ref: t.id, text: 'Contract ' + t.id + ' (' + t.ticker + ') is filed under ' + t.account + ', which is not in the accounts register.' }); continue; }
+      const b = norm(t.broker);
+      if (!b || !(norm(a.broker).includes(b) || b.includes(norm(a.short)))) issues.push({ kind: 'note', ref: t.id, text: 'Contract ' + t.id + ' is from ' + (t.broker || 'an unknown broker') + ' but is filed under ' + t.account + ' (' + a.broker + ').' });
+      if (t.side === 'Buy' && !holdings.some((h) => h.account === t.account && h.ticker === t.ticker)) issues.push({ kind: 'note', ref: t.id, text: 'Contract ' + t.id + ' bought ' + t.ticker + ', but ' + a.short + ' has no ' + t.ticker + ' holding.' });
+    }
+    return issues;
+  },
+});
+
+dash.calc('summary', {
+  title: 'Portfolio totals',
+  description: 'The total value, amount paid, profit and daily change of the portfolio.',
+  inputs: ['positions'],
+  fn: (positions) => {
+    const value = positions.reduce((a, p) => a + p.value, 0);
+    const cost = positions.reduce((a, p) => a + p.cost, 0);
+    const prev = positions.reduce((a, p) => a + p.prev_value + p.bought_total, 0);
+    const dayPl = positions.reduce((a, p) => a + p.day_pl, 0);
+    const top = positions[0];
+    return [{
+      value: Math.round(value * 100) / 100, cost: Math.round(cost * 100) / 100,
+      gain: Math.round((value - cost) * 100) / 100, gain_pct: (value - cost) / cost,
+      day_change: Math.round(dayPl * 100) / 100, day_change_pct: dayPl / prev,
+      holdings: positions.length, top_name: top.name, top_weight: top.weight,
+    }];
+  },
+});
+
+dash.calc('day_summary', {
+  title: 'Day on day',
+  description: 'The value at the previous close, new money, and the day profit or loss, split into old holdings and the day\'s buys.',
+  inputs: ['positions', 'transactions', 'prices'],
+  fn: (positions, transactions, prices) => {
+    const asOf = prices.length ? prices[0].as_of : null;
+    const r2 = (v) => Math.round(v * 100) / 100;
+    const sum = (k) => positions.reduce((a, p) => a + p[k], 0);
+    const prev = sum('prev_value'), cash = sum('bought_total'), value = sum('value');
+    const moveOld = sum('move_old'), moveNew = sum('move_new');
+    const d = new Date(asOf + 'T00:00:00Z');
+    return [{
+      date: asOf, date_label: d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }),
+      prev_value: r2(prev), cash_in: r2(cash), trades: transactions.filter((t) => t.date === asOf).length,
+      move_old: r2(moveOld), move_new: r2(moveNew), day_pl: r2(moveOld + moveNew), day_pl_pct: (moveOld + moveNew) / (prev + cash),
+      value: r2(value), value_diff: r2(value - prev),
+    }];
+  },
+});
+
+dash.calc('picks', {
+  title: 'Webinar stocks and prices',
+  description: 'Each webinar stock, compared with its entry rule at the last closing price, with your buys of it from the contract notes (paid includes fees).',
+  inputs: ['webinar', 'prices', 'positions', 'transactions'],
+  fn: (webinar, prices, positions, transactions) => {
+    const px = new Map(prices.map((p) => [p.ticker, p]));
+    const held = new Map(positions.map((p) => [p.ticker, p.value]));
+    const buys = (tk) => transactions.filter((t) => t.ticker === tk && t.side === 'Buy');
+    return webinar.map((w) => {
+      const p = px.get(w.ticker);
+      const price = p ? Number(p.price) : null;
+      let state = 'none', status = 'No entry level', gap = null;
+      if (w.rule === 'buy_below') { const met = price <= w.level; state = met ? 'met' : 'waiting'; status = met ? 'Below the buy-below level' : 'Above the buy-below level'; gap = met ? null : w.level / price - 1; }
+      if (w.rule === 'above') { const met = price > w.level; state = met ? 'met' : 'waiting'; status = met ? 'Above the trigger level' : 'Below the trigger level'; gap = met ? null : w.level / price - 1; }
+      if (w.rule === 'buy_stop') { const met = price >= w.level; state = met ? 'met' : 'waiting'; status = met ? 'Buy stop is triggered' : 'Buy stop is not triggered'; gap = met ? null : w.level / price - 1; }
+      if (w.rule === 'target') { const met = price < w.target; state = met ? 'met' : 'waiting'; status = met ? 'Below the target price' : 'At or above the target price'; }
+      const goal = w.fair_value ?? w.target;
+      const b = buys(w.ticker);
+      const bu = b.reduce((a, t) => a + Number(t.units), 0);
+      const paid = Math.round(b.reduce((a, t) => a + Number(t.total), 0) * 100) / 100;
+      const bGross = b.reduce((a, t) => a + Number(t.gross), 0);
+      const worth = bu && price ? Math.round(bu * price * 100) / 100 : null;
+      return {
+        bought_units: bu, bought_avg: bu ? Math.round((bGross / bu) * 100) / 100 : null, bought_paid: paid,
+        bought_on: b.length ? b.map((t) => t.date).sort().pop() : null, bought_worth: worth,
+        bought_gain: worth != null ? Math.round((worth - paid) * 100) / 100 : null, bought_gain_pct: worth != null && paid ? worth / paid - 1 : null,
+        ticker: w.ticker, name: w.name, sector: w.sector, rule: w.rule, note: w.note, price,
+        chg_7d_pct: p ? Number(p.chg_7d_pct) : null, level: w.level, level_high: w.level_high,
+        fair_value: w.fair_value, target: w.target, state, status, gap_to_trigger: gap,
+        upside: goal != null && price ? goal / price - 1 : null, held_value: held.get(w.ticker) || 0,
+      };
+    });
+  },
+});
+
+dash.calc('pl_summary', {
+  title: 'Profit and loss',
+  description: 'The total profit or loss, and the holdings with a profit or a loss.',
+  inputs: ['positions'],
+  fn: (positions) => {
+    const win = positions.filter((p) => p.gain > 0), lose = positions.filter((p) => p.gain < 0);
+    const sum = (a) => Math.round(a.reduce((t, p) => t + p.gain, 0) * 100) / 100;
+    const cost = positions.reduce((t, p) => t + p.cost, 0);
+    const net = sum(positions);
+    const best = [...positions].sort((a, b) => b.gain - a.gain)[0];
+    const worst = [...positions].sort((a, b) => a.gain - b.gain)[0];
+    return [{
+      net, net_pct: net / cost, cost: Math.round(cost * 100) / 100,
+      profit: sum(win), winners: win.length, loss: sum(lose), losers: lose.length,
+      best_name: best.name, best_gain: best.gain, worst_name: worst.name, worst_gain: worst.gain,
+    }];
+  },
+});
+
+dash.calc('pick_count', {
+  title: 'Stocks that meet the rule',
+  description: 'The number of webinar stocks that meet their entry rule.',
+  inputs: ['picks'],
+  fn: (picks) => [{ met: picks.filter((p) => p.state === 'met').length, total: picks.length }],
+});
+
+dash.calc('plan_rows', {
+  title: 'The ₦2.2M plan',
+  description: 'Each plan line, matched with the buys in your contract notes since the plan started. Unbought lines use the last closing price or the trigger level.',
+  inputs: ['plan', 'prices', 'transactions'],
+  fn: (plan, prices, transactions) => {
+    const px = new Map(prices.map((p) => [p.ticker, Number(p.price)]));
+    return plan.map((p) => {
+      const amount = Number(p.amount);
+      const buys = transactions.filter((t) => t.ticker === p.ticker && t.side === 'Buy' && (!p.since || t.date >= p.since));
+      const spent = Math.round(buys.reduce((a, t) => a + Number(t.total), 0) * 100) / 100;
+      const boughtUnits = buys.reduce((a, t) => a + Number(t.units), 0);
+      const gross = buys.reduce((a, t) => a + Number(t.gross), 0);
+      const price = px.get(p.ticker) ?? null;
+      const left = Math.max(0, Math.round((amount - spent) * 100) / 100);
+      const done = spent > 0 && left < amount * 0.05;
+      let status = 'Your decision', ready = null, state = 'open';
+      let buy_price = p.trigger ?? price;
+      let units = buy_price && p.ticker !== 'CASH' ? Math.floor(left / buy_price) : null;
+      if (p.ticker !== 'CASH' && p.trigger == null) { status = 'Ready'; ready = true; }
+      if (p.trigger != null) { ready = price > p.trigger; status = ready ? 'Trigger reached' : 'Trigger not reached'; }
+      if (spent > 0) {
+        buy_price = Math.round((gross / boughtUnits) * 100) / 100; units = boughtUnits;
+        state = done ? 'done' : 'part';
+        status = done ? 'Bought' : 'Partly bought';
+        ready = done ? 'done' : true;
+      }
+      const bought_on = buys.length ? buys.map((t) => t.date).sort().pop() : null;
+      return { ticker: p.ticker, name: p.name, sector: p.sector, action: p.action, amount, spent, left, price, buy_price, units, status, ready, state, bought_on };
+    });
+  },
+});
+
+dash.calc('plan_progress', {
+  title: 'Plan progress',
+  description: 'How much of the plan you have spent, how much is left, and how many lines are done.',
+  inputs: ['plan_rows'],
+  fn: (plan_rows) => {
+    const sum = (k) => Math.round(plan_rows.reduce((a, r) => a + r[k], 0) * 100) / 100;
+    const amount = sum('amount'), spent = sum('spent');
+    const ready = plan_rows.filter((r) => r.state !== 'done' && r.ready === true);
+    return [{
+      amount, spent, left: Math.max(0, Math.round((amount - spent) * 100) / 100), spent_pct: spent / amount,
+      done: plan_rows.filter((r) => r.state === 'done').length, lines: plan_rows.length,
+      ready_lines: ready.length, ready_amount: Math.round(ready.reduce((a, r) => a + r.left, 0) * 100) / 100,
+      waiting_lines: plan_rows.filter((r) => r.state === 'open' && r.ready === false).length,
+    }];
+  },
+});
+
+dash.calc('sector_mix', {
+  title: 'Value by sector',
+  description: 'The percentage of value in each sector now, and after spending what is left of the plan. Lines already bought are in Now.',
+  inputs: ['positions', 'plan_rows'],
+  fn: (positions, plan_rows) => {
+    const now = {}, add = {};
+    for (const p of positions) now[p.sector] = (now[p.sector] || 0) + p.value;
+    for (const p of plan_rows) add[p.sector] = (add[p.sector] || 0) + p.left;
+    const tNow = Object.values(now).reduce((a, b) => a + b, 0);
+    const tAdd = Object.values(add).reduce((a, b) => a + b, 0);
+    const secs = [...new Set([...Object.keys(now), ...Object.keys(add)])];
+    return secs.map((s) => ({
+      sector: s, now_value: now[s] || 0, now_share: (now[s] || 0) / tNow,
+      after_value: (now[s] || 0) + (add[s] || 0), after_share: ((now[s] || 0) + (add[s] || 0)) / (tNow + tAdd),
+    })).sort((a, b) => b.after_value - a.after_value);
+  },
+});
+
+
+dash.calc('detail_facts', {
+  title: 'Key figures per stock',
+  description: 'Market value, annualised earnings per share, price to earnings, dividend and analyst target for each stock in the plan.',
+  inputs: ['stock_facts', 'prices', 'results'],
+  fn: (stock_facts, prices, results) => {
+    const px = new Map(prices.map((p) => [p.ticker, Number(p.price)]));
+    return stock_facts.map((f) => {
+      const price = px.get(f.ticker) ?? null;
+      const latest = results.filter((r) => r.ticker === f.ticker).sort((a, b) => b.seq - a.seq)[0];
+      const factor = latest ? (latest.period.startsWith('Q1') ? 4 : latest.period.startsWith('H1') ? 2 : 1) : null;
+      const annual_eps = latest ? Math.round(latest.eps * factor * 100) / 100 : null;
+      const annual = f.dividend != null && f.dividend_note.startsWith('FY');
+      return {
+        ticker: f.ticker, name: f.name, price,
+        market_cap_bn: price ? Math.round(f.shares_bn * price * 10) / 10 : null,
+        eps_period: latest ? latest.period : null, annual_eps,
+        pe: annual_eps && price ? Math.round((price / annual_eps) * 10) / 10 : null,
+        dividend: f.dividend, dividend_note: f.dividend_note,
+        dividend_yield: annual && price ? f.dividend / price : null,
+        analyst_target: f.analyst_target, target_source: f.target_source,
+        target_upside: f.analyst_target && price ? f.analyst_target / price - 1 : null,
+      };
+    });
+  },
+});
+
+dash.calc('watch', {
+  title: 'Watchlist triggers',
+  description: 'Each watched stock with its last close, its trigger level and whether it closed below it. Presco uses your average cost as the trigger.',
+  inputs: ['watchlist', 'positions', 'price_history'],
+  fn: (watchlist, positions, price_history) => {
+    const pos = new Map(positions.map((p) => [p.ticker, p]));
+    return watchlist.map((w) => {
+      const p = pos.get(w.ticker) || {};
+      const trigger = w.rule === 'cost' ? p.avg_cost : Number(w.trigger);
+      const price = p.price;
+      const base = price_history.filter((h) => h.ticker === w.ticker && h.date <= w.since).sort((a, b) => (a.date < b.date ? 1 : -1))[0];
+      const gap = price != null && trigger ? price / trigger - 1 : null;
+      const status = gap == null ? 'No price' : gap < 0 ? 'Below trigger' : gap < 0.05 ? 'Near trigger' : 'Above trigger';
+      return {
+        ticker: w.ticker, name: p.name || w.ticker, rule: w.rule, price, trigger, gap, status,
+        since_close: base ? Number(base.close) : null, chg_since: base && price != null ? price / Number(base.close) - 1 : null,
+        value: p.value, gain: p.gain, gain_pct: p.gain_pct, note: w.note, decide_by: w.decide_by,
+      };
+    });
+  },
+});
+
+dash.calc('watch_summary', {
+  title: 'Watchlist summary',
+  description: 'How many watched stocks closed below or near their trigger, and the value and loss of the six losers.',
+  inputs: ['watch'],
+  fn: (watch) => {
+    const losers = watch.filter((w) => w.rule !== 'cost');
+    return [{
+      count: watch.length,
+      below: watch.filter((w) => w.status === 'Below trigger').length,
+      near: watch.filter((w) => w.status === 'Near trigger').length,
+      losers_value: losers.reduce((a, w) => a + (w.value || 0), 0),
+      losers_gain: losers.reduce((a, w) => a + (w.gain || 0), 0),
+    }];
+  },
+});
+
+(() => {
+  const root = document.querySelector('.ngx');
+  const n0 = d3.format(',.0f'), n2 = d3.format(',.2f'), p1 = d3.format('.1%');
+  const sign = (v) => (v > 0 ? '+' : v < 0 ? '−' : '');
+  const naira0 = (v) => (v == null || isNaN(v) ? '—' : (v < 0 ? '−' : '') + '₦' + n0(Math.abs(v)));
+  const naira2 = (v) => (v == null || isNaN(v) ? '—' : (v < 0 ? '−' : '') + '₦' + n2(Math.abs(v)));
+  const nairaS = (v) => (v == null || isNaN(v) ? '—' : sign(v) + '₦' + n0(Math.abs(v)));
+  const big = (v) => (Math.abs(v) >= 1e6 ? (v < 0 ? '−' : '') + '₦' + n2(Math.abs(v) / 1e6) + 'M' : naira0(v));
+  const bigS = (v) => sign(v) + big(Math.abs(v));
+  const pct = (v) => (v == null || isNaN(v) ? '—' : p1(v));
+  const pctS = (v) => (v == null || isNaN(v) ? '—' : sign(v) + p1(Math.abs(v)));
+  const dateF = (s) => d3.utcFormat('%a %-d %b %Y')(new Date(s + 'T00:00:00Z'));
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const failLine = () => { const s = el('span', 'ngx-fail'); s.append(el('i'), document.createTextNode('Failed to load')); return s; };
+  const tone = (v) => (v > 0 ? 'ngx-good' : v < 0 ? 'ngx-bad' : '');
+  const ready = (box, d) => {
+    if (d.status === 'ok') { box.classList.remove('dash-skeleton'); return true; }
+    if (d.status === 'error') { box.classList.remove('dash-skeleton'); box.replaceChildren(failLine()); }
+    return false;
+  };
+
+  root.querySelectorAll('.ngx-k-now, .ngx-k-zone').forEach((e) => { e.style.background = dash.colors[0]; });
+  root.querySelectorAll('.ngx-k-now').forEach((e) => { e.style.opacity = 1; });
+  root.querySelectorAll('.ngx-k-after').forEach((e) => { e.style.background = dash.colors[1]; e.style.opacity = 1; });
+
+  /* ---------- tabs ---------- */
+  const tabs = [...root.querySelectorAll('.ngx-tab')];
+  let current = 'overview';
+  function show(id, focus) {
+    current = id;
+    for (const t of tabs) {
+      const on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      root.querySelector('#' + t.getAttribute('aria-controls')).hidden = !on;
+      if (on && focus) t.focus();
+    }
+    dash.setLink(id);
+    draw();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(t.getAttribute('aria-controls')));
+    t.addEventListener('keydown', (e) => {
+      const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); show(tabs[e.key === 'Home' ? 0 : tabs.length - 1].getAttribute('aria-controls'), true); return; }
+      if (!k) return;
+      e.preventDefault();
+      show(tabs[(i + k + tabs.length) % tabs.length].getAttribute('aria-controls'), true);
+    });
+  });
+
+  /* ---------- header ---------- */
+  function fill(sel, source, fmt, cls) {
+    const d = dash.data(source);
+    root.querySelectorAll(sel).forEach((e) => {
+      if (d.status === 'ok') {
+        e.classList.remove('dash-skeleton');
+        const v = d.data[0][e.dataset.field];
+        e.textContent = fmt(v);
+        if (cls) { e.classList.remove('ngx-good', 'ngx-bad'); const c = cls(v); if (c) e.classList.add(c); }
+      } else if (d.status === 'error') { e.classList.remove('dash-skeleton'); e.textContent = '—'; }
+    });
+  }
+  function drawHeader() {
+    const s = dash.data('summary');
+    fill('.ngx-take [data-field="value"]', 'summary', big);
+    fill('.ngx-take [data-field="gain"]', 'summary', (v) => big(Math.abs(v)));
+    if (s.status === 'ok') root.querySelector('.ngx-dir').textContent = s.data[0].gain < 0 ? 'loss' : 'profit';
+    fill('.ngx-take [data-source="pick_count"]', 'pick_count', (v) => String(v));
+    fill('#figures [data-field="value"]', 'summary', big);
+    fill('#figures [data-field="cost"]', 'summary', big);
+    fill('#figures [data-field="gain"]', 'summary', bigS, tone);
+    fill('#figures [data-field="gain_pct"]', 'summary', pctS, tone);
+    fill('#figures [data-field="day_change"]', 'summary', nairaS, tone);
+    fill('#figures [data-field="day_change_pct"]', 'summary', pctS, tone);
+    fill('#figures [data-field="top_name"]', 'summary', (v) => v);
+    fill('#figures [data-field="top_weight"]', 'summary', pct);
+    const p = dash.data('prices');
+    const asof = root.querySelector('[data-source="prices"][data-field="as_of"]');
+    if (p.status === 'ok') { asof.classList.remove('dash-skeleton'); asof.textContent = dateF(p.data[0].as_of); }
+  }
+
+  /* ---------- overview ---------- */
+  function hrow(name, widths, valueNode) {
+    const row = el('div', 'ngx-hrow');
+    const track = el('div', 'ngx-htrack');
+    for (const [w, cls, color] of widths) { const i = el('i', cls); i.style.width = w + '%'; i.style.background = color; track.append(i); }
+    const label = el('div', 'ngx-hrow-name', name); label.title = name;
+    row.append(label, track, valueNode);
+    return row;
+  }
+  function drawSectorNow() {
+    const box = root.querySelector('#sector-now');
+    const d = dash.data('sector_mix');
+    if (!ready(box, d)) return;
+    const rows = d.data.filter((r) => r.now_value > 0).sort((a, b) => b.now_value - a.now_value);
+    const max = Math.max(...rows.map((r) => r.now_share));
+    box.replaceChildren(...rows.map((r) => {
+      const v = el('div', 'ngx-hval'); v.append(el('b', null, pct(r.now_share)), document.createTextNode(' ' + big(r.now_value)));
+      return hrow(r.sector, [[(r.now_share / max) * 100, 'now', dash.colors[0]]], v);
+    }));
+  }
+  function drawTop() {
+    const box = root.querySelector('#top-positions');
+    const d = dash.data('positions');
+    if (!ready(box, d)) return;
+    const rows = [...d.data].sort((a, b) => b.value - a.value).slice(0, 8);
+    const max = rows[0].value;
+    box.replaceChildren(...rows.map((r) => {
+      const v = el('div', 'ngx-hval'); v.append(el('b', null, big(r.value)), document.createTextNode(' '));
+      v.append(el('span', tone(r.gain_pct), pctS(r.gain_pct)));
+      return hrow(r.name, [[(r.value / max) * 100, 'now', 'var(--color-fg-muted)']], v);
+    }));
+  }
+
+  /* ---------- picks ---------- */
+  let pickFilter = 'all';
+  root.querySelectorAll('.ngx-seg button').forEach((b) => b.addEventListener('click', () => {
+    pickFilter = b.dataset.show;
+    root.querySelectorAll('.ngx-seg button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    drawRails();
+  }));
+  const levelLabel = (r) => (r.rule === 'buy_stop' ? '₦' + n0(r.level) + '–' + n0(r.level_high) : '₦' + n2(r.level));
+  function detail(r) {
+    if (r.state === 'waiting' && r.gap_to_trigger != null) return 'Must increase ' + pct(r.gap_to_trigger) + ' to reach ' + naira2(r.level);
+    if (r.upside != null) return (r.target != null ? 'Target price' : 'Fair value') + ' is ' + pct(Math.abs(r.upside)) + (r.upside >= 0 ? ' higher' : ' lower');
+    if (r.state === 'met') return pct(r.price / r.level - 1) + ' above the trigger level';
+    return 'Change in 7 days: ' + pctS(r.chg_7d_pct / 100);
+  }
+  function drawRail(viz, r) {
+    viz.replaceChildren();
+    if (r.rule === 'none') { viz.append(el('div', 'ngx-rail-none', 'Last closing price: ' + naira2(r.price) + '. The presenter gave no entry level.' + (r.bought_avg != null ? ' Your average buy price: ' + naira2(r.bought_avg) + '.' : ''))); return; }
+    const w = Math.max(viz.clientWidth || 0, 180), h = 56, y = 26, pad = 10;
+    const vals = [r.price, r.level, r.level_high, r.fair_value, r.target, r.bought_avg].filter((v) => v != null);
+    const lo = Math.min(...vals) * 0.9, hi = Math.max(...vals) * 1.06;
+    const x = d3.scaleLinear([lo, hi], [pad, w - pad]);
+    const svg = d3.select(viz).append('svg').attr('width', '100%').attr('height', h).attr('viewBox', `0 0 ${w} ${h}`).attr('role', 'img')
+      .attr('aria-label', `${r.name}: last closing price ${naira2(r.price)}, ${r.status.toLowerCase()}`);
+    svg.append('line').attr('x1', pad).attr('x2', w - pad).attr('y1', y).attr('y2', y)
+      .style('stroke', 'var(--cds-chart-grid)').attr('stroke-width', 2).attr('stroke-linecap', 'round');
+    let zone = null;
+    if (r.rule === 'buy_below') zone = [lo, r.level];
+    if (r.rule === 'above' || r.rule === 'buy_stop') zone = [r.level, hi];
+    if (zone) svg.append('rect').attr('x', x(zone[0])).attr('width', Math.max(0, x(zone[1]) - x(zone[0]))).attr('y', y - 3).attr('height', 6).attr('rx', 3)
+      .style('fill', dash.colors[0]).attr('opacity', 0.4);
+    const anchor = (px) => (px < 50 ? 'start' : px > w - 50 ? 'end' : 'middle');
+    const goal = r.fair_value ?? r.target;
+    const lx = r.level != null ? x(r.level) : null, gx = goal != null ? x(goal) : null;
+    const close = lx != null && gx != null && Math.abs(lx - gx) < 90;
+    const cap = (sel) => sel.style('fill', 'var(--ngx-muted)').style('font-size', 'var(--cds-font-size-caption)');
+    if (lx != null) {
+      svg.append('line').attr('x1', lx).attr('x2', lx).attr('y1', y - 9).attr('y2', y + 9).style('stroke', 'var(--cds-chart-reference)').attr('stroke-width', 1.5);
+      cap(svg.append('text').attr('x', close ? lx - 4 : lx).attr('y', y + 24).attr('text-anchor', close ? 'end' : anchor(lx))).text(levelLabel(r));
+    }
+    if (gx != null) {
+      svg.append('circle').attr('cx', gx).attr('cy', y).attr('r', 5).style('fill', 'var(--color-panel)').style('stroke', 'var(--color-fg-muted)').attr('stroke-width', 1.5);
+      cap(svg.append('text').attr('x', close ? gx + 4 : gx).attr('y', y + 24).attr('text-anchor', close ? 'start' : anchor(gx)))
+        .text((r.target != null ? 'Target ₦' : 'Fair value ₦') + n0(goal));
+    }
+    if (r.bought_avg != null) {
+      const bx = x(r.bought_avg);
+      svg.append('rect').attr('x', bx - 4).attr('y', y - 4).attr('width', 8).attr('height', 8)
+        .attr('transform', `rotate(45 ${bx} ${y})`).style('fill', 'var(--color-fg)').style('stroke', 'var(--color-panel)').attr('stroke-width', 1.5);
+    }
+    const px = x(r.price);
+    svg.append('circle').attr('cx', px).attr('cy', y).attr('r', 6).style('fill', r.state === 'met' ? 'var(--color-ok)' : 'var(--color-warn)')
+      .style('stroke', 'var(--color-panel)').attr('stroke-width', 2);
+    svg.append('text').attr('x', px).attr('y', y - 12).attr('text-anchor', anchor(px)).style('fill', 'var(--color-fg)')
+      .style('font-size', 'var(--cds-font-size-caption)').style('font-weight', 500).text(naira2(r.price));
+  }
+  function drawRails() {
+    const box = root.querySelector('#picks-rails');
+    const d = dash.data('picks');
+    if (!ready(box, d)) return;
+    const order = { met: 0, waiting: 1, none: 2 };
+    const rows = d.data.filter((r) => pickFilter === 'all' || (pickFilter === 'bought' ? r.bought_units > 0 : r.state === pickFilter))
+      .sort((a, b) => order[a.state] - order[b.state] || (b.upside ?? -1) - (a.upside ?? -1) || b.held_value - a.held_value);
+    box.replaceChildren();
+    if (!rows.length) { box.append(el('div', 'ngx-empty', 'No stocks are in this group. Select All to see all the stocks.')); return; }
+    for (const r of rows) {
+      const row = el('div', 'ngx-rail is-' + r.state);
+      row.dataset.key = r.ticker;
+      const who = el('div', 'ngx-rail-who');
+      who.append(el('div', 'ngx-rail-name', r.name), el('div', 'ngx-rail-sub', r.ticker + (r.held_value > 0 ? '. You hold ' + naira0(r.held_value) + ' in all accounts.' : '. You do not hold this stock.')));
+      if (r.bought_units > 0) {
+        const tag = el('div', 'ngx-bought'); const i = el('span', 'ngx-tick'); i.setAttribute('aria-hidden', 'true');
+        tag.append(i, document.createTextNode('Bought ' + d3.utcFormat('%-d %b')(new Date(r.bought_on + 'T00:00:00Z'))));
+        const line = el('div', 'ngx-bought-line');
+        line.append(document.createTextNode(n0(r.bought_units) + ' @ ' + naira2(r.bought_avg) + ', paid ' + naira0(r.bought_paid) + '. Now ' + naira0(r.bought_worth) + ', '));
+        line.append(el('span', tone(r.bought_gain), nairaS(r.bought_gain) + ' (' + pctS(r.bought_gain_pct) + ')'));
+        who.append(tag, line);
+      }
+      const viz = el('div', 'ngx-rail-viz');
+      const read = el('div', 'ngx-rail-read');
+      read.append(el('div', 'ngx-rail-status', r.status), el('div', 'ngx-rail-sub', detail(r)));
+      row.append(who, viz, read);
+      box.append(row);
+      drawRail(viz, r);
+    }
+  }
+
+  /* ---------- plan ---------- */
+  function drawPlan() {
+    const t = root.querySelector('#plan-table tbody');
+    const d = dash.data('plan_rows');
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 9; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    const order = { part: 0, open: 1, done: 2 };
+    const rows = [...d.data].sort((a, b) => order[a.state] - order[b.state]);
+    t.replaceChildren(...rows.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.ticker;
+      if (r.state === 'done') tr.classList.add('ngx-done');
+      const st = el('td', r.state === 'done' ? 'ngx-st-done' : r.ready === true ? 'ngx-good' : r.ready === false ? 'ngx-wait' : '');
+      if (r.state === 'done') { const i = el('span', 'ngx-tick'); i.setAttribute('aria-hidden', 'true'); st.append(i); }
+      st.append(document.createTextNode(r.status + (r.bought_on ? ' ' + d3.utcFormat('%-d %b')(new Date(r.bought_on + 'T00:00:00Z')) : '')));
+      const over = r.spent - r.amount;
+      const leftCell = el('td', 'n', r.state === 'done' ? (over > 0.5 ? nairaS(-over).replace('−', '+') + ' over' : '—') : naira0(r.left));
+      if (r.state === 'done') leftCell.classList.add('ngx-sub-n');
+      tr.append(el('td', 'ngx-tk', r.name), el('td', 'opt', r.state === 'done' ? 'Done' : r.action), el('td', 'n opt', naira0(r.amount)),
+        el('td', 'n', r.spent ? naira0(r.spent) : '—'), leftCell,
+        el('td', 'n opt', r.buy_price == null ? '—' : naira2(r.buy_price)), el('td', 'n opt', r.units == null ? '—' : n0(r.units)),
+        el('td', 'n ' + tone(r.gain_now), r.gain_now == null ? '—' : nairaS(r.gain_now)), st);
+      return tr;
+    }));
+  }
+  function drawPlanFigs() {
+    const s = dash.data('plan_progress');
+    root.querySelectorAll('#plan-figures [data-source="plan_progress"]').forEach((e) => {
+      if (s.status === 'ok') {
+        e.classList.remove('dash-skeleton');
+        const f = e.dataset.field, v = s.data[0][f];
+        e.textContent = ({ spent: big, left: big, amount: big, ready_amount: big, spent_pct: pct }[f] || String)(v);
+      } else if (s.status === 'error') { e.classList.remove('dash-skeleton'); e.textContent = '—'; }
+    });
+  }
+  function drawSectorPlan() {
+    const box = root.querySelector('#sector-chart');
+    const d = dash.data('sector_mix');
+    if (!ready(box, d)) return;
+    const max = Math.max(...d.data.map((r) => Math.max(r.now_share, r.after_share)));
+    box.replaceChildren(...d.data.map((r) => {
+      const v = el('div', 'ngx-hval'); v.append(el('b', null, pct(r.now_share)), document.createTextNode(' → ' + pct(r.after_share)));
+      return hrow(r.sector, [[(r.now_share / max) * 100, 'now', dash.colors[0]], [(r.after_share / max) * 100, 'after', dash.colors[1]]], v);
+    }));
+  }
+
+  /* ---------- holdings ---------- */
+  function drawPL() {
+    fill('#holdings-pl [data-field="net"]', 'pl_summary', bigS, tone);
+    fill('#holdings-pl [data-field="net_pct"]', 'pl_summary', pctS, tone);
+    fill('#holdings-pl [data-field="cost"]', 'pl_summary', big);
+    fill('#holdings-pl [data-field="profit"]', 'pl_summary', bigS);
+    fill('#holdings-pl [data-field="loss"]', 'pl_summary', bigS);
+    fill('#holdings-pl [data-field="winners"]', 'pl_summary', String);
+    fill('#holdings-pl [data-field="losers"]', 'pl_summary', String);
+    fill('#holdings-pl [data-field="best_name"]', 'pl_summary', (v) => v);
+    fill('#holdings-pl [data-field="worst_name"]', 'pl_summary', (v) => v);
+    fill('#holdings-pl [data-field="best_gain"]', 'pl_summary', nairaS);
+    fill('#holdings-pl [data-field="worst_gain"]', 'pl_summary', nairaS);
+  }
+  let plFilter = 'all';
+  root.querySelectorAll('#pl-filter button').forEach((b) => b.addEventListener('click', () => {
+    plFilter = b.dataset.pl;
+    root.querySelectorAll('#pl-filter button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    drawHoldings();
+  }));
+  const sortState = { key: 'value', dir: -1 };
+  const search = root.querySelector('.ngx-search');
+  function drawHoldings() {
+    const t = root.querySelector('#holdings-table tbody');
+    const d = dash.data('positions');
+    root.querySelectorAll('#holdings-table th').forEach((th) => {
+      const k = th.querySelector('button')?.dataset.sort;
+      if (k === sortState.key) th.setAttribute('aria-sort', sortState.dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort');
+    });
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 12; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    const fx = dash.data('stock_facts');
+    const researched = new Set(fx.status === 'ok' ? fx.data.map((f) => f.ticker) : []);
+    const q = search.value.trim().toLowerCase();
+    const maxW = Math.max(...d.data.map((r) => r.weight));
+    const { key, dir } = sortState;
+    const rows = d.data.filter((r) => (plFilter === 'all' || (plFilter === 'profit' ? r.gain > 0 : r.gain < 0)) && (!q || (r.ticker + ' ' + r.name + ' ' + r.sector).toLowerCase().includes(q)))
+      .sort((a, b) => (typeof a[key] === 'number' ? dir * (a[key] - b[key]) : dir * String(a[key]).localeCompare(String(b[key]))));
+    if (!rows.length) { const tr = el('tr'); const td = el('td', 'ngx-empty', 'No holdings agree with your search. Clear the search box, or select All.'); td.colSpan = 12; tr.append(td); t.replaceChildren(tr); return; }
+    t.replaceChildren(...rows.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.ticker;
+      if (researched.has(r.ticker)) { tr.classList.add('ngx-link'); tr.tabIndex = 0; tr.title = 'Open the research for ' + r.name; }
+      const share = el('td', 'n opt'); const bar = el('div', 'ngx-bar'); const i = el('i'); i.style.width = Math.max(2, (r.weight / maxW) * 56) + 'px';
+      bar.append(i, el('span', null, pct(r.weight))); share.append(bar);
+      tr.append(el('td', 'ngx-tk', r.ticker), el('td', 'opt', r.name), el('td', 'opt', r.sector), el('td', 'opt', r.accounts),
+        el('td', 'n opt', n0(r.units)), el('td', 'n opt', naira2(r.avg_cost)), el('td', 'n opt', naira2(r.price)), el('td', 'n opt', naira0(r.cost)), el('td', 'n', naira0(r.value)),
+        el('td', 'n ' + tone(r.gain), nairaS(r.gain)), el('td', 'n ' + tone(r.gain_pct), pctS(r.gain_pct)), share);
+      return tr;
+    }));
+  }
+  search.addEventListener('input', drawHoldings);
+  const hb = root.querySelector('#holdings-table tbody');
+  const openRow = (e) => { const tr = e.target.closest('tr.ngx-link'); if (tr) window.ngxOpenStock(tr.dataset.key); };
+  hb.addEventListener('click', openRow);
+  hb.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRow(e); } });
+  root.querySelectorAll('#holdings-table th button').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.sort;
+    if (sortState.key === k) sortState.dir *= -1; else { sortState.key = k; sortState.dir = ['ticker', 'name', 'sector', 'accounts'].includes(k) ? 1 : -1; }
+    drawHoldings();
+  }));
+
+  /* ---------- stock detail ---------- */
+  let selStock = 'DANGCEM';
+  const tip = el('div', 'ngx-tip'); tip.hidden = true;
+  root.querySelector('#stock-picker').addEventListener('change', (e) => { selStock = e.target.value; drawDetail(); });
+  window.ngxOpenStock = (t) => { selStock = t; show('research'); };
+  function drawPicker() {
+    const box = root.querySelector('#stock-picker');
+    const d = dash.data('stock_facts');
+    if (d.status !== 'ok') return;
+    if (!d.data.some((f) => f.ticker === selStock)) selStock = d.data[0].ticker;
+    const groups = d3.group(d.data, (f) => f.group || 'Stocks');
+    box.replaceChildren(...[...groups].map(([g, list]) => {
+      const og = document.createElement('optgroup'); og.label = g;
+      og.append(...[...list].sort((a, b) => a.name.localeCompare(b.name)).map((f) => new Option(f.name + ' (' + f.ticker + ')', f.ticker)));
+      return og;
+    }));
+    box.value = selStock;
+  }
+  function drawFacts() {
+    const box = root.querySelector('#detail-facts');
+    const d = dash.data('detail_facts');
+    if (!ready(box, d)) return;
+    const f = d.data.find((r) => r.ticker === selStock);
+    root.querySelector('#detail-name').textContent = f ? f.name : '—';
+    root.querySelector('#detail-sub').textContent = f ? selStock + '. Last closing price ' + naira2(f.price) + '.' : '';
+    if (!f) { box.replaceChildren(); return; }
+    const item = (label, value, note) => { const dd = el('dd', null, value); if (note) dd.append(el('small', null, note)); return [el('dt', null, label), dd]; };
+    box.replaceChildren(
+      ...item('Market value', f.market_cap_bn == null ? '—' : (f.market_cap_bn >= 1000 ? '₦' + n2(f.market_cap_bn / 1000) + 'tn' : '₦' + n0(f.market_cap_bn) + 'bn')),
+      ...item('Earnings per share, annualised', f.annual_eps == null ? '—' : naira2(f.annual_eps), f.eps_period ? 'From ' + f.eps_period + ' results' : null),
+      ...item('Price to earnings', f.pe == null ? '—' : d3.format('.1f')(f.pe) + '×'),
+      ...item('Latest dividend', f.dividend == null ? '—' : naira2(f.dividend), f.dividend_note),
+      ...item('Dividend yield', f.dividend_yield == null ? '—' : pct(f.dividend_yield), f.dividend_yield == null ? 'Shown only for a full-year dividend' : null),
+      ...item('Analyst target', f.analyst_target == null ? '—' : naira2(f.analyst_target), f.analyst_target == null ? 'No target found' : pctS(f.target_upside) + ' from the last price. ' + f.target_source),
+    );
+  }
+  function drawPriceChart() {
+    const box = root.querySelector('#price-chart');
+    const d = dash.data('price_history'), w8 = dash.data('webinar');
+    if (!ready(box, d)) return;
+    const pts = d.data.filter((r) => r.ticker === selStock).map((r) => ({ ...r, dt: new Date(r.date + 'T00:00:00Z'), close: Number(r.close), volume: r.volume == null ? null : Number(r.volume) }))
+      .sort((a, b) => a.dt - b.dt);
+    box.replaceChildren();
+    tip.hidden = true; box.append(tip);
+    if (!pts.length) { box.append(el('div', 'ngx-empty', 'No prices are saved for this stock. Ask Claude to update the prices.')); return; }
+    const wrow = w8.status === 'ok' ? w8.data.find((r) => r.ticker === selStock) : null;
+    const refs = [];
+    if (wrow && wrow.level != null) refs.push({ v: wrow.level, label: (wrow.rule === 'buy_below' ? 'Buy below ' : 'Trigger ') + '₦' + n0(wrow.level) });
+    if (wrow && wrow.fair_value != null) refs.push({ v: wrow.fair_value, label: 'Fair value ₦' + n0(wrow.fair_value) });
+    if (wrow && wrow.target != null) refs.push({ v: wrow.target, label: 'Target ₦' + n0(wrow.target) });
+    const W = Math.max(box.clientWidth || 0, 260), ph = 200, vh = 48, gap = 18, top = 12, bottom = 22;
+    const H = top + ph + gap + vh + bottom;
+    const vals = pts.map((p) => p.close).concat(refs.map((r) => r.v));
+    const y = d3.scaleLinear([d3.min(vals) * 0.9, d3.max(vals) * 1.06], [top + ph, top]).nice(4);
+    const svg = d3.select(box).insert('svg', ':first-child').attr('width', '100%').attr('height', H).attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('role', 'img').attr('aria-label', `Closing prices for ${selStock}`);
+    const yt = y.ticks(4);
+    const probe = svg.append('text').style('font-size', 'var(--cds-font-size-caption)');
+    const left = d3.max(yt, (t) => probe.text('₦' + n0(t)).node().getComputedTextLength()) + 10;
+    probe.remove();
+    let [x0, x1] = d3.extent(pts, (p) => p.dt);
+    if (+x0 === +x1) { x0 = d3.utcDay.offset(x0, -15); x1 = d3.utcDay.offset(x1, 15); }
+    const x = d3.scaleUtc([x0, x1], [left + 8, W - 96]);
+    svg.append('g').selectAll('line').data(yt).join('line').attr('x1', left).attr('x2', W - 96).attr('y1', y).attr('y2', y)
+      .style('stroke', 'var(--cds-chart-grid)').attr('stroke-width', 1);
+    svg.append('g').selectAll('text').data(yt).join('text').attr('x', left - 6).attr('y', (t) => y(t) + 4).attr('text-anchor', 'end')
+      .style('fill', 'var(--ngx-muted)').style('font-size', 'var(--cds-font-size-caption)').text((t) => '₦' + n0(t));
+    let lastLabelY = -99;
+    for (const r of refs.sort((a, b) => b.v - a.v)) {
+      svg.append('line').attr('x1', left).attr('x2', W - 96).attr('y1', y(r.v)).attr('y2', y(r.v)).style('stroke', 'var(--cds-chart-reference)').attr('stroke-width', 1).attr('stroke-dasharray', '4 4');
+      let ly = y(r.v) + 4; if (ly - lastLabelY < 14) ly = lastLabelY + 14; lastLabelY = ly;
+      svg.append('text').attr('x', W - 92).attr('y', ly).style('fill', 'var(--ngx-muted)').style('font-size', 'var(--cds-font-size-caption)').text(r.label);
+    }
+    const xt = x.ticks(Math.max(2, Math.min(5, Math.floor((W - left - 96) / 90))));
+    svg.append('g').selectAll('text').data(xt).join('text').attr('x', x).attr('y', H - 4).attr('text-anchor', 'middle')
+      .style('fill', 'var(--ngx-muted)').style('font-size', 'var(--cds-font-size-caption)').text(d3.utcFormat('%b %Y'));
+    svg.append('path').datum(pts).attr('d', d3.line((p) => x(p.dt), (p) => y(p.close))).style('fill', 'none').style('stroke', dash.colors[0])
+      .attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+    svg.append('g').selectAll('circle').data(pts).join('circle').attr('cx', (p) => x(p.dt)).attr('cy', (p) => y(p.close)).attr('r', 4)
+      .style('fill', (p) => (p.source.startsWith('From') ? 'var(--color-panel)' : dash.colors[0])).style('stroke', dash.colors[0]).attr('stroke-width', 2);
+    const last = pts[pts.length - 1];
+    svg.append('text').attr('x', x(last.dt) + 8).attr('y', y(last.close) - 8).style('fill', 'var(--color-fg)').style('font-size', 'var(--cds-font-size-caption)')
+      .style('font-weight', 500).text(naira2(last.close));
+    const vy0 = top + ph + gap, vmax = d3.max(pts, (p) => p.volume) || 0;
+    svg.append('line').attr('x1', left).attr('x2', W - 96).attr('y1', vy0 + vh).attr('y2', vy0 + vh).style('stroke', 'var(--cds-chart-axis)').attr('stroke-width', 1);
+    svg.append('text').attr('x', left - 6).attr('y', vy0 + vh).attr('text-anchor', 'end').style('fill', 'var(--ngx-muted)').style('font-size', 'var(--cds-font-size-caption)').text('Vol.');
+    if (vmax) {
+      const vy = d3.scaleLinear([0, vmax], [0, vh]);
+      svg.append('g').selectAll('rect').data(pts.filter((p) => p.volume)).join('rect').attr('x', (p) => x(p.dt) - 5).attr('width', 10)
+        .attr('y', (p) => vy0 + vh - vy(p.volume)).attr('height', (p) => Math.max(1, vy(p.volume))).attr('rx', 3).style('fill', 'var(--cds-chart-muted)');
+    }
+    const ring = svg.append('circle').attr('r', 7).style('fill', 'none').style('stroke', dash.colors[0]).attr('stroke-width', 1.5).attr('visibility', 'hidden');
+    svg.append('rect').attr('x', left).attr('y', top).attr('width', W - 96 - left).attr('height', ph + gap + vh).style('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [mx] = d3.pointer(ev);
+        const p = d3.least(pts, (q) => Math.abs(x(q.dt) - mx));
+        ring.attr('cx', x(p.dt)).attr('cy', y(p.close)).attr('visibility', 'visible');
+        tip.replaceChildren(el('div', 'd', d3.utcFormat('%-d %b %Y')(p.dt)), el('div', null, 'Close ' + naira2(p.close)),
+          el('div', null, p.volume ? 'Volume ' + n0(p.volume) : 'Volume not known'), el('div', 'd', p.source));
+        tip.hidden = false;
+        const bw = box.clientWidth, tw = tip.offsetWidth;
+        const px = (x(p.dt) / W) * bw;
+        tip.style.left = Math.min(Math.max(0, px + 12), bw - tw) + 'px';
+        tip.style.top = Math.max(0, (y(p.close) / H) * box.clientHeight - 60) + 'px';
+      })
+      .on('pointerleave', () => { tip.hidden = true; ring.attr('visibility', 'hidden'); });
+  }
+  function drawResults() {
+    const box = root.querySelector('#results-chart');
+    const d = dash.data('results');
+    if (!ready(box, d)) return;
+    const rows = d.data.filter((r) => r.ticker === selStock).sort((a, b) => a.seq - b.seq);
+    const src = root.querySelector('#results-src');
+    if (!rows.length) { box.replaceChildren(el('div', 'ngx-empty', 'No results are saved for this stock.')); src.textContent = ''; return; }
+    const metric = (name, key, fmt) => {
+      const m = el('div', 'ngx-metric');
+      m.append(el('div', 'ngx-metric-name', name));
+      const max = d3.max(rows, (r) => Math.abs(r[key] ?? 0)) || 1;
+      rows.forEach((r, i) => {
+        const v = el('div', 'ngx-hval');
+        const val = r[key];
+        v.append(el('b', val != null && val < 0 ? 'ngx-bad' : null, val == null ? 'Not found' : fmt(val)));
+        const prev = i > 0 ? rows[i - 1][key] : null;
+        if (val != null && prev != null && prev !== 0) {
+          if (prev < 0 && val > 0) v.append(document.createTextNode(' '), el('span', 'ngx-chg ngx-good', 'Loss to profit'));
+          else if (prev > 0 && val < 0) v.append(document.createTextNode(' '), el('span', 'ngx-chg ngx-bad', 'Profit to loss'));
+          else if (prev > 0) { const c = val / prev - 1; v.append(document.createTextNode(' '), el('span', 'ngx-chg ' + tone(c), pctS(c))); }
+        }
+        const color = val != null && val < 0 ? 'var(--color-bad)' : i === rows.length - 1 ? dash.colors[0] : 'var(--cds-chart-muted)';
+        m.append(hrow(r.period, [[val == null ? 0 : (Math.abs(val) / max) * 100, 'now', color]], v));
+      });
+      return m;
+    };
+    const bn = (v) => (Math.abs(v) >= 1000 ? '₦' + n2(v / 1000) + 'tn' : (v < 0 ? '−₦' : '₦') + d3.format(',.1f')(Math.abs(v)) + 'bn');
+    const parts = [metric(rows[0].revenue_label, 'revenue_bn', bn), metric('Profit after tax', 'pat_bn', bn), metric('Earnings per share', 'eps', naira2)];
+    const mrow = rows.filter((r) => r.margin_pct != null);
+    if (mrow.length) {
+      const m = el('div', 'ngx-metric');
+      m.append(el('div', 'ngx-metric-name', mrow[mrow.length - 1].margin_label));
+      for (const r of mrow) { const v = el('div', 'ngx-hval'); v.append(el('b', null, d3.format('.1f')(r.margin_pct) + '%')); m.append(hrow(r.period, [[r.margin_pct, 'now', dash.colors[1]]], v)); }
+      parts.push(m);
+    }
+    box.replaceChildren(...parts);
+    src.textContent = 'Sources: ' + [...new Set(rows.map((r) => r.source))].join('. ') + '. Figures are unaudited where the company has not published audited accounts.';
+  }
+  function drawDetail() {
+    drawPicker(); drawFacts(); drawPriceChart(); drawResults();
+  }
+
+  /* ---------- day on day ---------- */
+  const dtip = el('div', 'ngx-tip'); dtip.hidden = true;
+  function drawDayFigs() {
+    const s = dash.data('day_summary');
+    root.querySelectorAll('[data-source="day_summary"]').forEach((e) => {
+      if (s.status === 'ok') {
+        e.classList.remove('dash-skeleton', 'ngx-good', 'ngx-bad');
+        const f = e.dataset.field, v = s.data[0][f];
+        const fmt = { date_label: String, trades: String, prev_value: big, value: big, cash_in: big, day_pl: nairaS, move_old: nairaS, move_new: nairaS, value_diff: nairaS, day_pl_pct: pctS }[f] || String;
+        e.textContent = fmt(v);
+        if (['day_pl', 'move_old', 'move_new', 'day_pl_pct'].includes(f)) { const c = tone(v); if (c) e.classList.add(c); }
+      } else if (s.status === 'error') { e.classList.remove('dash-skeleton'); e.textContent = '—'; }
+    });
+  }
+  function drawDailyChart() {
+    const box = root.querySelector('#daily-chart');
+    const d = dash.data('daily');
+    if (!ready(box, d)) return;
+    const rows = d.data.filter((r) => r.day_pl !== null && r.day_pl !== '' && r.day_pl != null).map((r) => ({ ...r, day_pl: Number(r.day_pl) }));
+    if (!rows.length) { box.replaceChildren(el('span', 'ngx-fail', 'No daily change yet.')); return; }
+    const W = Math.max(280, box.clientWidth || 480), H = 180, m = { t: 12, r: 8, b: 26, l: 64 };
+    const x = d3.scaleBand().domain(rows.map((r) => r.date)).range([m.l, W - m.r]).padding(0.35);
+    const ext = d3.extent([0, ...rows.map((r) => r.day_pl)]);
+    const y = d3.scaleLinear().domain(ext[0] === ext[1] ? [-1, 1] : ext).nice().range([H - m.b, m.t]);
+    const svg = d3.create('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+    svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickFormat((v) => (v < 0 ? '−' : '') + '₦' + d3.format('~s')(Math.abs(v))))
+      .call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').style('stroke', 'var(--color-border-line)'))
+      .call((g) => g.selectAll('text').style('fill', 'var(--ngx-muted)').style('font-size', '11px'));
+    const tickEvery = Math.ceil(rows.length / Math.max(1, Math.floor((W - m.l) / 70)));
+    svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).tickValues(rows.map((r) => r.date).filter((_, i) => i % tickEvery === 0)).tickFormat((s) => d3.utcFormat('%-d %b')(new Date(s + 'T00:00:00Z'))).tickSize(0))
+      .call((g) => g.select('.domain').style('stroke', 'var(--color-border-line)')).call((g) => g.selectAll('text').style('fill', 'var(--ngx-muted)').style('font-size', '11px').attr('dy', '1em'));
+    svg.append('g').selectAll('rect').data(rows).join('rect')
+      .attr('x', (r) => x(r.date)).attr('width', x.bandwidth()).attr('rx', 2)
+      .attr('y', (r) => y(Math.max(0, r.day_pl))).attr('height', (r) => Math.max(1, Math.abs(y(r.day_pl) - y(0))))
+      .style('fill', (r) => (r.day_pl < 0 ? 'var(--cds-chart-status-critical)' : 'var(--cds-chart-status-good)'))
+      .on('pointerenter pointermove', (ev, r) => {
+        dtip.hidden = false;
+        dtip.replaceChildren(el('div', 'd', dateF(r.date)), el('div', null, 'Day: ' + nairaS(r.day_pl) + ' (' + pctS(Number(r.day_pl_pct)) + ')'), el('div', null, 'Value: ' + big(Number(r.value))));
+        const b = box.getBoundingClientRect(); const tw = dtip.offsetWidth;
+        let lx = ev.clientX - b.left + 12; if (lx + tw > b.width) lx = ev.clientX - b.left - tw - 12;
+        dtip.style.left = Math.max(0, lx) + 'px'; dtip.style.top = Math.max(0, ev.clientY - b.top - 10) + 'px';
+      })
+      .on('pointerleave', () => { dtip.hidden = true; });
+    box.replaceChildren(svg.node(), dtip);
+  }
+  function drawDailyTable() {
+    const t = root.querySelector('#daily-table tbody');
+    const d = dash.data('daily');
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 6; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    const rows = [...d.data].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    t.replaceChildren(...rows.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.date;
+      const pl = r.day_pl == null || r.day_pl === '' ? null : Number(r.day_pl);
+      const plp = r.day_pl_pct == null || r.day_pl_pct === '' ? null : Number(r.day_pl_pct);
+      tr.append(el('td', null, r.date), el('td', 'n', naira0(Number(r.value))), el('td', 'n opt', Number(r.cash_in) ? naira0(Number(r.cash_in)) : '—'),
+        el('td', 'n ' + tone(pl), pl == null ? 'Start' : nairaS(pl)), el('td', 'n ' + tone(plp), plp == null ? '—' : pctS(plp)), el('td', 'n opt', nairaS(Number(r.gain))));
+      return tr;
+    }));
+  }
+  function drawMovers() {
+    const t = root.querySelector('#movers-table tbody');
+    const d = dash.data('positions');
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 5; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    const rows = d.data.filter((r) => Math.abs(r.day_pl) >= 0.5).sort((a, b) => Math.abs(b.day_pl) - Math.abs(a.day_pl));
+    if (!rows.length) { const tr = el('tr'); const td = el('td', 'ngx-empty', 'None of your holdings moved.'); td.colSpan = 5; tr.append(td); t.replaceChildren(tr); return; }
+    t.replaceChildren(...rows.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.ticker;
+      const tk = el('td', 'ngx-tk', r.ticker);
+      if (r.bought_units) { tk.title = 'Includes ' + n0(r.bought_units) + ' units bought on this day'; tk.textContent = r.ticker + ' *'; }
+      tr.append(tk, el('td', 'n opt', naira2(r.prev_close)), el('td', 'n opt', naira2(r.price)), el('td', 'n ' + tone(r.chg_1d_pct), pctS(r.chg_1d_pct / 100)), el('td', 'n ' + tone(r.day_pl), nairaS(r.day_pl)));
+      return tr;
+    }));
+  }
+  function drawTx() {
+    const t = root.querySelector('#tx-table tbody');
+    const d = dash.data('transactions');
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 9; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    const rows = [...d.data].sort((a, b) => String(b.date).localeCompare(String(a.date)) || String(a.ticker).localeCompare(String(b.ticker)));
+    t.replaceChildren(...rows.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.id;
+      tr.append(el('td', null, r.date), el('td', 'opt ngx-sub', r.id), el('td', 'opt', r.broker), el('td', 'opt', r.side), el('td', 'ngx-tk', r.ticker),
+        el('td', 'n', n0(Number(r.units))), el('td', 'n opt', naira2(Number(r.price))), el('td', 'n opt', naira2(Number(r.fees))), el('td', 'n', naira2(Number(r.total))));
+      return tr;
+    }));
+  }
+  function drawAccounts() {
+    const box = root.querySelector('#accounts-check');
+    const c = dash.data('account_check');
+    if (c.status === 'ok') {
+      box.classList.remove('dash-skeleton');
+      const i = el('i'); i.setAttribute('aria-hidden', 'true');
+      const body = el('div');
+      if (!c.data.length) { box.className = 'ngx-check is-ok'; body.textContent = 'All holdings and contract notes match the accounts register.'; }
+      else {
+        box.className = 'ngx-check is-bad';
+        body.append(el('strong', null, c.data.length === 1 ? '1 item does not match the accounts register' : c.data.length + ' items do not match the accounts register'));
+        const ul = el('ul'); c.data.forEach((r) => ul.append(el('li', null, r.text))); body.append(ul);
+      }
+      box.replaceChildren(i, body);
+    } else if (c.status === 'error') box.replaceChildren(failLine());
+    const t = root.querySelector('#accounts-table tbody');
+    const d = dash.data('account_summary');
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 6; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    t.replaceChildren(...d.data.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.account;
+      tr.append(el('td', null, r.account), el('td', null, r.broker), el('td', 'opt ngx-sub', r.ids), el('td', 'n', n0(r.stocks)), el('td', 'n', naira0(r.value)), el('td', 'opt ngx-sub', r.evidence));
+      return tr;
+    }));
+  }
+  function drawWatch() {
+    fill('#watch-figs [data-field="below"]', 'watch_summary', n0);
+    fill('#watch-figs [data-field="count"]', 'watch_summary', n0);
+    fill('#watch-figs [data-field="near"]', 'watch_summary', n0);
+    fill('#watch-figs [data-field="losers_value"]', 'watch_summary', naira0);
+    fill('#watch-figs [data-field="losers_gain"]', 'watch_summary', nairaS);
+    const d = dash.data('watch');
+    const pf = root.querySelector('#watch-figs [data-field="gap"]');
+    if (d.status === 'ok') {
+      pf.classList.remove('dash-skeleton');
+      const pr = d.data.find((r) => r.ticker === 'PRESCO');
+      pf.textContent = pr ? pctS(pr.gap) : '—';
+      pf.classList.remove('ngx-good', 'ngx-bad', 'ngx-wait');
+      if (pr) pf.classList.add(pr.gap < 0 ? 'ngx-bad' : pr.gap < 0.05 ? 'ngx-wait' : 'ngx-good');
+    } else if (d.status === 'error') { pf.classList.remove('dash-skeleton'); pf.textContent = '—'; }
+    const t = root.querySelector('#watch-table tbody');
+    if (d.status !== 'ok') { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 8; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    t.replaceChildren(...d.data.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.ticker;
+      const who = el('td'); who.append(el('div', 'ngx-tk', r.ticker), el('div', 'ngx-sub-n', r.name));
+      const st = el('td'); st.append(el('span', 'ngx-st ' + (r.status === 'Below trigger' ? 'ngx-bad' : r.status === 'Near trigger' ? 'ngx-wait' : 'ngx-good'), r.status));
+      tr.append(who, el('td', 'n', naira2(r.price)), el('td', 'n', naira2(r.trigger)),
+        el('td', 'n ' + (r.gap < 0 ? 'ngx-bad' : r.gap < 0.05 ? 'ngx-wait' : ''), pctS(r.gap)),
+        el('td', 'n opt ' + tone(r.chg_since), pctS(r.chg_since)),
+        el('td', 'n opt ' + tone(r.gain), nairaS(r.gain)), st, el('td', 'opt ngx-watch-note', r.note));
+      return tr;
+    }));
+  }
+  function drawDaily() { drawDayFigs(); drawDailyChart(); drawDailyTable(); drawMovers(); drawTx(); }
+
+  /* ---------- draw ---------- */
+  function draw() {
+    drawHeader();
+    if (current === 'overview') { drawSectorNow(); drawTop(); }
+    if (current === 'watch') drawWatch();
+    if (current === 'daily') drawDaily();
+    if (current === 'picks') drawRails();
+    if (current === 'plan') { drawPlanFigs(); drawPlan(); drawSectorPlan(); }
+    if (current === 'research') drawDetail();
+    if (current === 'holdings') { drawAccounts(); drawPL(); drawHoldings(); }
+  }
+  dash.onData(draw);
+  const start = location.hash.slice(1);
+  if (tabs.some((t) => t.getAttribute('aria-controls') === start)) show(start);
+})();
+</script>

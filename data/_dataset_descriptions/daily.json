@@ -1,0 +1,19 @@
+{
+  "description": "One row for each trading day: the portfolio value at the close, new money put in, the day profit or loss from price moves, and the total profit. 9 Oct is the starting point. Dividends are not counted in the value; the 13 Nov row explains Seplat's ex-dividend drop.",
+  "edit": {
+    "at": "2026-11-13T19:00:00Z",
+    "via": "claude"
+  },
+  "schedule": "Claude adds a row after each close when you ask for the day's update",
+  "source": {
+    "kind": "file",
+    "name": "daily_2026-11-13.json",
+    "url": "/_blob/a489b8a39f9f94073349a53ee52c0697"
+  },
+  "staleAfterHours": 96,
+  "title": "Daily portfolio log",
+  "updated": {
+    "at": "2026-11-13T19:00:00Z",
+    "by": "Claude"
+  }
+}

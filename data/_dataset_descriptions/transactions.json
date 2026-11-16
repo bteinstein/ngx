@@ -1,0 +1,14 @@
+{
+  "description": "Every buy and sell from the contract notes you sent, with fees and the total amount.",
+  "schedule": "Claude adds rows when you send contract notes",
+  "source": {
+    "kind": "file",
+    "name": "transactions.json",
+    "url": "/_blob/6601061a2848fcf02b5365e35356922c"
+  },
+  "title": "Transactions",
+  "updated": {
+    "at": "2026-10-12T19:45:00Z",
+    "by": "Claude"
+  }
+}

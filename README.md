@@ -11,8 +11,22 @@ Download, parse and validate Nigerian Exchange (NGX) daily equity data from NGX'
 | `scripts/random_days.py` | Validation run on 5 random trading days per year, 2023 to 2026 |
 | `test_output/` | Results of that run (`random_days.csv`, `report.json`) |
 | `skill/ngx-prices/SKILL.md` | Claude Code skill; copy to `~/.claude/skills/ngx-prices/` |
-| `data/` | Year-end closing price workbooks (2022 to 6 Nov 2026, with Top 10 Gainer / Loser / Mid Performer bands) |
+| `data/*.xlsx` | Year-end closing price workbooks (2022 to 6 Nov 2026, with Top 10 Gainer / Loser / Mid Performer bands) |
 | `scripts/year_end_workbook/` | Prototype scripts that built the workbooks |
+
+## Portfolio
+
+This repo also holds a personal NGX portfolio, moved here from a claude.ai project on 16 Nov 2026. Start with `CLAUDE.md`: Claude Code reads it automatically, and it explains the data, the watchlist and how updates are done.
+
+| Path | What it is |
+| --- | --- |
+| `CLAUDE.md` | Project memory: accounts, holdings summary, watchlist, ₦2.2M plan, data caveats, working style |
+| `data/*.json` | Portfolio datasets: holdings, accounts, transactions, prices, price history, daily log, watchlist, plan, research data |
+| `data/_dataset_descriptions/` | Sources and caveats for each dataset |
+| `contract_notes/` | Meristem contract notes (12 Oct 2026), already recorded in holdings and transactions |
+| `history/CONVERSATIONS.md` | Summary of the earlier claude.ai chats |
+| `docs/` | Original project notes (9 Nov 2026) |
+| `dashboard/` | The old claude.ai dashboard code, for reference only (it does not run outside claude.ai) |
 
 ## Install
 

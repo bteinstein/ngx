@@ -1,0 +1,19 @@
+{
+  "description": "Official NGX closing prices for Fri 13 Nov 2026, from APT Securities' NGX price list and cross-checked against GTI Research. The previous close is the official 12 Nov close. The 7-day change is from the 6 Nov close in the price history. Seplat went ex-dividend on 13 Nov: its 1-day change (-1.56%) is the ₦258.10 dividend adjustment, not trading.",
+  "edit": {
+    "at": "2026-11-13T19:00:00Z",
+    "via": "claude"
+  },
+  "schedule": "Claude updates the prices when you ask",
+  "source": {
+    "kind": "file",
+    "name": "prices_2026-11-13.json",
+    "url": "/_blob/ffdd43dd092570a8db11a412ade5917c"
+  },
+  "staleAfterHours": 96,
+  "title": "NGX closing prices",
+  "updated": {
+    "at": "2026-11-13T19:00:00Z",
+    "by": "Claude"
+  }
+}

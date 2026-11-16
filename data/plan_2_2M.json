@@ -1,0 +1,65 @@
+[
+ {
+  "ticker": "SEPLAT",
+  "name": "Seplat Energy",
+  "sector": "Oil and gas",
+  "action": "Buy now",
+  "amount": 500000,
+  "trigger": null,
+  "since": "2026-10-12"
+ },
+ {
+  "ticker": "DANGCEM",
+  "name": "Dangote Cement",
+  "sector": "Industrial",
+  "action": "Buy now",
+  "amount": 400000,
+  "trigger": null,
+  "since": "2026-10-12"
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "name": "Zenith Bank",
+  "sector": "Banking",
+  "action": "Buy now",
+  "amount": 200000,
+  "trigger": null,
+  "since": "2026-10-12"
+ },
+ {
+  "ticker": "MTNN",
+  "name": "MTN Nigeria",
+  "sector": "ICT",
+  "action": "Buy now",
+  "amount": 200000,
+  "trigger": null,
+  "since": "2026-10-12"
+ },
+ {
+  "ticker": "ARADEL",
+  "name": "Aradel Holdings",
+  "sector": "Oil and gas",
+  "action": "Buy if the closing price is above the trigger",
+  "amount": 400000,
+  "trigger": 1740,
+  "since": "2026-10-12"
+ },
+ {
+  "ticker": "GTCO",
+  "name": "Guaranty Trust Holding",
+  "sector": "Banking",
+  "action": "Buy if the closing price is above the trigger",
+  "amount": 300000,
+  "trigger": 140,
+  "since": "2026-10-12"
+ },
+ {
+  "ticker": "CASH",
+  "name": "Cash reserve",
+  "sector": "Cash",
+  "action": "Keep as cash, or buy Wema above ₦32 or NGX Group",
+  "amount": 200000,
+  "trigger": null,
+  "since": "2026-10-12"
+ }
+]

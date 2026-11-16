@@ -1,0 +1,389 @@
+[
+ {
+  "ticker": "ACCESSCORP",
+  "name": "Access Holdings",
+  "price": 27.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.37,
+  "as_of": "2026-11-13",
+  "prev_close": 27.0
+ },
+ {
+  "ticker": "AFRIPRUD",
+  "name": "Africa Prudential",
+  "price": 10.2,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 1.49,
+  "as_of": "2026-11-13",
+  "prev_close": 10.2
+ },
+ {
+  "ticker": "ARADEL",
+  "name": "Aradel Holdings",
+  "price": 1296.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 1296.0
+ },
+ {
+  "ticker": "BUACEMENT",
+  "name": "BUA Cement",
+  "price": 298.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 298.0
+ },
+ {
+  "ticker": "BUAFOODS",
+  "name": "BUA Foods",
+  "price": 760.6,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 760.6
+ },
+ {
+  "ticker": "CADBURY",
+  "name": "Cadbury Nigeria",
+  "price": 57.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 57.0
+ },
+ {
+  "ticker": "CUSTODIAN",
+  "name": "Custodian Investment",
+  "price": 62.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": -1.59,
+  "as_of": "2026-11-13",
+  "prev_close": 62.0
+ },
+ {
+  "ticker": "CWG",
+  "name": "CWG",
+  "price": 17.5,
+  "chg_1d_pct": -2.78,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 18.0
+ },
+ {
+  "ticker": "DANGCEM",
+  "name": "Dangote Cement",
+  "price": 1469.9,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 9.61,
+  "as_of": "2026-11-13",
+  "prev_close": 1469.9
+ },
+ {
+  "ticker": "DANGSUGAR",
+  "name": "Dangote Sugar Refinery",
+  "price": 65.15,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.23,
+  "as_of": "2026-11-13",
+  "prev_close": 65.15
+ },
+ {
+  "ticker": "ELLAHLAKES",
+  "name": "Ellah Lakes",
+  "price": 7.2,
+  "chg_1d_pct": 2.86,
+  "chg_7d_pct": -2.04,
+  "as_of": "2026-11-13",
+  "prev_close": 7.0
+ },
+ {
+  "ticker": "FCMB",
+  "name": "FCMB Group",
+  "price": 10.9,
+  "chg_1d_pct": -0.91,
+  "chg_7d_pct": -0.91,
+  "as_of": "2026-11-13",
+  "prev_close": 11.0
+ },
+ {
+  "ticker": "FIDELITYBK",
+  "name": "Fidelity Bank",
+  "price": 24.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 2.78,
+  "as_of": "2026-11-13",
+  "prev_close": 24.0
+ },
+ {
+  "ticker": "FIRSTHOLDCO",
+  "name": "First HoldCo",
+  "price": 107.0,
+  "chg_1d_pct": 1.76,
+  "chg_7d_pct": -2.73,
+  "as_of": "2026-11-13",
+  "prev_close": 105.15
+ },
+ {
+  "ticker": "GTCO",
+  "name": "Guaranty Trust Holding",
+  "price": 119.2,
+  "chg_1d_pct": -0.25,
+  "chg_7d_pct": -0.5,
+  "as_of": "2026-11-13",
+  "prev_close": 119.5
+ },
+ {
+  "ticker": "GUINNESS",
+  "name": "Guinness Nigeria",
+  "price": 416.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 416.0
+ },
+ {
+  "ticker": "HONYFLOUR",
+  "name": "Honeywell Flour Mills",
+  "price": 33.55,
+  "chg_1d_pct": 6.85,
+  "chg_7d_pct": 13.73,
+  "as_of": "2026-11-13",
+  "prev_close": 31.4
+ },
+ {
+  "ticker": "INTBREW",
+  "name": "International Breweries",
+  "price": 8.4,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": -7.18,
+  "as_of": "2026-11-13",
+  "prev_close": 8.4
+ },
+ {
+  "ticker": "JBERGER",
+  "name": "Julius Berger",
+  "price": 310.8,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 310.8
+ },
+ {
+  "ticker": "LASACO",
+  "name": "LASACO Assurance",
+  "price": 1.9,
+  "chg_1d_pct": 9.2,
+  "chg_7d_pct": 12.43,
+  "as_of": "2026-11-13",
+  "prev_close": 1.74
+ },
+ {
+  "ticker": "LINKASSURE",
+  "name": "Linkage Assurance",
+  "price": 1.56,
+  "chg_1d_pct": 3.31,
+  "chg_7d_pct": 2.63,
+  "as_of": "2026-11-13",
+  "prev_close": 1.51
+ },
+ {
+  "ticker": "MANSARD",
+  "name": "AXA Mansard Insurance",
+  "price": 13.7,
+  "chg_1d_pct": -1.79,
+  "chg_7d_pct": 16.1,
+  "as_of": "2026-11-13",
+  "prev_close": 13.95
+ },
+ {
+  "ticker": "MTNN",
+  "name": "MTN Nigeria Communications",
+  "price": 837.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 837.0
+ },
+ {
+  "ticker": "NB",
+  "name": "Nigerian Breweries",
+  "price": 70.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 70.0
+ },
+ {
+  "ticker": "NESTLE",
+  "name": "Nestl\u00e9 Nigeria",
+  "price": 2650.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 2650.0
+ },
+ {
+  "ticker": "NGXGROUP",
+  "name": "Nigerian Exchange Group",
+  "price": 166.0,
+  "chg_1d_pct": 0.61,
+  "chg_7d_pct": 1.1,
+  "as_of": "2026-11-13",
+  "prev_close": 165.0
+ },
+ {
+  "ticker": "NNFM",
+  "name": "Northern Nigeria Flour Mills",
+  "price": 79.4,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 79.4
+ },
+ {
+  "ticker": "OANDO",
+  "name": "Oando",
+  "price": 38.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 14.8,
+  "as_of": "2026-11-13",
+  "prev_close": 38.0
+ },
+ {
+  "ticker": "OKOMUOIL",
+  "name": "Okomu Oil Palm",
+  "price": 1137.1,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": -10.9,
+  "as_of": "2026-11-13",
+  "prev_close": 1137.1
+ },
+ {
+  "ticker": "PRESCO",
+  "name": "Presco",
+  "price": 1656.8,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 1656.8
+ },
+ {
+  "ticker": "PZ",
+  "name": "PZ Cussons Nigeria",
+  "price": 64.8,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 64.8
+ },
+ {
+  "ticker": "SEPLAT",
+  "name": "Seplat Energy",
+  "price": 16241.9,
+  "chg_1d_pct": -1.56,
+  "chg_7d_pct": 1.51,
+  "as_of": "2026-11-13",
+  "prev_close": 16500.0
+ },
+ {
+  "ticker": "STANBIC",
+  "name": "Stanbic IBTC Holdings",
+  "price": 165.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 1.54,
+  "as_of": "2026-11-13",
+  "prev_close": 165.0
+ },
+ {
+  "ticker": "STERLINGNG",
+  "name": "Sterling Financial Holdings",
+  "price": 75.0,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": -1.57,
+  "as_of": "2026-11-13",
+  "prev_close": 75.0
+ },
+ {
+  "ticker": "SUNUASSUR",
+  "name": "Sunu Assurances",
+  "price": 2.9,
+  "chg_1d_pct": 0.69,
+  "chg_7d_pct": 7.41,
+  "as_of": "2026-11-13",
+  "prev_close": 2.88
+ },
+ {
+  "ticker": "TRANSCOHOT",
+  "name": "Transcorp Hotels",
+  "price": 290.5,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 290.5
+ },
+ {
+  "ticker": "TRANSCORP",
+  "name": "Transnational Corporation",
+  "price": 32.3,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 1.89,
+  "as_of": "2026-11-13",
+  "prev_close": 32.3
+ },
+ {
+  "ticker": "UBA",
+  "name": "United Bank for Africa",
+  "price": 42.0,
+  "chg_1d_pct": 1.2,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 41.5
+ },
+ {
+  "ticker": "UCAP",
+  "name": "United Capital",
+  "price": 16.55,
+  "chg_1d_pct": -0.3,
+  "chg_7d_pct": 3.44,
+  "as_of": "2026-11-13",
+  "prev_close": 16.6
+ },
+ {
+  "ticker": "UPDCREIT",
+  "name": "UPDC REIT",
+  "price": 19.3,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": -3.74,
+  "as_of": "2026-11-13",
+  "prev_close": 19.3
+ },
+ {
+  "ticker": "VFDGROUP",
+  "name": "VFD Group",
+  "price": 11.7,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": -0.85,
+  "as_of": "2026-11-13",
+  "prev_close": 11.7
+ },
+ {
+  "ticker": "WEMABANK",
+  "name": "Wema Bank",
+  "price": 32.5,
+  "chg_1d_pct": 0.0,
+  "chg_7d_pct": 0.0,
+  "as_of": "2026-11-13",
+  "prev_close": 32.5
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "name": "Zenith Bank",
+  "price": 115.9,
+  "chg_1d_pct": -0.09,
+  "chg_7d_pct": -1.28,
+  "as_of": "2026-11-13",
+  "prev_close": 116.0
+ }
+]

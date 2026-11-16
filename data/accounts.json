@@ -1,0 +1,38 @@
+[
+ {
+  "account": "Account 1",
+  "broker": "Meristem Stockbrokers",
+  "short": "Meristem",
+  "client_name": "Adebayo Babatunde Bidemi",
+  "broker_account": "04060937",
+  "customer_no": "03942274 / C",
+  "cscs": "0130504598",
+  "evidence": "Contract notes 0008187443, 0008187484, 0008187517 and 0008187525 (12 Oct 2026)",
+  "confirmed": "2026-10-13",
+  "note": "The larger portfolio from your 11 Oct screenshot (Presco, Seplat, Zenith and others) plus the Meristem buys. You confirmed this on 13 Oct."
+ },
+ {
+  "account": "Account 2",
+  "broker": "AfriInvest",
+  "short": "AfriInvest",
+  "client_name": null,
+  "broker_account": null,
+  "customer_no": null,
+  "cscs": null,
+  "evidence": "Your list of 13 Oct 2026: Access, Cadbury, Custodian, CWG, Dangote Sugar, International Breweries, Mansard, Nigerian Breweries, NGX Group, Wema",
+  "confirmed": "2026-10-13",
+  "note": "No contract note yet, so the account numbers are not known."
+ },
+ {
+  "account": "Account 3",
+  "broker": "InvestNaija",
+  "short": "InvestNaija",
+  "client_name": null,
+  "broker_account": null,
+  "customer_no": null,
+  "cscs": null,
+  "evidence": "You told me on 11 Oct 2026 that you hold MTN Nigeria here",
+  "confirmed": "2026-10-11",
+  "note": "No contract note yet, so the account numbers are not known."
+ }
+]

@@ -1,0 +1,18 @@
+{
+  "description": "The stocks you are watching before your Wednesday 11 Nov decision, with each trigger level: the 2-week low for the six losers, your average cost for Presco.",
+  "edit": {
+    "at": "2026-11-09T03:05:00Z",
+    "via": "claude"
+  },
+  "schedule": "Claude changes the triggers when you ask",
+  "source": {
+    "kind": "file",
+    "name": "watchlist.json",
+    "url": "/_blob/4bd8ab345f4ccb3926963db2f5d62581"
+  },
+  "title": "Watchlist triggers",
+  "updated": {
+    "at": "2026-11-09T03:05:00Z",
+    "by": "Claude"
+  }
+}

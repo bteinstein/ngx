@@ -1,0 +1,14 @@
+{
+  "description": "Each brokerage account: the broker, the account numbers from its contract notes, and how you confirmed which stocks it holds. Account 1 is Meristem (the larger portfolio plus the 12 Oct buys), Account 2 is AfriInvest (10 stocks), Account 3 is InvestNaija (MTN). Claude checks every contract note against this list before adding it.",
+  "schedule": "Claude changes this only after you confirm",
+  "source": {
+    "kind": "file",
+    "name": "accounts.json",
+    "url": "/_blob/237f63df2df79a6891730c9f9735c872"
+  },
+  "title": "Accounts register",
+  "updated": {
+    "at": "2026-10-13T17:15:00Z",
+    "by": "Claude"
+  }
+}

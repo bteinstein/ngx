@@ -1,0 +1,389 @@
+[
+ {
+  "id": "A1-ACCESSCORP",
+  "account": "Account 1",
+  "ticker": "ACCESSCORP",
+  "name": "Access Holdings",
+  "sector": "Banking",
+  "units": 1604,
+  "unit_cost": 20.49
+ },
+ {
+  "id": "A1-AFRIPRUD",
+  "account": "Account 1",
+  "ticker": "AFRIPRUD",
+  "name": "Africa Prudential",
+  "sector": "Other financial",
+  "units": 3000,
+  "unit_cost": 16.25
+ },
+ {
+  "id": "A1-BUACEMENT",
+  "account": "Account 1",
+  "ticker": "BUACEMENT",
+  "name": "BUA Cement",
+  "sector": "Industrial",
+  "units": 3000,
+  "unit_cost": 161.92
+ },
+ {
+  "id": "A1-BUAFOODS",
+  "account": "Account 1",
+  "ticker": "BUAFOODS",
+  "name": "BUA Foods",
+  "sector": "Consumer goods",
+  "units": 681,
+  "unit_cost": 621.21
+ },
+ {
+  "id": "A1-DANGCEM",
+  "account": "Account 1",
+  "ticker": "DANGCEM",
+  "name": "Dangote Cement",
+  "sector": "Industrial",
+  "units": 200,
+  "unit_cost": 491.38
+ },
+ {
+  "id": "A1-DANGSUGAR",
+  "account": "Account 1",
+  "ticker": "DANGSUGAR",
+  "name": "Dangote Sugar Refinery",
+  "sector": "Consumer goods",
+  "units": 13666,
+  "unit_cost": 65.09
+ },
+ {
+  "id": "A1-ELLAHLAKES",
+  "account": "Account 1",
+  "ticker": "ELLAHLAKES",
+  "name": "Ellah Lakes",
+  "sector": "Agriculture",
+  "units": 10000,
+  "unit_cost": 3.36
+ },
+ {
+  "id": "A1-FCMB",
+  "account": "Account 1",
+  "ticker": "FCMB",
+  "name": "FCMB Group",
+  "sector": "Banking",
+  "units": 6500,
+  "unit_cost": 9.99
+ },
+ {
+  "id": "A1-FIDELITYBK",
+  "account": "Account 1",
+  "ticker": "FIDELITYBK",
+  "name": "Fidelity Bank",
+  "sector": "Banking",
+  "units": 2600,
+  "unit_cost": 19.3
+ },
+ {
+  "id": "A1-FIRSTHOLDCO",
+  "account": "Account 1",
+  "ticker": "FIRSTHOLDCO",
+  "name": "First HoldCo",
+  "sector": "Banking",
+  "units": 1500,
+  "unit_cost": 27.5
+ },
+ {
+  "id": "A1-GTCO",
+  "account": "Account 1",
+  "ticker": "GTCO",
+  "name": "Guaranty Trust Holding",
+  "sector": "Banking",
+  "units": 250,
+  "unit_cost": 41.25
+ },
+ {
+  "id": "A1-JBERGER",
+  "account": "Account 1",
+  "ticker": "JBERGER",
+  "name": "Julius Berger",
+  "sector": "Industrial",
+  "units": 1610,
+  "unit_cost": 132.66
+ },
+ {
+  "id": "A1-LASACO",
+  "account": "Account 1",
+  "ticker": "LASACO",
+  "name": "LASACO Assurance",
+  "sector": "Insurance",
+  "units": 5000,
+  "unit_cost": 3.01
+ },
+ {
+  "id": "A1-LINKASSURE",
+  "account": "Account 1",
+  "ticker": "LINKASSURE",
+  "name": "Linkage Assurance",
+  "sector": "Insurance",
+  "units": 6800,
+  "unit_cost": 1.75
+ },
+ {
+  "id": "A1-MANSARD",
+  "account": "Account 1",
+  "ticker": "MANSARD",
+  "name": "AXA Mansard Insurance",
+  "sector": "Insurance",
+  "units": 3750,
+  "unit_cost": 8.18
+ },
+ {
+  "id": "A1-NNFM",
+  "account": "Account 1",
+  "ticker": "NNFM",
+  "name": "Northern Nigeria Flour Mills",
+  "sector": "Consumer goods",
+  "units": 600,
+  "unit_cost": 41.25
+ },
+ {
+  "id": "A1-OANDO",
+  "account": "Account 1",
+  "ticker": "OANDO",
+  "name": "Oando",
+  "sector": "Oil and gas",
+  "units": 1648,
+  "unit_cost": 56.15
+ },
+ {
+  "id": "A1-OKOMUOIL",
+  "account": "Account 1",
+  "ticker": "OKOMUOIL",
+  "name": "Okomu Oil Palm",
+  "sector": "Agriculture",
+  "units": 200,
+  "unit_cost": 381.89
+ },
+ {
+  "id": "A1-PRESCO",
+  "account": "Account 1",
+  "ticker": "PRESCO",
+  "name": "Presco",
+  "sector": "Agriculture",
+  "units": 1030,
+  "unit_cost": 1497.65
+ },
+ {
+  "id": "A1-PZ",
+  "account": "Account 1",
+  "ticker": "PZ",
+  "name": "PZ Cussons Nigeria",
+  "sector": "Consumer goods",
+  "units": 2000,
+  "unit_cost": 35.63
+ },
+ {
+  "id": "A1-SEPLAT",
+  "account": "Account 1",
+  "ticker": "SEPLAT",
+  "name": "Seplat Energy",
+  "sector": "Oil and gas",
+  "units": 50,
+  "unit_cost": 11395.063
+ },
+ {
+  "id": "A1-STANBIC",
+  "account": "Account 1",
+  "ticker": "STANBIC",
+  "name": "Stanbic IBTC Holdings",
+  "sector": "Banking",
+  "units": 500,
+  "unit_cost": 69.8
+ },
+ {
+  "id": "A1-STERLINGNG",
+  "account": "Account 1",
+  "ticker": "STERLINGNG",
+  "name": "Sterling Financial Holdings",
+  "sector": "Banking",
+  "units": 5000,
+  "unit_cost": 5.87
+ },
+ {
+  "id": "A1-SUNUASSUR",
+  "account": "Account 1",
+  "ticker": "SUNUASSUR",
+  "name": "Sunu Assurances",
+  "sector": "Insurance",
+  "units": 28500,
+  "unit_cost": 5.58
+ },
+ {
+  "id": "A1-TRANSCOHOT",
+  "account": "Account 1",
+  "ticker": "TRANSCOHOT",
+  "name": "Transcorp Hotels",
+  "sector": "Services",
+  "units": 700,
+  "unit_cost": 152.05
+ },
+ {
+  "id": "A1-TRANSCORP",
+  "account": "Account 1",
+  "ticker": "TRANSCORP",
+  "name": "Transnational Corporation",
+  "sector": "Conglomerate",
+  "units": 2000,
+  "unit_cost": 45.72
+ },
+ {
+  "id": "A1-UBA",
+  "account": "Account 1",
+  "ticker": "UBA",
+  "name": "United Bank for Africa",
+  "sector": "Banking",
+  "units": 2150,
+  "unit_cost": 35.04
+ },
+ {
+  "id": "A1-UCAP",
+  "account": "Account 1",
+  "ticker": "UCAP",
+  "name": "United Capital",
+  "sector": "Other financial",
+  "units": 3950,
+  "unit_cost": 19.32
+ },
+ {
+  "id": "A1-UPDCREIT",
+  "account": "Account 1",
+  "ticker": "UPDCREIT",
+  "name": "UPDC REIT",
+  "sector": "Real estate",
+  "units": 500,
+  "unit_cost": 7.18
+ },
+ {
+  "id": "A1-VFDGROUP",
+  "account": "Account 1",
+  "ticker": "VFDGROUP",
+  "name": "VFD Group",
+  "sector": "Other financial",
+  "units": 25000,
+  "unit_cost": 11.71
+ },
+ {
+  "id": "A1-ZENITHBANK",
+  "account": "Account 1",
+  "ticker": "ZENITHBANK",
+  "name": "Zenith Bank",
+  "sector": "Banking",
+  "units": 3075,
+  "unit_cost": 88.261454
+ },
+ {
+  "id": "A1-MTNN",
+  "account": "Account 1",
+  "ticker": "MTNN",
+  "name": "MTN Nigeria",
+  "sector": "ICT",
+  "units": 240,
+  "unit_cost": 856.3386
+ },
+ {
+  "id": "A2-ACCESSCORP",
+  "account": "Account 2",
+  "ticker": "ACCESSCORP",
+  "name": "Access Holdings",
+  "sector": "Banking",
+  "units": 5000,
+  "unit_cost": 21.18
+ },
+ {
+  "id": "A2-CADBURY",
+  "account": "Account 2",
+  "ticker": "CADBURY",
+  "name": "Cadbury Nigeria",
+  "sector": "Consumer goods",
+  "units": 1600,
+  "unit_cost": 66.92
+ },
+ {
+  "id": "A2-CUSTODIAN",
+  "account": "Account 2",
+  "ticker": "CUSTODIAN",
+  "name": "Custodian Investment",
+  "sector": "Insurance",
+  "units": 2562,
+  "unit_cost": 64.66
+ },
+ {
+  "id": "A2-CWG",
+  "account": "Account 2",
+  "ticker": "CWG",
+  "name": "CWG",
+  "sector": "ICT",
+  "units": 20000,
+  "unit_cost": 19.58
+ },
+ {
+  "id": "A2-DANGSUGAR",
+  "account": "Account 2",
+  "ticker": "DANGSUGAR",
+  "name": "Dangote Sugar Refinery",
+  "sector": "Consumer goods",
+  "units": 2000,
+  "unit_cost": 54.58
+ },
+ {
+  "id": "A2-INTBREW",
+  "account": "Account 2",
+  "ticker": "INTBREW",
+  "name": "International Breweries",
+  "sector": "Consumer goods",
+  "units": 25999,
+  "unit_cost": 16.06
+ },
+ {
+  "id": "A2-MANSARD",
+  "account": "Account 2",
+  "ticker": "MANSARD",
+  "name": "AXA Mansard Insurance",
+  "sector": "Insurance",
+  "units": 7200,
+  "unit_cost": 15.99
+ },
+ {
+  "id": "A2-NB",
+  "account": "Account 2",
+  "ticker": "NB",
+  "name": "Nigerian Breweries",
+  "sector": "Consumer goods",
+  "units": 1300,
+  "unit_cost": 76.89
+ },
+ {
+  "id": "A2-NGXGROUP",
+  "account": "Account 2",
+  "ticker": "NGXGROUP",
+  "name": "Nigerian Exchange Group",
+  "sector": "Other financial",
+  "units": 1400,
+  "unit_cost": 62.93
+ },
+ {
+  "id": "A2-WEMABANK",
+  "account": "Account 2",
+  "ticker": "WEMABANK",
+  "name": "Wema Bank",
+  "sector": "Banking",
+  "units": 10000,
+  "unit_cost": 23.28
+ },
+ {
+  "id": "A3-MTNN",
+  "account": "Account 3",
+  "ticker": "MTNN",
+  "name": "MTN Nigeria",
+  "sector": "ICT",
+  "units": 105,
+  "unit_cost": 169.7
+ }
+]

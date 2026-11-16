@@ -1,0 +1,19 @@
+{
+  "description": "Dated closing prices and volumes for each researched stock. Points up to 5 Nov come from news and NGX price lists, and their volumes may be undercounted. 6 Nov comes from NGX's own data via your ngxprices tool. 9 and 10 Nov come from GTI Research's published NGX price lists. 11 Nov closes are official (Okomu Oil corrected to ₦1,137.10); its volumes are official for six stocks and from the live snapshot for the rest. 12 and 13 Nov come from APT Securities' NGX price lists, cross-checked against GTI Research. Seplat's 13 Nov close (₦16,241.90) is ex-dividend. Linkage Assurance's 13 Nov volume (3.1 billion shares) is as APT printed it and looks unusual; treat it with caution until the official file confirms it.",
+  "edit": {
+    "at": "2026-11-13T19:00:00Z",
+    "via": "claude"
+  },
+  "schedule": "Claude adds a point when you ask for a price update",
+  "source": {
+    "kind": "file",
+    "name": "price_history_2026-11-13.json",
+    "url": "/_blob/c692d8093c1fba509b3f7cf8163ec852"
+  },
+  "staleAfterHours": 96,
+  "title": "Price history",
+  "updated": {
+    "at": "2026-11-13T19:00:00Z",
+    "by": "Claude"
+  }
+}
