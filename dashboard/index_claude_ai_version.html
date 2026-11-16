@@ -333,6 +333,26 @@
         </div>
       </div>
     </div>
+    <div class="ngx-block ngx-card" id="daily-volume">
+      <div class="ngx-block-head">
+        <h2>Trading volume</h2>
+        <p class="ngx-note">Shares traded in each stock you hold on the latest price day, against its average over up to 20 earlier trading days with a known volume. Largest value traded first. Two times the average or more is in bold.</p>
+      </div>
+      <div class="ngx-scroll">
+        <table class="ngx-table" id="volume-table" data-source="volume_today" data-row-key="ticker">
+          <thead><tr>
+            <th data-field="ticker">Ticker</th>
+            <th data-field="volume" class="n">Volume</th>
+            <th data-field="avg_volume" class="n opt">Average volume</th>
+            <th data-field="vs_avg" class="n">Vs average</th>
+            <th data-field="trades" class="n opt">Trades</th>
+            <th data-field="value_ngn" class="n">Value traded</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="ngx-note" id="volume-src"></p>
+    </div>
     <div class="ngx-block ngx-card" id="daily-trades">
       <div class="ngx-block-head">
         <h2>Transactions</h2>
@@ -605,6 +625,36 @@ dash.calc('positions', {
     });
     const total = rows.reduce((a, r) => a + r.value, 0);
     return rows.map((r) => ({ ...r, weight: r.value / total })).sort((a, b) => b.value - a.value);
+  },
+});
+
+dash.calc('volume_today', {
+  title: 'Trading volume',
+  description: 'Volume, trades and value traded on the latest price day for each stock you hold, with its average volume over up to 20 earlier trading days that have a known volume.',
+  inputs: ['positions', 'price_history', 'prices'],
+  fn: (positions, price_history, prices) => {
+    const asOf = prices.length ? prices[0].as_of : null;
+    const byTicker = new Map();
+    for (const h of price_history) {
+      if (!byTicker.has(h.ticker)) byTicker.set(h.ticker, []);
+      byTicker.get(h.ticker).push(h);
+    }
+    return positions.map((p) => {
+      const hist = byTicker.get(p.ticker) || [];
+      const today = hist.find((h) => h.date === asOf);
+      const earlier = hist.filter((h) => h.date < asOf && h.volume != null && h.volume !== '')
+        .sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 20);
+      const avg = earlier.length ? earlier.reduce((a, h) => a + Number(h.volume), 0) / earlier.length : null;
+      const vol = today && today.volume != null && today.volume !== '' ? Number(today.volume) : null;
+      return {
+        ticker: p.ticker, date: asOf, volume: vol,
+        trades: today && today.trades != null ? Number(today.trades) : null,
+        value_ngn: today && today.value_ngn != null ? Number(today.value_ngn) : null,
+        avg_volume: avg == null ? null : Math.round(avg), avg_days: earlier.length,
+        vs_avg: vol != null && avg ? vol / avg : null,
+        source: today ? today.source : null,
+      };
+    }).sort((a, b) => (b.value_ngn ?? -1) - (a.value_ngn ?? -1));
   },
 });
 
@@ -1402,6 +1452,30 @@ dash.calc('watch_summary', {
       return tr;
     }));
   }
+  function drawVolume() {
+    const t = root.querySelector('#volume-table tbody');
+    const src = root.querySelector('#volume-src');
+    if (!t) return;
+    const d = dash.data('volume_today');
+    if (d.status !== 'ok' || !Array.isArray(d.data)) { if (d.status === 'error') { const tr = el('tr'); const td = el('td'); td.colSpan = 6; td.append(failLine()); tr.append(td); t.replaceChildren(tr); } return; }
+    const rows = d.data;
+    if (!rows.length) { const tr = el('tr'); const td = el('td', 'ngx-empty', 'No volume is saved for the latest day.'); td.colSpan = 6; tr.append(td); t.replaceChildren(tr); return; }
+    const x1 = d3.format('.1f');
+    t.replaceChildren(...rows.map((r) => {
+      const tr = el('tr'); tr.dataset.key = r.ticker;
+      const vs = r.vs_avg == null ? '—' : x1(r.vs_avg) + '×';
+      const vsTd = el('td', 'n', vs);
+      if (r.vs_avg != null && r.vs_avg >= 2) vsTd.style.fontWeight = '600';
+      vsTd.title = r.avg_days ? 'Average of ' + r.avg_days + ' earlier days' : 'No earlier volumes saved';
+      tr.append(el('td', 'ngx-tk', r.ticker), el('td', 'n', r.volume == null ? '—' : n0(r.volume)), el('td', 'n opt', r.avg_volume == null ? '—' : n0(r.avg_volume)),
+        vsTd, el('td', 'n opt', r.trades == null ? '—' : n0(r.trades)), el('td', 'n', r.value_ngn == null ? '—' : naira0(r.value_ngn)));
+      return tr;
+    }));
+    if (src) {
+      const s = rows.find((r) => r.source);
+      src.textContent = s ? 'Source for ' + s.date + ': ' + s.source + '.' : '';
+    }
+  }
   function drawTx() {
     const t = root.querySelector('#tx-table tbody');
     const d = dash.data('transactions');
@@ -1466,7 +1540,7 @@ dash.calc('watch_summary', {
       return tr;
     }));
   }
-  function drawDaily() { drawDayFigs(); drawDailyChart(); drawDailyTable(); drawMovers(); drawTx(); }
+  function drawDaily() { drawDayFigs(); drawDailyChart(); drawDailyTable(); drawMovers(); drawVolume(); drawTx(); }
 
   /* ---------- draw ---------- */
   function draw() {
