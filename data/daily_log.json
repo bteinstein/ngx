@@ -295,5 +295,17 @@
   "day_pl_pct": 0.00620994584064507,
   "holdings": 39,
   "note": "No trades. Prices from NGX's live feed at 18:36 WAT, after the 14:30 close, so they are the final closes; volumes are provisional until NGX publishes its official files tonight. NGX Group (+\u20a623.2K) led; International Breweries jumped 9.5% to \u20a69.20 (+\u20a620.8K), back above its \u20a68.50 trigger; CWG +\u20a615K, VFD and Wema +\u20a65K each. UBA (-\u20a63.4K), Fidelity and PZ (-\u20a62.6K each), Oando (-\u20a62.1K) and Ellah Lakes (-\u20a62K) were the main drags. All watchlist stocks closed above their triggers."
+ },
+ {
+  "date": "2026-11-17",
+  "value": 10490508.7,
+  "cost": 8023767.46,
+  "gain": 2466741.24,
+  "cash_in": 0.0,
+  "holdings": 39,
+  "day_pl": 60784.3,
+  "day_pl_pct": 0.005827987170974528,
+  "note": "No trades. Prices: NGX live feed, 17 Nov at 14:41 WAT (final prices after the 14:30 close; volume provisional until NGX publishes its official files). Up: DANGSUGAR (+\u20a644.6K), INTBREW (+\u20a623.4K), CADBURY (+\u20a69.1K), AFRIPRUD (+\u20a63.0K), MANSARD (+\u20a6548). Down: NGXGROUP (-\u20a610.6K), CWG (-\u20a66.0K), ZENITHBANK (-\u20a61.5K), FIDELITYBK (-\u20a61.4K), ACCESSCORP (-\u20a6660). Watchlist: all above their triggers.",
+  "auto_note": true
  }
 ]
