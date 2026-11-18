@@ -8,7 +8,7 @@ Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Section 4 (data review) is DONE: `
 Sterling had a 10-for-1 share reconstruction on 8 Oct (NGX files); owner confirmed 500 units → holdings 500 @ ₦58.70,
 daily log lowered from 9 Oct. Peaks are now dividend-adjusted via `data/corporate_actions.json` (record new dividends
 and reconstructions there). Still open: stored peaks are understated (sparse pre-Oct history; owner to choose how
-peaks work), per-account vs combined rules, MTN Account 3 cost ₦169.70. Next: handoff section 6 (expert critique).
+peaks work), (owner chose: peaks from purchase date, default 1 Jan 2026; combined rules with per-account lines). MTN Account 3 cost ₦169.70 confirmed 18 Nov. Next: handoff section 6 (expert critique).
 
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):

@@ -111,4 +111,4 @@ The MTN Account 3 cost (₦169.70) is worth confirming with InvestNaija.
      known (otherwise from 1 Jan 2026). Needs rough purchase dates from the owner.
    - Accounts: keep one combined signal per stock (same price, one decision), but show each account's
      units and cost next to any sell suggestion so the owner chooses which account to sell from.
-4. MTN Account 3 cost ₦169.70: still to confirm with InvestNaija.
+4. MTN Account 3 cost ₦169.70: **confirmed** from the owner's InvestNaija screenshot (cost ₦17,818.50, value ₦87,885 at ₦837).
