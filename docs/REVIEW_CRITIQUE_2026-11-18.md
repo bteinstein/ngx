@@ -7,6 +7,24 @@ portfolio's data at the **17 Nov 2026 close** (value ₦10,497,293, cost ₦8,02
 This is information, not financial advice. Every decision, and every change to `data/`, is the owner's.
 Nothing in `data/` has been changed by this review.
 
+## Status update (after merging the parallel data review, 18 Nov)
+
+The experts worked on the 17 Nov data **before** the section-4 data review was pushed to `main`
+(`3ff43a6`…`2ef7166`, see `docs/DATA_REVIEW_2026-11-18.md`). After merging it:
+- **1.1 Sterling: fixed.** The owner confirmed 500 units; holdings are now 500 at ₦58.70, and the daily
+  log has been corrected from 9 Oct.
+- **1.2 Dividends in peaks: fixed for peaks** (`data/corporate_actions.json`; Zenith's ex-date is 26 Oct).
+  Zenith is now **amber**, 1.1% above its ₦114.75 level. Still open: the 20-day average and "falls in a
+  row" signs, and booking dividend income.
+- **1.3 News peaks: partly.** Peaks now count from the purchase date (default 1 Jan 2026), and three news
+  closes were corrected. **OKOMUOIL is still red**: its trail uses the June news peak (₦1,575 less the
+  ₦11.50 dividend). DANGSUGAR is now watch, not red.
+- **1.4 Per-account:** each account's units and cost now show next to flags. The rules still run on the
+  combined holding.
+- **1.5 Size cap: still open.** With Sterling fixed, PRESCO is 16.8% and the code says sell 111 units;
+  the exact trim to 15% is 130. Cash is still not counted.
+- Lights now: red 10, amber 8, watch 1, note 8, green 12. Tests: 22 pass, 1 skipped.
+
 ## In plain words
 
 - **The maths in the code is right.** The problems are in the data the rules are fed, not the formulas.
