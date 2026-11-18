@@ -293,6 +293,42 @@ def _prices_for(data_dir, date, prices):
     return prices
 
 
+def load_corporate_actions(data_dir) -> list[dict]:
+    f = _p(data_dir, "corporate_actions.json")
+    return json.loads(f.read_text()) if f.exists() else []
+
+
+def adjusted_history(rows: list[dict], actions: list[dict]) -> list[dict]:
+    """Price-history rows with closes made comparable with today's (copies; the file is not changed).
+
+    For each action in ``corporate_actions.json``, rows of that ticker dated before ``ex_date`` are adjusted:
+    ``dividend`` subtracts ``amount`` from the close; ``reconstruction`` (``old_per_new`` old shares became
+    one new share) multiplies the close by ``old_per_new`` and divides the volume by it. Adjusted rows keep
+    the raw figure in ``raw_close``.
+    """
+    by = collections.defaultdict(list)
+    for a in actions:
+        by[a["ticker"]].append(a)
+    out = []
+    for r in rows:
+        acts = [a for a in by.get(r["ticker"], ()) if r["date"] < a["ex_date"]]
+        if not acts or r.get("close") in (None, ""):
+            out.append(r)
+            continue
+        r = dict(r, raw_close=r["close"])
+        c, v = float(r["close"]), r.get("volume")
+        for a in sorted(acts, key=lambda a: a["ex_date"]):
+            if a["type"] == "dividend":
+                c -= a["amount"]
+            elif a["type"] == "reconstruction":
+                c *= a["old_per_new"]
+                if v not in (None, ""):
+                    v = float(v) / a["old_per_new"]
+        r["close"], r["volume"] = round(c, 4), v
+        out.append(r)
+    return out
+
+
 def rules_status(data_dir, date: str | None = None, prices: dict | None = None, rules: dict | None = None) -> list[dict]:
     """Every holding checked against the owner's rules (``rules.json``).
 
@@ -300,7 +336,11 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     * early warning: close at or below avg cost x (1 - warn_pct) -> ``warn``
     * trailing: once the peak close gave a gain of at least ``trail_min_peak_gain_pct``, a close at
       or below peak x (1 - trail_pct) -> ``trail`` (review selling part). The peak is the highest
-      close in ``price_history.json`` up to ``date`` (history is sparse before Oct 2026).
+      close in ``price_history.json`` from ``peak_from`` up to ``date``, adjusted for
+      the dividends and share reconstructions in ``corporate_actions.json`` (``adjusted_history``).
+      ``peak_from`` is the earliest ``bought_from`` of the ticker's lots in ``holdings.json``; a lot without
+      one uses ``rules["peak_from_default"]``.
+    Rules use the combined holding; ``accounts`` lists each lot (units, cost, gain) when there are several.
     ``trigger`` is the higher (nearer) of the active levels; ``breach`` = loser or trail.
     """
     rules = rules or load_rules(data_dir)
@@ -315,11 +355,22 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     for t in _load(data_dir, "transactions.json"):
         if t["date"] > date:
             cost[t["ticker"]] -= (1 if str(t["side"]).lower() == "buy" else -1) * t["total"]
+    lots, short = collections.defaultdict(list), {}
+    if _p(data_dir, "accounts.json").exists():
+        short = {a["account"]: a.get("short") or a["account"] for a in _load(data_dir, "accounts.json")}
+    default_from = rules.get("peak_from_default", "0000-00-00")
+    peak_from = {}
+    for h in _load(data_dir, "holdings.json"):
+        lots[h["ticker"]].append(h)
+        f = h.get("bought_from") or default_from
+        peak_from[h["ticker"]] = min(peak_from.get(h["ticker"], f), f)
     peak, hist = {}, collections.defaultdict(list)
-    for r in _load(data_dir, "price_history.json"):
+    for r in adjusted_history(_load(data_dir, "price_history.json"), load_corporate_actions(data_dir)):
         if r["date"] <= date and r.get("close") not in (None, ""):
             c = float(r["close"])
             hist[r["ticker"]].append(r)
+            if r["date"] < peak_from.get(r["ticker"], default_from):
+                continue
             if r["ticker"] not in peak or c > peak[r["ticker"]][0]:
                 peak[r["ticker"]] = (c, r["date"])
     out = []
@@ -351,7 +402,12 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
                         avg_cost=round(avg, 2), gain_pct=round((close / avg - 1) * 100, 2) if close is not None else None,
                         loss_level=loss_lvl, warn_level=warn_lvl, trail_level=trail_lvl, peak=pk, peak_date=pk_date,
                         peak_gain_pct=round((pk / avg - 1) * 100, 2) if pk else None,
-                        off_peak_pct=round((close / pk - 1) * 100, 2) if close is not None and pk else None))
+                        off_peak_pct=round((close / pk - 1) * 100, 2) if close is not None and pk else None,
+                        peak_from=peak_from.get(t, default_from),
+                        accounts=[dict(account=h["account"], broker=short.get(h["account"], h["account"]), units=h["units"],
+                                       unit_cost=h["unit_cost"],
+                                       gain_pct=round((close / h["unit_cost"] - 1) * 100, 2) if close is not None else None)
+                                  for h in lots[t]] if len(lots[t]) > 1 else []))
     total = sum(units[r["ticker"]] * r["close"] for r in out if r["close"] is not None)
     since = rules.get("set", "0000-00-00")
     sells = collections.defaultdict(list)
@@ -479,6 +535,11 @@ _STATUS_TEXT = {"loser": "LOSER: at or past your {loss}% loss limit",
                 "no price": "No price"}
 
 
+def accounts_text(accounts: list[dict]) -> str:
+    return "; ".join(f"{a['broker']} {a['units']:,} @ {a['unit_cost']:,.2f}"
+                     + (f" ({a['gain_pct']:+.0f}%)" if a.get("gain_pct") is not None else "") for a in accounts)
+
+
 def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
     """Regenerate ``watchlist.json`` (the dashboard's watchlist) from ``rules_status`` rows."""
     fmt = dict(loss=rules["loss_limit_pct"], warn=rules["warn_pct"], trail=rules["trail_pct"])
@@ -494,6 +555,8 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
             note += " Early warning (" + r["light"] + "): " + "; ".join(sig) + "."
         if r.get("take_profit"):
             note += " Take profit: " + "; ".join(x["text"] for x in r["take_profit"]) + "."
+        if r.get("accounts"):
+            note += " Held in: " + accounts_text(r["accounts"]) + "."
         wl.append(dict(ticker=r["ticker"], rule=r["rule"], trigger=r["trigger"], status=r["status"], light=r.get("light"),
                        since=rules.get("compare_since", "2026-10-23"), note=note))
     _p(data_dir, "watchlist.json").write_text(

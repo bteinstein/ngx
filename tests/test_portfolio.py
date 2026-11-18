@@ -132,3 +132,36 @@ def test_take_profit():
     assert [x["kind"] for x in tp["take_profit"]] == ["target", "recover_cost"]
     assert tp["take_profit"][0]["units"] == 187 and "+100%" in tp["take_profit"][0]["text"]
     assert P.take_profit(dict(close=110.0, gain_pct=10.0), 10, 1000.0, 1e6, [], rules)["take_profit"] == []
+
+
+def test_adjusted_history_dividend_and_reconstruction():
+    rows = [{"ticker": "ZZ", "date": "2026-10-07", "close": 7.7, "volume": 1000},
+            {"ticker": "ZZ", "date": "2026-10-08", "close": 77.0, "volume": 10},
+            {"ticker": "DD", "date": "2026-10-23", "close": 120.9, "volume": 5},
+            {"ticker": "DD", "date": "2026-10-26", "close": 119.4, "volume": 5}]
+    acts = [{"ticker": "ZZ", "ex_date": "2026-10-08", "type": "reconstruction", "old_per_new": 10},
+            {"ticker": "DD", "ex_date": "2026-10-26", "type": "dividend", "amount": 1.5}]
+    a = {(r["ticker"], r["date"]): r for r in P.adjusted_history(rows, acts)}
+    assert a[("ZZ", "2026-10-07")]["close"] == 77.0 and a[("ZZ", "2026-10-07")]["volume"] == 100
+    assert a[("ZZ", "2026-10-07")]["raw_close"] == 7.7 and "raw_close" not in a[("ZZ", "2026-10-08")]
+    assert a[("DD", "2026-10-23")]["close"] == 119.4 and a[("DD", "2026-10-26")]["close"] == 119.4
+    assert rows[0]["close"] == 7.7  # input untouched
+
+
+def test_peak_from_and_accounts(data):
+    (data / "rules.json").write_text(json.dumps({"loss_limit_pct": 20, "warn_pct": 10, "trail_pct": 15,
+                                                "trail_min_peak_gain_pct": 20, "peak_from_default": "2026-11-01"}))
+    ph = json.loads((data / "price_history.json").read_text())
+    ph.append({"id": "BBB-2026-10-01", "ticker": "BBB", "date": "2026-10-01", "close": 200.0, "volume": 1, "source": "x"})
+    ph.append({"id": "BBB-2026-11-12", "ticker": "BBB", "date": "2026-11-12", "close": 150.0, "volume": 1, "source": "x"})
+    (data / "price_history.json").write_text(json.dumps(ph))
+    rows = {r["ticker"]: r for r in P.rules_status(data, "2026-11-13")}
+    assert rows["BBB"]["peak"] == 150.0 and rows["BBB"]["peak_from"] == "2026-11-01"  # 1 Oct peak is before
+    assert rows["BBB"]["accounts"] == []
+    acc = rows["AAA"]["accounts"]
+    assert [(a["account"], a["units"], a["gain_pct"]) for a in acc] == [("Account 1", 100, 20.0), ("Account 2", 50, 0.0)]
+    h = json.loads((data / "holdings.json").read_text())
+    h[2]["bought_from"] = "2026-09-01"
+    (data / "holdings.json").write_text(json.dumps(h))
+    rows = {r["ticker"]: r for r in P.rules_status(data, "2026-11-13")}
+    assert rows["BBB"]["peak"] == 200.0 and rows["BBB"]["peak_from"] == "2026-09-01"

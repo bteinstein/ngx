@@ -1,0 +1,52 @@
+[
+ {
+  "ticker": "STERLINGNG",
+  "ex_date": "2026-10-08",
+  "type": "reconstruction",
+  "old_per_new": 10,
+  "source": "NGX Daily Official List and Shares Outstanding, 7-8 Oct 2026: shares 68,502,331,708 -> 6,850,233,171, price 7.70 -> 77.00, market cap unchanged at 527.47bn. Last trade before: 22 Sep 2026 at 7.70; trading resumed 12 Oct.",
+  "owner_confirmed": "2026-11-18: Meristem shows 500 units (was 5,000)."
+ },
+ {
+  "ticker": "PZ",
+  "ex_date": "2026-10-12",
+  "type": "dividend",
+  "amount": 2.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (9 Oct close 68.00, 12 Oct prev close 65.50)"
+ },
+ {
+  "ticker": "GTCO",
+  "ex_date": "2026-10-13",
+  "type": "dividend",
+  "amount": 1.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (12 Oct close 131.00, 13 Oct prev close 130.00)"
+ },
+ {
+  "ticker": "STANBIC",
+  "ex_date": "2026-10-16",
+  "type": "dividend",
+  "amount": 4.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (15 Oct close 168.00, 16 Oct prev close 163.50)"
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "ex_date": "2026-10-26",
+  "type": "dividend",
+  "amount": 1.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (23 Oct close 120.90, 26 Oct prev close 119.40)"
+ },
+ {
+  "ticker": "OKOMUOIL",
+  "ex_date": "2026-11-12",
+  "type": "dividend",
+  "amount": 11.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (11 Nov close 1,148.60, 12 Nov prev close 1,137.10)"
+ },
+ {
+  "ticker": "SEPLAT",
+  "ex_date": "2026-11-13",
+  "type": "dividend",
+  "amount": 258.1,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (12 Nov close 16,500.00, 13 Nov prev close 16,241.90)"
+ }
+]

@@ -116,6 +116,8 @@ def _portfolio(a, f) -> int:
                     extra += "\n            " + "; ".join(sig)
                 for x in w.get("take_profit", []):
                     extra += "\n            TAKE PROFIT: " + x["text"]
+                if w.get("accounts"):
+                    extra += "\n            HELD IN: " + P.accounts_text(w["accounts"])
                 print(f"{w['ticker']:<11} {w['light'].upper():<6} {w['status'].upper():<6} close {w['close']:>10,.2f}  cost {w['avg_cost']:>10,.2f}"
                       f" ({w['gain_pct']:+.1f}%)  {w['rule']} {w['trigger']:>10,.2f} ({w['gap_pct']:+.1f}%){extra}")
                 continue
