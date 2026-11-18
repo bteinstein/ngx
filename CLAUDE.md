@@ -7,6 +7,9 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 Start with `docs/REVIEW_HANDOFF_2026-11-18.md`. The owner doubts the take-profit table, and STERLINGNG
 looks wrong (₦7.70 → ₦77.00 on 8 Oct, a likely 10:1 share reconstruction; holdings still say 5,000 units
 at ₦5.87). Don't trust Sterling's value or gain until it's verified with the owner.
+Data review done 18 Nov: `docs/DATA_REVIEW_2026-11-18.md`. Sterling's 10-for-1 reconstruction is CONFIRMED from
+NGX files (shares ÷10, price ×10, market cap unchanged); holdings still wait for the owner's Meristem unit count.
+Stored peaks are understated (sparse pre-Oct history) and not dividend-adjusted. See the review before trusting trailing flags.
 
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):
