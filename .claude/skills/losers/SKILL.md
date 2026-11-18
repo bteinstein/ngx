@@ -1,6 +1,6 @@
 ---
 name: losers
-description: Check the NGX watchlist ("my losers") against their triggers with the latest prices, pulled on demand. Use when the owner says "update my losers", "check my triggers", "watchlist", or asks whether a watched stock broke its level.
+description: Check every holding ("my losers") against the owner's sell rules (20% loss limit, 15% trailing) with the latest prices, pulled on demand. Use when the owner says "update my losers", "check my triggers", "watchlist", or asks whether a watched stock broke its level.
 ---
 
 # Update my losers
@@ -11,12 +11,15 @@ description: Check the NGX watchlist ("my losers") against their triggers with t
    ```bash
    ngxprices portfolio losers
    ```
-   Rule `low`: trigger = the lowest close in the 2 weeks to 17 Nov (fixed level in
-   `data/watchlist.json`). Rule `cost`: trigger = the owner's average cost (Presco).
-3. For any stock below its trigger, give context before calling it a breach:
+   Rules in `data/rules.json` (set by the owner 18 Nov 2026), applied to every holding:
+   `LOSER` = close ≥20% below average cost; `TRAIL` = peak close was ≥20% above cost and the close
+   is ≥15% below that peak (sell-part review); `WARN` = ≥10% below cost. Change the rules only
+   when the owner asks (edit `rules.json`, then refresh).
+3. For any LOSER or TRAIL flag, give context before calling it:
    - the day's volume against its 20-day average (from `price_history.json`);
    - a dividend or ex-dividend date that explains the drop (see `data/_dataset_descriptions/` and
      news if needed);
    - whether the close came from the live feed (provisional) or official files.
-4. Report short: each watchlist stock, close vs trigger and the gap in %, breaches first. Selling
+4. Report short: losers first (loss on cost), then sell-part reviews (% from peak), then warnings;
+   one line saying how many are within the rules. Mention new flags since the last report. Selling
    fees are about 1.8–2%. Information only; the decision is the owner's.

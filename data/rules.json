@@ -1,0 +1,11 @@
+{
+ "set": "2026-11-18",
+ "by": "owner",
+ "loss_limit_pct": 20,
+ "warn_pct": 10,
+ "trail_pct": 15,
+ "trail_min_peak_gain_pct": 20,
+ "scope": "all holdings",
+ "compare_since": "2026-10-23",
+ "note": "Owner's rules from 18 Nov 2026. Loss limit: a close 20% or more below average cost makes a holding a loser (early warning at 10%). Trailing: once a holding's peak close was 20% or more above cost, a close 15% or more below that peak flags it for a sell-part review. Applies to all holdings, including the six old losers. Before calling a flag, check volume, dividend dates and whether the close is live or official. Selling fees about 1.8-2%; buying back costs about the same, so a buy-back needs a fall of more than about 4%."
+}

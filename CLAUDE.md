@@ -13,7 +13,7 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
     The newest file is the latest; older ones are kept as snapshots.
   - `price_history.json` — dated closes, volumes, trades and value per stock.
   - `daily_log.json` — one row per trading day: value, cost, gain, day P/L, note. 9 Oct is the baseline.
-  - `watchlist.json` — triggers for the six losers + Presco.
+  - `rules.json` — the owner's sell rules; `watchlist.json` — generated from them each refresh.
   - `plan_2_2M.json` — the example ₦2.2M plan (started 12 Oct 2026).
   - `company_results.json`, `stock_facts.json`, `webinar_levels.json` — research data.
   - `_dataset_descriptions/` — the original notes on each dataset's sources and caveats. Read these.
@@ -51,14 +51,18 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 (+0.62%). No trades since 12 Oct
 (owner confirmed on 9 Nov; nothing reported since).
 
-## Watchlist (trigger = lowest close in the 2 weeks to 17 Nov; reset 18 Nov at the owner's request)
-SUNUASSUR ₦2.62 · LASACO ₦1.60 · INTBREW ₦8.40 · OANDO ₦31.50 · AFRIPRUD ₦10.00 · TRANSCORP ₦30.00 ·
-PRESCO = average cost ₦1,497.65 (gain-protection). Previous triggers (2 weeks to 6 Nov): Sunu ₦2.65,
-INTBREW ₦8.50, the rest unchanged. LASACO and OANDO lows are from 5 Nov (Mansa board, not NGX official).
-A close below the trigger means selling is continuing. Check volume and dividend dates before calling
-a breach. Selling fees are about 1.8–2%.
-- Status at 17 Nov: all above their triggers; Transcorp closest (+6.7%). INTBREW ₦10.10 (AfriInvest,
-  25,999 units, avg cost ₦16.06; a capital reorganisation has been proposed).
+## Sell rules (owner's, set 18 Nov 2026; `data/rules.json`; apply to ALL holdings)
+- **Loss limit 20%:** a close ≥20% below average cost = **loser**. Early warning at −10%.
+- **Trailing 15%:** once a holding's peak close was ≥20% above cost, a close ≥15% below that peak =
+  **sell-part review** (owner's view: e.g. Presco should have been part-sold as its gain fell from
+  40%+ to ~10%, then bought back lower). Peak = highest close in `price_history.json` (sparse before Oct).
+- Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
+  The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
+- Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs
+  official before calling a flag. Fees ~1.8–2% each way, so a buy-back needs a fall of >~4%.
+- At 17 Nov: losers SUNUASSUR, LASACO, INTBREW, OANDO, AFRIPRUD, TRANSCORP (−30% to −46%);
+  sell-part review FIRSTHOLDCO, OKOMUOIL (peak from June news), UPDCREIT, PRESCO, ZENITHBANK (exactly
+  −15.0%); warning UCAP, LINKASSURE. INTBREW: capital reorganisation proposed.
 
 ## ₦2.2M plan (from 12 Oct 2026)
 Buy now: Seplat ₦500K, Dangote Cement ₦400K, Zenith ₦200K, MTN ₦200K.
@@ -80,7 +84,7 @@ Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in 
   `ngxprices portfolio refresh` pulls the data on demand and writes `data/`, then the skill updates the
   claude.ai dashboard (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7), commits and reports value,
   day P/L, movers, heavy volume and watchlist breaches. Never add contract notes twice.
-- "update my losers" → use the `losers` skill: refresh, then `ngxprices portfolio losers`.
+- "update my losers" → use the `losers` skill: refresh, then `ngxprices portfolio losers` (all holdings vs the sell rules).
 - A scheduled task "NGX nightly portfolio update" runs the `refresh` flow every weekday at 22:15 WAT in a
   fresh cloud session (official closes and volumes, dashboard, commit, push notification).
 - Price sources used so far: NGX official files (ngxprices), GTI Research price lists, APT Securities,

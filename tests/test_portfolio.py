@@ -79,3 +79,24 @@ def test_stage(data, tmp_path):
     P.upsert_day(day("live", 10.0, 120.0), data)
     out = P.stage_dashboard_files(data, tmp_path / "stage")
     assert out["prices"].endswith("prices_2026-11-16.json") and out["daily"].endswith("daily_2026-11-16.json")
+
+
+def test_rules_loss_trail_warn(data):
+    (data / "rules.json").write_text(json.dumps({"loss_limit_pct": 20, "warn_pct": 10, "trail_pct": 15,
+                                                "trail_min_peak_gain_pct": 20}))
+    ph = json.loads((data / "price_history.json").read_text())
+    ph.append({"id": "BBB-2026-11-12", "ticker": "BBB", "date": "2026-11-12", "close": 150.0, "volume": 1, "source": "x"})
+    (data / "price_history.json").write_text(json.dumps(ph))
+    # AAA avg cost 10.6667: 8.0 is past -20%; BBB peak 150 (+50%), 120 is 20% off peak -> trail
+    s = P.upsert_day(day("official", 8.0, 120.0), data)
+    wl = {w["ticker"]: w for w in s["watchlist"]}
+    assert wl["AAA"]["status"] == "loser" and wl["AAA"]["rule"] == "loss_limit" and wl["AAA"]["trigger"] == 8.53
+    assert wl["BBB"]["status"] == "trail" and wl["BBB"]["trigger"] == 127.5 and wl["BBB"]["peak"] == 150.0
+    gen = json.loads((data / "watchlist.json").read_text())
+    assert {w["ticker"]: w["rule"] for w in gen} == {"AAA": "loss_limit", "BBB": "trailing"}
+    assert "past the loss limit: AAA" in json.loads((data / "daily_log.json").read_text())[-1]["note"]
+    # warning band, and trailing inactive when the peak gain is under 20%
+    s = P.upsert_day(day("official", 9.5, 130.0), data)
+    wl = {w["ticker"]: w for w in s["watchlist"]}
+    assert wl["AAA"]["status"] == "warn" and wl["AAA"]["trail_level"] is None  # AAA peak 12 is only +12.5%
+    assert wl["BBB"]["status"] == "ok"

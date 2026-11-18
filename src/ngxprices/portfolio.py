@@ -8,7 +8,10 @@ Files (layouts kept exactly as the dashboard export made them):
 * ``price_history.json``  — one row per (ticker, date): close, volume, trades, value_ngn, source
 * ``prices_<date>.json``  — that day's closes with 1-day and 7-day change and activity
 * ``daily_log.json``      — one row per trading day: value, cost, gain, cash_in, day_pl, note
-* ``watchlist.json``      — triggers: rule ``low`` (fixed level) or ``cost`` (average cost)
+* ``rules.json``          — the owner's sell rules (loss limit, early warning, trailing level). When it
+  exists, every holding is checked against it and ``watchlist.json`` is regenerated from it.
+* ``watchlist.json``      — triggers: rule ``loss_limit`` / ``trailing`` (generated from ``rules.json``),
+  or hand-set rule ``low`` (fixed level) / ``cost`` (average cost)
 
 Data is pulled on demand. ``refresh()`` uses NGX's official files when they exist for the day,
 otherwise NGX's live feed (about 30 minutes delayed; after the 14:30 close its prices are the
@@ -218,7 +221,7 @@ def upsert_day(day: dict, data_dir="data") -> dict:
                    gain=entry["gain"], day_pl=entry.get("day_pl"), day_pl_pct=entry.get("day_pl_pct"),
                    up=[(t, round(m)) for m, t in moves[::-1][:5] if m > 0],
                    down=[(t, round(m)) for m, t in moves[:5] if m < 0],
-                   watchlist=watchlist_status(data_dir, date, px), volume=volume_highlights(data_dir, date),
+                   watchlist=_watchlist_and_write(data_dir, date, px), volume=volume_highlights(data_dir, date),
                    prices_file=str(prices_path), missing_unheld=missing)
     if existing is None or existing.get("auto_note"):
         entry["note"] = _auto_note(summary, cash_in)
@@ -235,6 +238,14 @@ def upsert_day(day: dict, data_dir="data") -> dict:
     return summary
 
 
+def _watchlist_and_write(data_dir, date, px):
+    rows = watchlist_status(data_dir, date, px)
+    rules = load_rules(data_dir)
+    if rules:
+        write_rules_watchlist(data_dir, rows, rules)
+    return rows
+
+
 def _naira(v) -> str:
     return ("-" if v < 0 else "+") + "₦" + (f"{abs(v) / 1000:,.1f}K" if abs(v) >= 1000 else f"{abs(v):,.0f}")
 
@@ -247,18 +258,126 @@ def _auto_note(s: dict, cash_in: float) -> str:
     if s["down"]:
         parts.append("Down: " + ", ".join(f"{t} ({_naira(m)})" for t, m in s["down"]) + ".")
     br = [w for w in s["watchlist"] if w["breach"]]
-    parts.append("Watchlist: " + ("; ".join(f"{w['ticker']} {w['close']:,.2f} below {w['trigger']:,.2f}" for w in br)
-                                  if br else "all above their triggers") + ".")
+    if br and "status" in br[0]:
+        los = [w for w in br if w["status"] == "loser"]
+        tr = [w for w in br if w["status"] == "trail"]
+        txt = []
+        if los:
+            txt.append("past the loss limit: " + ", ".join(f"{w['ticker']} ({w['gain_pct']:+.0f}% on cost)" for w in los))
+        if tr:
+            txt.append("sell-part review: " + ", ".join(f"{w['ticker']} ({w['off_peak_pct']:+.0f}% from peak)" for w in tr))
+        parts.append("Rules: " + "; ".join(txt) + ".")
+    else:
+        parts.append("Watchlist: " + ("; ".join(f"{w['ticker']} {w['close']:,.2f} below {w['trigger']:,.2f}" for w in br)
+                                      if br else "all above their triggers") + ".")
     return " ".join(parts)
 
 
 # ---------------------------------------------------------------- watchlist and volume
 
-def watchlist_status(data_dir, date: str | None = None, prices: dict | None = None) -> list[dict]:
-    """Each watchlist stock's close against its trigger (rule ``low``: fixed level; ``cost``: average cost)."""
+def load_rules(data_dir) -> dict | None:
+    f = _p(data_dir, "rules.json")
+    return json.loads(f.read_text()) if f.exists() else None
+
+
+def _prices_for(data_dir, date, prices):
     if prices is None:
         f = _p(data_dir, f"prices_{date}.json") if date else latest_prices_file(data_dir)
         prices = {p["ticker"]: p for p in json.loads(Path(f).read_text())}
+    return prices
+
+
+def rules_status(data_dir, date: str | None = None, prices: dict | None = None, rules: dict | None = None) -> list[dict]:
+    """Every holding checked against the owner's rules (``rules.json``).
+
+    * loss limit: close at or below avg cost x (1 - loss_limit_pct) -> ``loser``
+    * early warning: close at or below avg cost x (1 - warn_pct) -> ``warn``
+    * trailing: once the peak close gave a gain of at least ``trail_min_peak_gain_pct``, a close at
+      or below peak x (1 - trail_pct) -> ``trail`` (review selling part). The peak is the highest
+      close in ``price_history.json`` up to ``date`` (history is sparse before Oct 2026).
+    ``trigger`` is the higher (nearer) of the active levels; ``breach`` = loser or trail.
+    """
+    rules = rules or load_rules(data_dir)
+    prices = _prices_for(data_dir, date, prices)
+    date = date or next(iter(prices.values()))["as_of"]
+    loss, warn, trail = rules["loss_limit_pct"] / 100, rules["warn_pct"] / 100, rules["trail_pct"] / 100
+    min_peak = rules["trail_min_peak_gain_pct"] / 100
+    units, _ = units_and_cost(data_dir, date)
+    cost = collections.Counter()
+    for h in _load(data_dir, "holdings.json"):
+        cost[h["ticker"]] += h["units"] * h["unit_cost"]
+    for t in _load(data_dir, "transactions.json"):
+        if t["date"] > date:
+            cost[t["ticker"]] -= (1 if str(t["side"]).lower() == "buy" else -1) * t["total"]
+    peak = {}
+    for r in _load(data_dir, "price_history.json"):
+        if r["date"] <= date and r.get("close") not in (None, ""):
+            c = float(r["close"])
+            if r["ticker"] not in peak or c > peak[r["ticker"]][0]:
+                peak[r["ticker"]] = (c, r["date"])
+    out = []
+    for t, n in sorted(units.items()):
+        if not n:
+            continue
+        avg = cost[t] / n
+        p = prices.get(t)
+        close = p["price"] if p else None
+        pk, pk_date = peak.get(t, (close, date))
+        if close is not None and close > (pk or 0):
+            pk, pk_date = close, date
+        loss_lvl, warn_lvl = round(avg * (1 - loss), 2), round(avg * (1 - warn), 2)
+        trail_on = pk is not None and pk >= avg * (1 + min_peak)
+        trail_lvl = round(pk * (1 - trail), 2) if trail_on else None
+        rule, trig = ("trailing", trail_lvl) if trail_on and trail_lvl > loss_lvl else ("loss_limit", loss_lvl)
+        status = "no price"
+        if close is not None:
+            if close <= loss_lvl:
+                status = "loser"
+            elif trail_on and close <= trail_lvl:
+                status = "trail"
+            elif close <= warn_lvl:
+                status = "warn"
+            else:
+                status = "ok"
+        out.append(dict(ticker=t, rule=rule, trigger=trig, close=close, breach=status in ("loser", "trail"),
+                        status=status, gap_pct=round((close / trig - 1) * 100, 2) if close is not None else None,
+                        avg_cost=round(avg, 2), gain_pct=round((close / avg - 1) * 100, 2) if close is not None else None,
+                        loss_level=loss_lvl, warn_level=warn_lvl, trail_level=trail_lvl, peak=pk, peak_date=pk_date,
+                        peak_gain_pct=round((pk / avg - 1) * 100, 2) if pk else None,
+                        off_peak_pct=round((close / pk - 1) * 100, 2) if close is not None and pk else None))
+    order = {"loser": 0, "trail": 1, "warn": 2, "ok": 3, "no price": 4}
+    return sorted(out, key=lambda r: (order[r["status"]], r["gap_pct"] if r["gap_pct"] is not None else 1e9))
+
+
+_STATUS_TEXT = {"loser": "LOSER: at or past your {loss}% loss limit",
+                "trail": "SELL-PART REVIEW: {trail}% or more below its peak",
+                "warn": "Early warning: {warn}% or more below your cost", "ok": "Within your rules",
+                "no price": "No price"}
+
+
+def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
+    """Regenerate ``watchlist.json`` (the dashboard's watchlist) from ``rules_status`` rows."""
+    fmt = dict(loss=rules["loss_limit_pct"], warn=rules["warn_pct"], trail=rules["trail_pct"])
+    wl = []
+    for r in rows:
+        note = (f"{_STATUS_TEXT[r['status']].format(**fmt)}. Avg cost {r['avg_cost']:,.2f}; "
+                f"loss limit {r['loss_level']:,.2f}; warning {r['warn_level']:,.2f}; peak {r['peak']:,.2f} "
+                f"({r['peak_date']}, {r['peak_gain_pct']:+.1f}% on cost)")
+        note += f"; trailing level {r['trail_level']:,.2f}." if r["trail_level"] else "; trailing not active (peak gain under " \
+            f"{rules['trail_min_peak_gain_pct']}%)."
+        wl.append(dict(ticker=r["ticker"], rule=r["rule"], trigger=r["trigger"], status=r["status"],
+                       since=rules.get("compare_since", "2026-10-23"), note=note))
+    _p(data_dir, "watchlist.json").write_text(
+        "[\n" + ",\n".join(" " + json.dumps(w, ensure_ascii=False) for w in wl) + "\n]\n")
+
+
+def watchlist_status(data_dir, date: str | None = None, prices: dict | None = None) -> list[dict]:
+    """With ``rules.json``: every holding against the owner's rules (see ``rules_status``).
+    Otherwise each ``watchlist.json`` stock against its trigger (``low``: fixed level; ``cost``: average cost)."""
+    rules = load_rules(data_dir)
+    if rules:
+        return rules_status(data_dir, date, prices, rules)
+    prices = _prices_for(data_dir, date, prices)
     holdings = _load(data_dir, "holdings.json")
     out = []
     for w in _load(data_dir, "watchlist.json"):

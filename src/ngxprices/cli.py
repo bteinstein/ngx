@@ -109,6 +109,11 @@ def _portfolio(a, f) -> int:
             print(json.dumps(rows, indent=1))
             return 0
         for w in rows:
+            if "status" in w:
+                extra = f"  {w['off_peak_pct']:+.1f}% from peak" if w["trail_level"] else ""
+                print(f"{w['ticker']:<11} {w['status'].upper():<8} close {w['close']:>10,.2f}  cost {w['avg_cost']:>10,.2f}"
+                      f" ({w['gain_pct']:+.1f}%)  {w['rule']} {w['trigger']:>10,.2f} ({w['gap_pct']:+.1f}%){extra}")
+                continue
             flag = "BELOW TRIGGER" if w["breach"] else "above"
             print(f"{w['ticker']:<11} close {w['close']:>10,.2f}  trigger {w['trigger'] or 0:>10,.2f}  {flag} ({w['gap_pct']:+.1f}%)")
         return 0
@@ -124,7 +129,8 @@ def _portfolio(a, f) -> int:
     print("Up:  ", ", ".join(f"{t} {_naira(m)}" for t, m in s["up"]) or "-")
     print("Down:", ", ".join(f"{t} {_naira(m)}" for t, m in s["down"]) or "-")
     br = [w for w in s["watchlist"] if w["breach"]]
-    print("Watchlist:", "; ".join(f"{w['ticker']} {w['close']} < {w['trigger']}" for w in br) if br else "all above triggers")
+    print("Watchlist:", "; ".join(f"{w['ticker']} {w.get('status', '')} {w['close']} vs {w['trigger']}" for w in br)
+          if br else "all within their triggers")
     if s["volume"]:
         print("Heavy volume:", ", ".join(f"{v['ticker']} {v['ratio']}x" for v in s["volume"]))
     return 0
