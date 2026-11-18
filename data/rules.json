@@ -34,5 +34,7 @@
   "size_cap_pct": 15,
   "fee_pct": 2.0
  },
- "take_profit_note": "Added 18 Nov at the owner's request (sell into strength). Targets: at +50% sell 25% of the holding, at +100% another 25%. Recover cost: once up 100%, sell enough units to get back everything paid and keep the rest. Size cap: no holding above 15% of the portfolio. Sells recorded in transactions.json after 18 Nov count as targets taken / cost returned."
+ "take_profit_note": "Added 18 Nov at the owner's request (sell into strength). Targets: at +50% sell 25% of the holding, at +100% another 25%. Recover cost: once up 100%, sell enough units to get back everything paid and keep the rest. Size cap: no holding above 15% of the portfolio. Sells recorded in transactions.json after 18 Nov count as targets taken / cost returned.",
+ "peak_from_default": "2026-01-01",
+ "peak_note": "Set 18 Nov 2026 (owner accepted the recommendation): a peak counts only from the purchase date (a holding's bought_from in holdings.json), or from 1 Jan 2026 when the purchase date is not known. Peaks are reduced by dividends and adjusted for share reconstructions after them (corporate_actions.json). Rules use the combined holding across accounts; each account's units and cost are shown next to the flags."
 }

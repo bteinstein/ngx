@@ -286,7 +286,9 @@
   "name": "MTN Nigeria",
   "sector": "ICT",
   "units": 240,
-  "unit_cost": 856.3386
+  "unit_cost": 856.3386,
+  "bought_from": "2026-10-12",
+  "note": "All 240 units bought 12 Oct 2026 (Meristem contract notes 0008187517 and 0008187525)."
  },
  {
   "id": "A2-ACCESSCORP",
