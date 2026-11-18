@@ -203,8 +203,9 @@
   "ticker": "STERLINGNG",
   "name": "Sterling Financial Holdings",
   "sector": "Banking",
-  "units": 5000,
-  "unit_cost": 5.87
+  "units": 500,
+  "unit_cost": 58.7,
+  "note": "10-for-1 share reconstruction on 8 Oct 2026: 5,000 units at 5.87 became 500 at 58.70 (same total cost 29,350). Owner confirmed 500 units on Meristem, 18 Nov 2026."
  },
  {
   "id": "A1-SUNUASSUR",

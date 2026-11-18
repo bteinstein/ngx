@@ -42,7 +42,7 @@ What it means for the holding (Account 1, Meristem; recorded as 5,000 units at �
 Either way Sterling is **+27.8%, not +1,178%**: no take-profit target is reached, and its weight is
 0.4% (a) or 3.6% (b). Under (a) every daily-log value from 9 Oct is overstated by ₦337,500–346,500
 (4,500 × that day's close), and Presco's size-cap sale rises from 80 to about 111 units.
-**Not changed yet: waiting for the owner to confirm the unit count and average cost on Meristem.**
+**Owner confirmed 500 units on Meristem (18 Nov). Applied:** holdings 500 @ ₦58.70; every daily-log value from 9 Oct lowered (notes give the old figures); the event is recorded in `data/corporate_actions.json`.
 The four pre-8 Oct price rows now carry a note explaining the ×10.
 
 ## 3. Fixed today (NGX official closes replace wrong news figures)
@@ -96,9 +96,19 @@ Per account, MTN (Account 3) and Mansard (Account 1) would reach take-profit tar
 (Account 2) would be at the −10% warning. **Owner to decide** whether rules apply per account.
 The MTN Account 3 cost (₦169.70) is worth confirming with InvestNaija.
 
-## 7. Waiting on the owner
+## 7. Owner's answers (18 Nov) and what was done
 
-1. Sterling: units and average cost shown on Meristem now (section 2).
-2. Peaks: back-fill official history; count peaks only after purchase? (section 4)
-3. Dividend-adjusted peaks (section 5) and per-account rules (section 6): rule choices.
-4. MTN Account 3 cost ₦169.70: confirm.
+1. Sterling: **500 units** → applied (section 2). At 17 Nov: value ₦10,159,793 · cost ₦8,023,767 ·
+   gain ₦2,136,026 · day +₦67,569.
+2. Dividend-adjusted peaks: **yes** → `data/corporate_actions.json` (Sterling 10:1 plus six dividends
+   verified from NGX previous-close adjustments, 12 Oct–13 Nov) and `adjusted_history()` in
+   `portfolio.py`, used by `rules_status` for peaks and early-warning signs. Zenith is now amber
+   (−14.1% from its adjusted peak), not red. Take-profit flags: 14 (Sterling dropped); Presco is 16.8%
+   of the portfolio, size-cap sale 111 units. Earlier 2026 dividends (before Oct) are not in yet: NGX's
+   mid-year files are inconsistent and need the back-fill first.
+3. Peaks and per-account rules: owner asked for a recommendation (still open):
+   - Peaks: back-fill official closes for 2026 and count a peak only from the purchase date where
+     known (otherwise from 1 Jan 2026). Needs rough purchase dates from the owner.
+   - Accounts: keep one combined signal per stock (same price, one decision), but show each account's
+     units and cost next to any sell suggestion so the owner chooses which account to sell from.
+4. MTN Account 3 cost ₦169.70: still to confirm with InvestNaija.

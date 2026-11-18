@@ -132,3 +132,17 @@ def test_take_profit():
     assert [x["kind"] for x in tp["take_profit"]] == ["target", "recover_cost"]
     assert tp["take_profit"][0]["units"] == 187 and "+100%" in tp["take_profit"][0]["text"]
     assert P.take_profit(dict(close=110.0, gain_pct=10.0), 10, 1000.0, 1e6, [], rules)["take_profit"] == []
+
+
+def test_adjusted_history_dividend_and_reconstruction():
+    rows = [{"ticker": "ZZ", "date": "2026-10-07", "close": 7.7, "volume": 1000},
+            {"ticker": "ZZ", "date": "2026-10-08", "close": 77.0, "volume": 10},
+            {"ticker": "DD", "date": "2026-10-23", "close": 120.9, "volume": 5},
+            {"ticker": "DD", "date": "2026-10-26", "close": 119.4, "volume": 5}]
+    acts = [{"ticker": "ZZ", "ex_date": "2026-10-08", "type": "reconstruction", "old_per_new": 10},
+            {"ticker": "DD", "ex_date": "2026-10-26", "type": "dividend", "amount": 1.5}]
+    a = {(r["ticker"], r["date"]): r for r in P.adjusted_history(rows, acts)}
+    assert a[("ZZ", "2026-10-07")]["close"] == 77.0 and a[("ZZ", "2026-10-07")]["volume"] == 100
+    assert a[("ZZ", "2026-10-07")]["raw_close"] == 7.7 and "raw_close" not in a[("ZZ", "2026-10-08")]
+    assert a[("DD", "2026-10-23")]["close"] == 119.4 and a[("DD", "2026-10-26")]["close"] == 119.4
+    assert rows[0]["close"] == 7.7  # input untouched

@@ -4,12 +4,11 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 **Mon 16 Nov 2026 close** (live-feed closes; official volumes for 16 Nov still to load). The owner (Babatunde Adebayo) works mostly from his Android phone.
 
 ## ⚠️ Open review (18 Nov 2026)
-Start with `docs/REVIEW_HANDOFF_2026-11-18.md`. The owner doubts the take-profit table, and STERLINGNG
-looks wrong (₦7.70 → ₦77.00 on 8 Oct, a likely 10:1 share reconstruction; holdings still say 5,000 units
-at ₦5.87). Don't trust Sterling's value or gain until it's verified with the owner.
-Data review done 18 Nov: `docs/DATA_REVIEW_2026-11-18.md`. Sterling's 10-for-1 reconstruction is CONFIRMED from
-NGX files (shares ÷10, price ×10, market cap unchanged); holdings still wait for the owner's Meristem unit count.
-Stored peaks are understated (sparse pre-Oct history) and not dividend-adjusted. See the review before trusting trailing flags.
+Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Section 4 (data review) is DONE: `docs/DATA_REVIEW_2026-11-18.md`.
+Sterling had a 10-for-1 share reconstruction on 8 Oct (NGX files); owner confirmed 500 units → holdings 500 @ ₦58.70,
+daily log lowered from 9 Oct. Peaks are now dividend-adjusted via `data/corporate_actions.json` (record new dividends
+and reconstructions there). Still open: stored peaks are understated (sparse pre-Oct history; owner to choose how
+peaks work), per-account vs combined rules, MTN Account 3 cost ₦169.70. Next: handoff section 6 (expert critique).
 
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):
@@ -55,8 +54,8 @@ Stored peaks are understated (sparse pre-Oct history) and not dividend-adjusted.
 - 16 Nov rows are from the live feed (18:36 WAT): replace volumes with official ones next time.
 - This environment can reach `*.ngxgroup.com`; a new cloud environment may need it allowed.
 
-## Portfolio at 16 Nov 2026 close
-Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 (+0.62%). No trades since 12 Oct
+## Portfolio at 17 Nov 2026 close (official; Sterling corrected 18 Nov)
+Value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026 · day +₦67,569 (+0.67%). No trades since 12 Oct
 (owner confirmed on 9 Nov; nothing reported since).
 
 ## Sell rules (owner's, set 18 Nov 2026; `data/rules.json`; apply to ALL holdings)
@@ -72,16 +71,16 @@ Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 
 - **Take profit (added 18 Nov; `rules.json` → `take_profit`):** targets +50% → sell 25%, +100% →
   another 25%; recover cost once up 100% (units whose sale returns all paid, after ~2% fees); size
   cap 15% of portfolio. Sells in `transactions.json` after 18 Nov count as targets taken, in order.
-  At 17 Nov: 15 holdings flagged; PRESCO is 16.3% of the portfolio (over the cap). Holdings split
+  At 17 Nov (after the 18 Nov review): 14 holdings flagged; PRESCO is 16.8% of the portfolio (over the cap). Holdings split
   across accounts: say which account the units sit in before suggesting quantities.
 - Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs
   official before calling a flag. Fees ~1.8–2% each way, so a buy-back needs a fall of >~4%.
 - At 17 Nov: losers SUNUASSUR, LASACO, INTBREW, OANDO, AFRIPRUD, TRANSCORP (−30% to −46%);
-  sell-part review FIRSTHOLDCO, OKOMUOIL (peak from June news), UPDCREIT, PRESCO, ZENITHBANK (exactly
-  −15.0%); amber UCAP, LINKASSURE, ELLAHLAKES, GTCO, ACCESSCORP, DANGCEM (limit-down −9.99% on
-  17 Nov, no dividend), UBA; watch DANGSUGAR. INTBREW: capital reorganisation proposed.
+  sell-part review FIRSTHOLDCO, OKOMUOIL (June peak, checked official), UPDCREIT, PRESCO; amber UCAP,
+  LINKASSURE, ZENITHBANK (−14.1% from its dividend-adjusted peak), ELLAHLAKES, GTCO, ACCESSCORP, DANGCEM
+  (limit-down −9.99% on 17 Nov, no dividend), UBA; watch DANGSUGAR. INTBREW: capital reorganisation proposed.
 
 ## ₦2.2M plan (from 12 Oct 2026)
 Buy now: Seplat ₦500K, Dangote Cement ₦400K, Zenith ₦200K, MTN ₦200K.

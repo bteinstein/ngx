@@ -293,6 +293,42 @@ def _prices_for(data_dir, date, prices):
     return prices
 
 
+def load_corporate_actions(data_dir) -> list[dict]:
+    f = _p(data_dir, "corporate_actions.json")
+    return json.loads(f.read_text()) if f.exists() else []
+
+
+def adjusted_history(rows: list[dict], actions: list[dict]) -> list[dict]:
+    """Price-history rows with closes made comparable with today's (copies; the file is not changed).
+
+    For each action in ``corporate_actions.json``, rows of that ticker dated before ``ex_date`` are adjusted:
+    ``dividend`` subtracts ``amount`` from the close; ``reconstruction`` (``old_per_new`` old shares became
+    one new share) multiplies the close by ``old_per_new`` and divides the volume by it. Adjusted rows keep
+    the raw figure in ``raw_close``.
+    """
+    by = collections.defaultdict(list)
+    for a in actions:
+        by[a["ticker"]].append(a)
+    out = []
+    for r in rows:
+        acts = [a for a in by.get(r["ticker"], ()) if r["date"] < a["ex_date"]]
+        if not acts or r.get("close") in (None, ""):
+            out.append(r)
+            continue
+        r = dict(r, raw_close=r["close"])
+        c, v = float(r["close"]), r.get("volume")
+        for a in sorted(acts, key=lambda a: a["ex_date"]):
+            if a["type"] == "dividend":
+                c -= a["amount"]
+            elif a["type"] == "reconstruction":
+                c *= a["old_per_new"]
+                if v not in (None, ""):
+                    v = float(v) / a["old_per_new"]
+        r["close"], r["volume"] = round(c, 4), v
+        out.append(r)
+    return out
+
+
 def rules_status(data_dir, date: str | None = None, prices: dict | None = None, rules: dict | None = None) -> list[dict]:
     """Every holding checked against the owner's rules (``rules.json``).
 
@@ -300,7 +336,8 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     * early warning: close at or below avg cost x (1 - warn_pct) -> ``warn``
     * trailing: once the peak close gave a gain of at least ``trail_min_peak_gain_pct``, a close at
       or below peak x (1 - trail_pct) -> ``trail`` (review selling part). The peak is the highest
-      close in ``price_history.json`` up to ``date`` (history is sparse before Oct 2026).
+      close in ``price_history.json`` up to ``date`` (history is sparse before Oct 2026), adjusted for
+      the dividends and share reconstructions in ``corporate_actions.json`` (``adjusted_history``).
     ``trigger`` is the higher (nearer) of the active levels; ``breach`` = loser or trail.
     """
     rules = rules or load_rules(data_dir)
@@ -316,7 +353,7 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
         if t["date"] > date:
             cost[t["ticker"]] -= (1 if str(t["side"]).lower() == "buy" else -1) * t["total"]
     peak, hist = {}, collections.defaultdict(list)
-    for r in _load(data_dir, "price_history.json"):
+    for r in adjusted_history(_load(data_dir, "price_history.json"), load_corporate_actions(data_dir)):
         if r["date"] <= date and r.get("close") not in (None, ""):
             c = float(r["close"])
             hist[r["ticker"]].append(r)
