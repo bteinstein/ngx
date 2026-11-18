@@ -7,5 +7,16 @@
  "trail_min_peak_gain_pct": 20,
  "scope": "all holdings",
  "compare_since": "2026-10-23",
- "note": "Owner's rules from 18 Nov 2026. Loss limit: a close 20% or more below average cost makes a holding a loser (early warning at 10%). Trailing: once a holding's peak close was 20% or more above cost, a close 15% or more below that peak flags it for a sell-part review. Applies to all holdings, including the six old losers. Before calling a flag, check volume, dividend dates and whether the close is live or official. Selling fees about 1.8-2%; buying back costs about the same, so a buy-back needs a fall of more than about 4%."
+ "note": "Owner's rules from 18 Nov 2026. Loss limit: a close 20% or more below average cost makes a holding a loser (early warning at 10%). Trailing: once a holding's peak close was 20% or more above cost, a close 15% or more below that peak flags it for a sell-part review. Applies to all holdings, including the six old losers. Before calling a flag, check volume, dividend dates and whether the close is live or official. Selling fees about 1.8-2%; buying back costs about the same, so a buy-back needs a fall of more than about 4%.",
+ "early_warning": {
+  "watch_off_peak_pct": 10,
+  "near_trigger_pct": 5,
+  "heavy_volume_ratio": 2.0,
+  "avg_days": 20,
+  "heavy_fall_days": 5,
+  "limit_down_pct": 9,
+  "limit_down_days": 10,
+  "falls_in_a_row": 3
+ },
+ "early_warning_note": "Traffic light, added 18 Nov at the owner's request. red = a rule fired; amber = a tolerance signal (-10% on cost, 10% from peak when trailing is active, or within 5% of the trigger) plus at least one general sign (fall on 2x volume in the last 5 days, close below the 20-day average, a -9% day in the last 10, 3 falls in a row); watch = tolerance signal only; note = general sign only; green = none."
 }

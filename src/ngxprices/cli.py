@@ -111,7 +111,10 @@ def _portfolio(a, f) -> int:
         for w in rows:
             if "status" in w:
                 extra = f"  {w['off_peak_pct']:+.1f}% from peak" if w["trail_level"] else ""
-                print(f"{w['ticker']:<11} {w['status'].upper():<8} close {w['close']:>10,.2f}  cost {w['avg_cost']:>10,.2f}"
+                sig = w.get("tolerance_signals", []) + w.get("general_signs", [])
+                if sig and w["light"] != "red":
+                    extra += "\n            " + "; ".join(sig)
+                print(f"{w['ticker']:<11} {w['light'].upper():<6} {w['status'].upper():<6} close {w['close']:>10,.2f}  cost {w['avg_cost']:>10,.2f}"
                       f" ({w['gain_pct']:+.1f}%)  {w['rule']} {w['trigger']:>10,.2f} ({w['gap_pct']:+.1f}%){extra}")
                 continue
             flag = "BELOW TRIGGER" if w["breach"] else "above"

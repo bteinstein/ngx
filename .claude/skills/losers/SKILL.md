@@ -15,11 +15,15 @@ description: Check every holding ("my losers") against the owner's sell rules (2
    `LOSER` = close ≥20% below average cost; `TRAIL` = peak close was ≥20% above cost and the close
    is ≥15% below that peak (sell-part review); `WARN` = ≥10% below cost. Change the rules only
    when the owner asks (edit `rules.json`, then refresh).
+   Each holding also gets an early-warning light: RED (rule fired), AMBER (tolerance signal plus a
+   general sign: heavy-volume fall, below 20-day average, limit-down day, 3 falls in a row), WATCH,
+   NOTE, GREEN. The signals are listed under each line.
 3. For any LOSER or TRAIL flag, give context before calling it:
    - the day's volume against its 20-day average (from `price_history.json`);
    - a dividend or ex-dividend date that explains the drop (see `data/_dataset_descriptions/` and
      news if needed);
    - whether the close came from the live feed (provisional) or official files.
-4. Report short: losers first (loss on cost), then sell-part reviews (% from peak), then warnings;
+4. Report short: losers first (loss on cost), then sell-part reviews (% from peak), then AMBER with
+   their signals, then WATCH;
    one line saying how many are within the rules. Mention new flags since the last report. Selling
    fees are about 1.8–2%. Information only; the decision is the owner's.

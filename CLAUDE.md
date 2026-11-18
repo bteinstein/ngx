@@ -56,13 +56,19 @@ Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 
 - **Trailing 15%:** once a holding's peak close was ≥20% above cost, a close ≥15% below that peak =
   **sell-part review** (owner's view: e.g. Presco should have been part-sold as its gain fell from
   40%+ to ~10%, then bought back lower). Peak = highest close in `price_history.json` (sparse before Oct).
+- **Early warning (traffic light, added 18 Nov):** red = a rule fired; amber = a tolerance signal
+  (−10% on cost, −10% from peak when trailing is active, within 5% of the trigger) plus ≥1 general
+  sign (fall on ≥2× 20-day volume in the last 5 days, close below the 20-day average, a −9% day in
+  the last 10, 3 falls in a row); watch = tolerance only; note = general only; green = none.
+  Settings in `rules.json` → `early_warning`.
 - Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs
   official before calling a flag. Fees ~1.8–2% each way, so a buy-back needs a fall of >~4%.
 - At 17 Nov: losers SUNUASSUR, LASACO, INTBREW, OANDO, AFRIPRUD, TRANSCORP (−30% to −46%);
   sell-part review FIRSTHOLDCO, OKOMUOIL (peak from June news), UPDCREIT, PRESCO, ZENITHBANK (exactly
-  −15.0%); warning UCAP, LINKASSURE. INTBREW: capital reorganisation proposed.
+  −15.0%); amber UCAP, LINKASSURE, ELLAHLAKES, GTCO, ACCESSCORP, DANGCEM (limit-down −9.99% on
+  17 Nov, no dividend), UBA; watch DANGSUGAR. INTBREW: capital reorganisation proposed.
 
 ## ₦2.2M plan (from 12 Oct 2026)
 Buy now: Seplat ₦500K, Dangote Cement ₦400K, Zenith ₦200K, MTN ₦200K.

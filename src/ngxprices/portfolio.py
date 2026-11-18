@@ -266,6 +266,9 @@ def _auto_note(s: dict, cash_in: float) -> str:
             txt.append("past the loss limit: " + ", ".join(f"{w['ticker']} ({w['gain_pct']:+.0f}% on cost)" for w in los))
         if tr:
             txt.append("sell-part review: " + ", ".join(f"{w['ticker']} ({w['off_peak_pct']:+.0f}% from peak)" for w in tr))
+        amb = [w for w in s["watchlist"] if w.get("light") == "amber"]
+        if amb:
+            txt.append("early warning (amber): " + ", ".join(w["ticker"] for w in amb))
         parts.append("Rules: " + "; ".join(txt) + ".")
     else:
         parts.append("Watchlist: " + ("; ".join(f"{w['ticker']} {w['close']:,.2f} below {w['trigger']:,.2f}" for w in br)
@@ -309,10 +312,11 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     for t in _load(data_dir, "transactions.json"):
         if t["date"] > date:
             cost[t["ticker"]] -= (1 if str(t["side"]).lower() == "buy" else -1) * t["total"]
-    peak = {}
+    peak, hist = {}, collections.defaultdict(list)
     for r in _load(data_dir, "price_history.json"):
         if r["date"] <= date and r.get("close") not in (None, ""):
             c = float(r["close"])
+            hist[r["ticker"]].append(r)
             if r["ticker"] not in peak or c > peak[r["ticker"]][0]:
                 peak[r["ticker"]] = (c, r["date"])
     out = []
@@ -345,8 +349,77 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
                         loss_level=loss_lvl, warn_level=warn_lvl, trail_level=trail_lvl, peak=pk, peak_date=pk_date,
                         peak_gain_pct=round((pk / avg - 1) * 100, 2) if pk else None,
                         off_peak_pct=round((close / pk - 1) * 100, 2) if close is not None and pk else None))
+    for r in out:
+        r.update(early_warning(r, sorted(hist[r["ticker"]], key=lambda x: x["date"]), rules, date))
     order = {"loser": 0, "trail": 1, "warn": 2, "ok": 3, "no price": 4}
-    return sorted(out, key=lambda r: (order[r["status"]], r["gap_pct"] if r["gap_pct"] is not None else 1e9))
+    lights = {"red": 0, "amber": 1, "watch": 2, "note": 3, "green": 4}
+    return sorted(out, key=lambda r: (lights[r["light"]], order[r["status"]],
+                                      r["gap_pct"] if r["gap_pct"] is not None else 1e9))
+
+
+EW_DEFAULTS = dict(watch_off_peak_pct=10, near_trigger_pct=5, heavy_volume_ratio=2.0, avg_days=20,
+                   heavy_fall_days=5, limit_down_pct=9, limit_down_days=10, falls_in_a_row=3)
+
+
+def early_warning(r: dict, hist: list[dict], rules: dict, date: str) -> dict:
+    """Traffic light for one holding (``r`` from ``rules_status``; ``hist`` its dated rows, oldest first).
+
+    red   = a rule has fired (loser or sell-part review)
+    amber = a tolerance signal AND at least one general sign
+    watch = a tolerance signal only;  note = general signs only;  green = nothing
+    Tolerance signals: at/below the warning level on cost; ``watch_off_peak_pct`` off the peak (when
+    trailing is active); within ``near_trigger_pct`` of the trigger. General signs: a fall on heavy
+    volume, a close below the ``avg_days`` average, a limit-down day, ``falls_in_a_row`` falls in a row.
+    Only daily rows from the last 45 calendar days are used for the general signs.
+    """
+    ew = {**EW_DEFAULTS, **rules.get("early_warning", {})}
+    tol, gen = [], []
+    if r["status"] == "warn":
+        tol.append(f"{r['gain_pct']:+.0f}% on cost (warning at -{rules['warn_pct']}%)")
+    if r["trail_level"] and r["off_peak_pct"] is not None and r["off_peak_pct"] <= -ew["watch_off_peak_pct"]:
+        tol.append(f"{r['off_peak_pct']:.0f}% from peak")
+    if r["gap_pct"] is not None and 0 < r["gap_pct"] <= ew["near_trigger_pct"]:
+        tol.append(f"{r['gap_pct']:.1f}% above its trigger")
+    start = (dt.date.fromisoformat(date) - dt.timedelta(days=45)).isoformat()
+    h = [x for x in hist if x["date"] >= start]
+    c = [float(x["close"]) for x in h]
+    v = [float(x["volume"]) if x.get("volume") not in (None, "") else None for x in h]
+    n, k = len(c), ew["avg_days"]
+    if n > k:
+        avg = sum(c[-k:]) / k
+        if c[-1] < avg:
+            gen.append(f"below its {k}-day average ({(c[-1] / avg - 1) * 100:.0f}%)")
+        heavy = []
+        for i in range(max(k, n - ew["heavy_fall_days"]), n):
+            prev = [x for x in v[i - k:i] if x]
+            if v[i] and prev and c[i] < c[i - 1] and v[i] >= ew["heavy_volume_ratio"] * sum(prev) / len(prev):
+                heavy.append(h[i]["date"])
+        if heavy:
+            gen.append("fell on heavy volume (" + ", ".join(d[8:] + "/" + d[5:7] for d in heavy) + ")")
+    if n > 1:
+        ld = [h[i]["date"] for i in range(max(1, n - ew["limit_down_days"]), n)
+              if c[i] / c[i - 1] - 1 <= -ew["limit_down_pct"] / 100]
+        if ld:
+            gen.append("limit-down day (" + ", ".join(d[8:] + "/" + d[5:7] for d in ld) + ")")
+        streak = 0
+        for i in range(n - 1, 0, -1):
+            if c[i] < c[i - 1]:
+                streak += 1
+            else:
+                break
+        if streak >= ew["falls_in_a_row"]:
+            gen.append(f"{streak} falls in a row")
+    if r["status"] in ("loser", "trail"):
+        light = "red"
+    elif tol and gen:
+        light = "amber"
+    elif tol:
+        light = "watch"
+    elif gen:
+        light = "note"
+    else:
+        light = "green"
+    return dict(light=light, tolerance_signals=tol, general_signs=gen)
 
 
 _STATUS_TEXT = {"loser": "LOSER: at or past your {loss}% loss limit",
@@ -365,7 +438,10 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
                 f"({r['peak_date']}, {r['peak_gain_pct']:+.1f}% on cost)")
         note += f"; trailing level {r['trail_level']:,.2f}." if r["trail_level"] else "; trailing not active (peak gain under " \
             f"{rules['trail_min_peak_gain_pct']}%)."
-        wl.append(dict(ticker=r["ticker"], rule=r["rule"], trigger=r["trigger"], status=r["status"],
+        sig = r.get("tolerance_signals", []) + r.get("general_signs", [])
+        if sig:
+            note += " Early warning (" + r["light"] + "): " + "; ".join(sig) + "."
+        wl.append(dict(ticker=r["ticker"], rule=r["rule"], trigger=r["trigger"], status=r["status"], light=r.get("light"),
                        since=rules.get("compare_since", "2026-10-23"), note=note))
     _p(data_dir, "watchlist.json").write_text(
         "[\n" + ",\n".join(" " + json.dumps(w, ensure_ascii=False) for w in wl) + "\n]\n")

@@ -305,7 +305,7 @@
   "holdings": 39,
   "day_pl": 67568.7,
   "day_pl_pct": 0.006478474157955698,
-  "note": "No trades. Prices: NGX official (Daily Official List / price list), via ngxprices. Up: DANGSUGAR (+\u20a660.3K), INTBREW (+\u20a623.4K), CADBURY (+\u20a69.1K), CWG (+\u20a69.0K), AFRIPRUD (+\u20a63.0K). Down: DANGCEM (-\u20a629.4K), NGXGROUP (-\u20a610.6K), OANDO (-\u20a61.2K), ACCESSCORP (-\u20a6660), FCMB (-\u20a6325). Rules: past the loss limit: SUNUASSUR (-46% on cost), LASACO (-39% on cost), INTBREW (-37% on cost), OANDO (-36% on cost), AFRIPRUD (-31% on cost), TRANSCORP (-30% on cost); sell-part review: FIRSTHOLDCO (-30% from peak), OKOMUOIL (-28% from peak), UPDCREIT (-27% from peak), PRESCO (-19% from peak), ZENITHBANK (-15% from peak).",
+  "note": "No trades. Prices: NGX official (Daily Official List / price list), via ngxprices. Up: DANGSUGAR (+\u20a660.3K), INTBREW (+\u20a623.4K), CADBURY (+\u20a69.1K), CWG (+\u20a69.0K), AFRIPRUD (+\u20a63.0K). Down: DANGCEM (-\u20a629.4K), NGXGROUP (-\u20a610.6K), OANDO (-\u20a61.2K), ACCESSCORP (-\u20a6660), FCMB (-\u20a6325). Rules: past the loss limit: SUNUASSUR (-46% on cost), LASACO (-39% on cost), INTBREW (-37% on cost), OANDO (-36% on cost), AFRIPRUD (-31% on cost), TRANSCORP (-30% on cost); sell-part review: FIRSTHOLDCO (-30% from peak), OKOMUOIL (-28% from peak), UPDCREIT (-27% from peak), PRESCO (-19% from peak), ZENITHBANK (-15% from peak); early warning (amber): UCAP, LINKASSURE, ELLAHLAKES, GTCO, ACCESSCORP, DANGCEM, UBA.",
   "auto_note": true
  }
 ]

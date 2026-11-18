@@ -100,3 +100,20 @@ def test_rules_loss_trail_warn(data):
     wl = {w["ticker"]: w for w in s["watchlist"]}
     assert wl["AAA"]["status"] == "warn" and wl["AAA"]["trail_level"] is None  # AAA peak 12 is only +12.5%
     assert wl["BBB"]["status"] == "ok"
+
+
+def test_early_warning_lights():
+    rules = {"warn_pct": 10}
+    base = dict(status="ok", trail_level=90.0, off_peak_pct=-11.0, gap_pct=3.0, gain_pct=50.0)
+    days = [f"2026-10-{d:02d}" for d in range(1, 32)] + [f"2026-11-{d:02d}" for d in range(1, 18)]
+    hist = [{"date": d, "close": 100.0, "volume": 100} for d in days[-30:]]
+    hist[-1] = {"date": days[-1], "close": 90.0, "volume": 300}  # -10% on 3x volume
+    ew = P.early_warning(base, hist, rules, "2026-11-17")
+    assert ew["light"] == "amber" and len(ew["tolerance_signals"]) == 2
+    assert any("heavy volume" in g for g in ew["general_signs"]) and any("limit-down" in g for g in ew["general_signs"])
+    flat = [{"date": d, "close": 100.0, "volume": 100} for d in days[-30:]]
+    assert P.early_warning(base, flat, rules, "2026-11-17")["light"] == "watch"
+    calm = dict(base, off_peak_pct=-2.0, gap_pct=15.0)
+    assert P.early_warning(calm, hist, rules, "2026-11-17")["light"] == "note"
+    assert P.early_warning(calm, flat, rules, "2026-11-17")["light"] == "green"
+    assert P.early_warning(dict(base, status="trail"), flat, rules, "2026-11-17")["light"] == "red"
