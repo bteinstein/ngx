@@ -1,9 +1,9 @@
 [
- {"ticker":"SUNUASSUR","rule":"low","trigger":2.65,"since":"2026-10-23","decide_by":"2026-11-11","note":"2-week low (3 Nov)"},
- {"ticker":"LASACO","rule":"low","trigger":1.60,"since":"2026-10-23","decide_by":"2026-11-11","note":"2-week low (5 Nov)"},
- {"ticker":"INTBREW","rule":"low","trigger":8.50,"since":"2026-10-23","decide_by":"2026-11-11","note":"2-week low (2 Nov). Watch for news on the capital reorganisation."},
- {"ticker":"OANDO","rule":"low","trigger":31.50,"since":"2026-10-23","decide_by":"2026-11-11","note":"2-week low (30 Oct to 5 Nov). Did Friday's +5% bounce hold?"},
- {"ticker":"AFRIPRUD","rule":"low","trigger":10.00,"since":"2026-10-23","decide_by":"2026-11-11","note":"2-week low (3–4 Nov)"},
- {"ticker":"TRANSCORP","rule":"low","trigger":30.00,"since":"2026-10-23","decide_by":"2026-11-11","note":"2-week low (3 and 5 Nov). Did Friday's +5.7% bounce hold?"},
+ {"ticker":"SUNUASSUR","rule":"low","trigger":2.62,"since":"2026-10-23","decide_by":"2026-11-11","reset":"2026-11-18","window":"2026-11-04/2026-11-17","note":"2-week low to 17 Nov (10 and 11 Nov). Reset 18 Nov at the owner's request; was ₦2.65 (2-week low to 6 Nov)."},
+ {"ticker":"LASACO","rule":"low","trigger":1.60,"since":"2026-10-23","decide_by":"2026-11-11","reset":"2026-11-18","window":"2026-11-04/2026-11-17","note":"2-week low to 17 Nov (5 Nov; Mansa Markets board figure, NGX published no files that day). Unchanged in the 18 Nov reset."},
+ {"ticker":"INTBREW","rule":"low","trigger":8.40,"since":"2026-10-23","decide_by":"2026-11-11","reset":"2026-11-18","window":"2026-11-04/2026-11-17","note":"2-week low to 17 Nov (12 and 13 Nov). Reset 18 Nov; was ₦8.50. Watch for news on the capital reorganisation."},
+ {"ticker":"OANDO","rule":"low","trigger":31.50,"since":"2026-10-23","decide_by":"2026-11-11","reset":"2026-11-18","window":"2026-11-04/2026-11-17","note":"2-week low to 17 Nov (5 Nov; Mansa Markets board figure, NGX published no files that day). Unchanged in the 18 Nov reset."},
+ {"ticker":"AFRIPRUD","rule":"low","trigger":10.00,"since":"2026-10-23","decide_by":"2026-11-11","reset":"2026-11-18","window":"2026-11-04/2026-11-17","note":"2-week low to 17 Nov (4 Nov). Unchanged in the 18 Nov reset."},
+ {"ticker":"TRANSCORP","rule":"low","trigger":30.00,"since":"2026-10-23","decide_by":"2026-11-11","reset":"2026-11-18","window":"2026-11-04/2026-11-17","note":"2-week low to 17 Nov (5 and 9 Nov). Unchanged in the 18 Nov reset."},
  {"ticker":"PRESCO","rule":"cost","trigger":null,"since":"2026-10-23","decide_by":"2026-11-11","note":"Your average cost. Below it, your gain is wiped out. Two −10% limit-down days since 27 Oct."}
 ]

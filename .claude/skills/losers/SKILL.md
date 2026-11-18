@@ -11,7 +11,7 @@ description: Check the NGX watchlist ("my losers") against their triggers with t
    ```bash
    ngxprices portfolio losers
    ```
-   Rule `low`: trigger = the lowest close in the 2 weeks to 6 Nov (fixed level in
+   Rule `low`: trigger = the lowest close in the 2 weeks to 17 Nov (fixed level in
    `data/watchlist.json`). Rule `cost`: trigger = the owner's average cost (Presco).
 3. For any stock below its trigger, give context before calling it a breach:
    - the day's volume against its 20-day average (from `price_history.json`);
@@ -20,6 +20,3 @@ description: Check the NGX watchlist ("my losers") against their triggers with t
    - whether the close came from the live feed (provisional) or official files.
 4. Report short: each watchlist stock, close vs trigger and the gap in %, breaches first. Selling
    fees are about 1.8–2%. Information only; the decision is the owner's.
-5. The 11 Nov decision date has passed and the owner hasn't said whether to keep or reset the
-   triggers. Ask once, briefly, at the end, until he answers; then update `data/watchlist.json` and
-   remove this line.

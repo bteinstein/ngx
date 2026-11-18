@@ -51,15 +51,14 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 (+0.62%). No trades since 12 Oct
 (owner confirmed on 9 Nov; nothing reported since).
 
-## Watchlist (trigger = lowest close in the 2 weeks to 6 Nov)
-SUNUASSUR ₦2.65 · LASACO ₦1.60 · INTBREW ₦8.50 · OANDO ₦31.50 · AFRIPRUD ₦10.00 · TRANSCORP ₦30.00 ·
-PRESCO = average cost ₦1,497.65 (gain-protection).
+## Watchlist (trigger = lowest close in the 2 weeks to 17 Nov; reset 18 Nov at the owner's request)
+SUNUASSUR ₦2.62 · LASACO ₦1.60 · INTBREW ₦8.40 · OANDO ₦31.50 · AFRIPRUD ₦10.00 · TRANSCORP ₦30.00 ·
+PRESCO = average cost ₦1,497.65 (gain-protection). Previous triggers (2 weeks to 6 Nov): Sunu ₦2.65,
+INTBREW ₦8.50, the rest unchanged. LASACO and OANDO lows are from 5 Nov (Mansa board, not NGX official).
 A close below the trigger means selling is continuing. Check volume and dividend dates before calling
 a breach. Selling fees are about 1.8–2%.
-- Status at 16 Nov: all above their triggers. INTBREW closed ₦9.20 (+9.5%) after ₦8.40 on 12 and 13 Nov
-  (below ₦8.50 then; AfriInvest, 25,999 units, avg cost ₦16.06; a capital reorganisation has been
-  proposed). Sunu dipped below on 10 Nov, then recovered (₦3.00 on 16 Nov).
-- The 11 Nov decision date passed. The owner hasn't said whether to keep or reset the triggers. Ask.
+- Status at 17 Nov: all above their triggers; Transcorp closest (+6.7%). INTBREW ₦10.10 (AfriInvest,
+  25,999 units, avg cost ₦16.06; a capital reorganisation has been proposed).
 
 ## ₦2.2M plan (from 12 Oct 2026)
 Buy now: Seplat ₦500K, Dangote Cement ₦400K, Zenith ₦200K, MTN ₦200K.
