@@ -3,6 +3,11 @@
 Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is current to the
 **Mon 16 Nov 2026 close** (live-feed closes; official volumes for 16 Nov still to load). The owner (Babatunde Adebayo) works mostly from his Android phone.
 
+## ⚠️ Open review (18 Nov 2026)
+Start with `docs/REVIEW_HANDOFF_2026-11-18.md`. The owner doubts the take-profit table, and STERLINGNG
+looks wrong (₦7.70 → ₦77.00 on 8 Oct, a likely 10:1 share reconstruction; holdings still say 5,000 units
+at ₦5.87). Don't trust Sterling's value or gain until it's verified with the owner.
+
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):
   - `holdings.json` — 43 holdings across 3 accounts: units and unit cost (fees included).
