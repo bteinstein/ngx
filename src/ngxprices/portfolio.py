@@ -258,7 +258,7 @@ def _auto_note(s: dict, cash_in: float) -> str:
     if s["down"]:
         parts.append("Down: " + ", ".join(f"{t} ({_naira(m)})" for t, m in s["down"]) + ".")
     br = [w for w in s["watchlist"] if w["breach"]]
-    if br and "status" in br[0]:
+    if s["watchlist"] and "status" in s["watchlist"][0]:
         los = [w for w in br if w["status"] == "loser"]
         tr = [w for w in br if w["status"] == "trail"]
         txt = []
@@ -269,7 +269,10 @@ def _auto_note(s: dict, cash_in: float) -> str:
         amb = [w for w in s["watchlist"] if w.get("light") == "amber"]
         if amb:
             txt.append("early warning (amber): " + ", ".join(w["ticker"] for w in amb))
-        parts.append("Rules: " + "; ".join(txt) + ".")
+        tpl = [w for w in s["watchlist"] if w.get("take_profit")]
+        if tpl:
+            txt.append("take profit: " + ", ".join(w["ticker"] for w in tpl))
+        parts.append("Rules: " + ("; ".join(txt) if txt else "all within the rules") + ".")
     else:
         parts.append("Watchlist: " + ("; ".join(f"{w['ticker']} {w['close']:,.2f} below {w['trigger']:,.2f}" for w in br)
                                       if br else "all above their triggers") + ".")
@@ -349,12 +352,60 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
                         loss_level=loss_lvl, warn_level=warn_lvl, trail_level=trail_lvl, peak=pk, peak_date=pk_date,
                         peak_gain_pct=round((pk / avg - 1) * 100, 2) if pk else None,
                         off_peak_pct=round((close / pk - 1) * 100, 2) if close is not None and pk else None))
+    total = sum(units[r["ticker"]] * r["close"] for r in out if r["close"] is not None)
+    since = rules.get("set", "0000-00-00")
+    sells = collections.defaultdict(list)
+    for t in _load(data_dir, "transactions.json"):
+        if str(t["side"]).lower() == "sell" and since <= t["date"] <= date:
+            sells[t["ticker"]].append(t)
     for r in out:
         r.update(early_warning(r, sorted(hist[r["ticker"]], key=lambda x: x["date"]), rules, date))
+        r.update(take_profit(r, units[r["ticker"]], cost[r["ticker"]], total, sells[r["ticker"]], rules))
     order = {"loser": 0, "trail": 1, "warn": 2, "ok": 3, "no price": 4}
     lights = {"red": 0, "amber": 1, "watch": 2, "note": 3, "green": 4}
     return sorted(out, key=lambda r: (lights[r["light"]], order[r["status"]],
                                       r["gap_pct"] if r["gap_pct"] is not None else 1e9))
+
+
+TP_DEFAULTS = dict(targets=[dict(gain_pct=50, sell_pct=25), dict(gain_pct=100, sell_pct=25)],
+                   recover_cost_gain_pct=100, size_cap_pct=15, fee_pct=2.0)
+
+
+def take_profit(r: dict, units: float, cost: float, total: float, sells: list[dict], rules: dict) -> dict:
+    """Take-profit flags for one holding (selling into strength, not on a fall).
+
+    * targets: at each gain level (default +50%, +100%) sell the given share of the holding. Sells
+      recorded in ``transactions.json`` since the rules were set count as targets taken, in order.
+    * recover cost: once the gain reaches ``recover_cost_gain_pct``, the units whose sale (after
+      ``fee_pct`` fees) returns everything paid for the holding; skipped once sells since the rules
+      were set have returned the cost.
+    * size cap: a holding over ``size_cap_pct`` of the portfolio value, and the units that bring it back.
+    """
+    tp = {**TP_DEFAULTS, **rules.get("take_profit", {})}
+    close, out = r["close"], []
+    weight = round(units * close / total * 100, 2) if close and total else None
+    if not close or not units:
+        return dict(take_profit=out, weight_pct=weight)
+    net = close * (1 - tp["fee_pct"] / 100)
+    gain = r["gain_pct"]
+    reached = [t for t in tp["targets"] if gain >= t["gain_pct"]]
+    pending = reached[len(sells):]
+    if pending:
+        pct = sum(t["sell_pct"] for t in pending)
+        n = int(units * pct / 100)
+        lv = " and ".join(f"+{t['gain_pct']}%" for t in pending)
+        out.append(dict(kind="target", text=f"target{'s' if len(pending) > 1 else ''} {lv} reached: sell {pct}% "
+                        f"({n:,} units, about ₦{n * net:,.0f} after fees)", units=n))
+    returned = sum(float(x.get("total") or 0) for x in sells)
+    if gain >= tp["recover_cost_gain_pct"] and returned < cost:
+        n = min(units, int(-(-(cost - returned) // net)))
+        out.append(dict(kind="recover_cost", text=f"{'or at least, ' if pending else ''}recover your cost: sell {n:,} units ({n / units * 100:.0f}% of the "
+                        f"holding, about ₦{n * net:,.0f} after fees) and keep {units - n:,.0f} for free", units=n))
+    if weight is not None and weight > tp["size_cap_pct"]:
+        n = int(-(-(units * close - tp["size_cap_pct"] / 100 * total) // close))
+        out.append(dict(kind="size_cap", text=f"{weight:.1f}% of the portfolio (cap {tp['size_cap_pct']}%): sell "
+                        f"{n:,} units (about ₦{n * net:,.0f} after fees) to get back to the cap", units=n))
+    return dict(take_profit=out, weight_pct=weight)
 
 
 EW_DEFAULTS = dict(watch_off_peak_pct=10, near_trigger_pct=5, heavy_volume_ratio=2.0, avg_days=20,
@@ -441,6 +492,8 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
         sig = r.get("tolerance_signals", []) + r.get("general_signs", [])
         if sig:
             note += " Early warning (" + r["light"] + "): " + "; ".join(sig) + "."
+        if r.get("take_profit"):
+            note += " Take profit: " + "; ".join(x["text"] for x in r["take_profit"]) + "."
         wl.append(dict(ticker=r["ticker"], rule=r["rule"], trigger=r["trigger"], status=r["status"], light=r.get("light"),
                        since=rules.get("compare_since", "2026-10-23"), note=note))
     _p(data_dir, "watchlist.json").write_text(

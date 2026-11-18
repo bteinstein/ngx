@@ -18,5 +18,21 @@
   "limit_down_days": 10,
   "falls_in_a_row": 3
  },
- "early_warning_note": "Traffic light, added 18 Nov at the owner's request. red = a rule fired; amber = a tolerance signal (-10% on cost, 10% from peak when trailing is active, or within 5% of the trigger) plus at least one general sign (fall on 2x volume in the last 5 days, close below the 20-day average, a -9% day in the last 10, 3 falls in a row); watch = tolerance signal only; note = general sign only; green = none."
+ "early_warning_note": "Traffic light, added 18 Nov at the owner's request. red = a rule fired; amber = a tolerance signal (-10% on cost, 10% from peak when trailing is active, or within 5% of the trigger) plus at least one general sign (fall on 2x volume in the last 5 days, close below the 20-day average, a -9% day in the last 10, 3 falls in a row); watch = tolerance signal only; note = general sign only; green = none.",
+ "take_profit": {
+  "targets": [
+   {
+    "gain_pct": 50,
+    "sell_pct": 25
+   },
+   {
+    "gain_pct": 100,
+    "sell_pct": 25
+   }
+  ],
+  "recover_cost_gain_pct": 100,
+  "size_cap_pct": 15,
+  "fee_pct": 2.0
+ },
+ "take_profit_note": "Added 18 Nov at the owner's request (sell into strength). Targets: at +50% sell 25% of the holding, at +100% another 25%. Recover cost: once up 100%, sell enough units to get back everything paid and keep the rest. Size cap: no holding above 15% of the portfolio. Sells recorded in transactions.json after 18 Nov count as targets taken / cost returned."
 }

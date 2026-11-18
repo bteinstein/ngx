@@ -17,7 +17,8 @@ description: Check every holding ("my losers") against the owner's sell rules (2
    when the owner asks (edit `rules.json`, then refresh).
    Each holding also gets an early-warning light: RED (rule fired), AMBER (tolerance signal plus a
    general sign: heavy-volume fall, below 20-day average, limit-down day, 3 falls in a row), WATCH,
-   NOTE, GREEN. The signals are listed under each line.
+   NOTE, GREEN. The signals are listed under each line. `TAKE PROFIT` lines (targets +50%/+100%,
+   recover cost, 15% size cap) are selling into strength; report them after the warnings.
 3. For any LOSER or TRAIL flag, give context before calling it:
    - the day's volume against its 20-day average (from `price_history.json`);
    - a dividend or ex-dividend date that explains the drop (see `data/_dataset_descriptions/` and

@@ -117,3 +117,18 @@ def test_early_warning_lights():
     assert P.early_warning(calm, hist, rules, "2026-11-17")["light"] == "note"
     assert P.early_warning(calm, flat, rules, "2026-11-17")["light"] == "green"
     assert P.early_warning(dict(base, status="trail"), flat, rules, "2026-11-17")["light"] == "red"
+
+
+def test_take_profit():
+    rules = {}
+    r = dict(close=300.0, gain_pct=200.0)
+    tp = P.take_profit(r, 1000, 100000.0, 1_000_000.0, [], rules)
+    kinds = {x["kind"]: x for x in tp["take_profit"]}
+    assert kinds["target"]["units"] == 500 and "+50% and +100%" in kinds["target"]["text"]
+    assert kinds["recover_cost"]["units"] == 341  # 100,000 / (300 x 0.98) rounded up
+    assert kinds["size_cap"]["units"] == 500 and tp["weight_pct"] == 30.0  # 300K of 1M, cap 15%
+    # one sell since the rules were set = first target taken
+    tp = P.take_profit(r, 750, 100000.0, 10_000_000.0, [{"total": 40000.0}], rules)
+    assert [x["kind"] for x in tp["take_profit"]] == ["target", "recover_cost"]
+    assert tp["take_profit"][0]["units"] == 187 and "+100%" in tp["take_profit"][0]["text"]
+    assert P.take_profit(dict(close=110.0, gain_pct=10.0), 10, 1000.0, 1e6, [], rules)["take_profit"] == []

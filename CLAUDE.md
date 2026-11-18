@@ -61,6 +61,11 @@ Value ₦10,429,724 · cost ₦8,023,767 · gain ₦2,405,957 · day +₦64,368 
   sign (fall on ≥2× 20-day volume in the last 5 days, close below the 20-day average, a −9% day in
   the last 10, 3 falls in a row); watch = tolerance only; note = general only; green = none.
   Settings in `rules.json` → `early_warning`.
+- **Take profit (added 18 Nov; `rules.json` → `take_profit`):** targets +50% → sell 25%, +100% →
+  another 25%; recover cost once up 100% (units whose sale returns all paid, after ~2% fees); size
+  cap 15% of portfolio. Sells in `transactions.json` after 18 Nov count as targets taken, in order.
+  At 17 Nov: 15 holdings flagged; PRESCO is 16.3% of the portfolio (over the cap). Holdings split
+  across accounts: say which account the units sit in before suggesting quantities.
 - Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs

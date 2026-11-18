@@ -48,5 +48,5 @@ Use "Update <d Mon> closes to official" when only upgrades happened. No Claude a
 ## 4. Report (short; the owner reads on a phone)
 
 From the JSON: value and day P/L (₦ and %), the source (official or live, and time), the top 3 up and
-down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings; or "all within the rules"), heavy-volume stocks (≥2× their average), any
+down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings, new take-profit flags; or "all within the rules"), heavy-volume stocks (≥2× their average), any
 upgraded days, and the dashboard link. Information only, no advice.
