@@ -112,3 +112,19 @@ The MTN Account 3 cost (₦169.70) is worth confirming with InvestNaija.
    - Accounts: keep one combined signal per stock (same price, one decision), but show each account's
      units and cost next to any sell suggestion so the owner chooses which account to sell from.
 4. MTN Account 3 cost ₦169.70: **confirmed** from the owner's InvestNaija screenshot (cost ₦17,818.50, value ₦87,885 at ₦837).
+
+## 8. Back-fill and full 2026 peaks (18 Nov, later)
+
+- Official NGX closes for 2 Jan–30 Sep 2026 added for all 43 tracked tickers (7,934 rows; 1 Oct was a
+  holiday). Five non-official figures replaced (Presco 31 Dec and 28 Jul, BUA Cement 23 Jul, Seplat and
+  Aradel 19 Feb, GTCO 29 Sep); other news rows matched NGX exactly.
+- `data/corporate_actions.json` now has 40 entries: Sterling's 10-for-1 reconstruction, NGX Group's
+  1-for-3 bonus (13 Apr, with a ₦2 dividend) and 38 dividends, each checked against NGX's previous close
+  on the ex-date. Other 2026 share-count changes (Access, Dangote Sugar, Ellah Lakes, FCMB, Fidelity,
+  First HoldCo, GTCO, LASACO, Linkage, Presco, Sterling Jul/Sep, Sunu, UBA, VFD) did not move the price
+  (rights issues or placements), so no adjustment.
+- Peaks count from 1 Jan 2026 (`rules.json` → `peak_from_default`) or a lot's `bought_from`.
+- Result at 17 Nov: **red 25, amber 4, note 1, green 9**. New sell-part reviews: ELLAHLAKES, PZ,
+  BUACEMENT, CUSTODIAN, DANGSUGAR, UBA, NB, CWG, MANSARD, GTCO, FCMB, BUAFOODS, ACCESSCORP, VFDGROUP,
+  STERLINGNG. Okomu's peak is now ₦1,738.50 (25 Feb, adjusted). Purchase dates would refine these.
+- Backtest and the reconciled critique: `docs/REVIEW_CRITIQUE_2026-11-18.md`, first section.

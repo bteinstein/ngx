@@ -7,23 +7,58 @@ portfolio's data at the **17 Nov 2026 close** (value ₦10,497,293, cost ₦8,02
 This is information, not financial advice. Every decision, and every change to `data/`, is the owner's.
 Nothing in `data/` has been changed by this review.
 
-## Status update (after merging the parallel data review, 18 Nov)
+## Reconciled with the corrected data (18 Nov, after the data review)
 
-The experts worked on the 17 Nov data **before** the section-4 data review was pushed to `main`
-(`3ff43a6`…`2ef7166`, see `docs/DATA_REVIEW_2026-11-18.md`). After merging it:
-- **1.1 Sterling: fixed.** The owner confirmed 500 units; holdings are now 500 at ₦58.70, and the daily
-  log has been corrected from 9 Oct.
-- **1.2 Dividends in peaks: fixed for peaks** (`data/corporate_actions.json`; Zenith's ex-date is 26 Oct).
-  Zenith is now **amber**, 1.1% above its ₦114.75 level. Still open: the 20-day average and "falls in a
-  row" signs, and booking dividend income.
-- **1.3 News peaks: partly.** Peaks now count from the purchase date (default 1 Jan 2026), and three news
-  closes were corrected. **OKOMUOIL is still red**: its trail uses the June news peak (₦1,575 less the
-  ₦11.50 dividend). DANGSUGAR is now watch, not red.
-- **1.4 Per-account:** each account's units and cost now show next to flags. The rules still run on the
-  combined holding.
-- **1.5 Size cap: still open.** With Sterling fixed, PRESCO is 16.8% and the code says sell 111 units;
-  the exact trim to 15% is 130. Cash is still not counted.
-- Lights now: red 10, amber 8, watch 1, note 8, green 12. Tests: 22 pass, 1 skipped.
+The experts worked on the 17 Nov data **before** the data review (`docs/DATA_REVIEW_2026-11-18.md`).
+Since then: Sterling corrected, peaks dividend-adjusted, official NGX closes back-filled for 2 Jan–30 Sep
+2026 (7,934 rows), 40 corporate actions recorded in `data/corporate_actions.json`, and the owner chose
+peaks from 1 Jan 2026 (or the purchase date when known) with combined rules plus per-account lines.
+**Where this section and the text below disagree, this section is current.**
+
+**Portfolio at 17 Nov:** value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026.
+**Lights now:** red 25, amber 4, note 1, green 9 (the text below says red 11).
+
+| Item | Status now |
+|---|---|
+| 1.1 Sterling | **Fixed.** Owner confirmed 500 units → 500 @ ₦58.70; daily log corrected from 9 Oct. With the 2026 history (×10 before 8 Oct) its peak is ₦89.50 (25 Feb), so Sterling is now **red, −16.2% from peak**. |
+| 1.2 Dividends | **Fixed** for peaks, the 20-day average and "falls in a row" (all use adjusted closes). Zenith's ex-date is **26 Oct** (NGX previous close ₦119.40 vs ₦120.90 on 23 Oct); the 21 Oct step was an ordinary price move. Zenith: **amber**, −14.1%. Dividend income is still not booked. |
+| 1.3 News peaks | **The premise was wrong.** The news rows were checked against NGX's Daily Official List: Okomu ₦1,575 (11 Jun) and Dangote Sugar ₦77 (3 Aug) are real NGX closes. "Highest official close ₦1,276.20 / ₦70.00" only meant the highest since 2 Oct. All peaks now come from official closes since 1 Jan 2026. Five non-official figures were corrected (Presco ×2, BUA Cement, Seplat, GTCO). |
+| 1.4 Per-account | Owner chose **combined rules** with each account's units, cost and gain shown next to every flag (`HELD IN:` line). Per-lot rules (the critique's proposal) were not adopted. MTN Account 3 cost ₦169.70 confirmed from the owner's InvestNaija screenshot. |
+| 1.5 Size cap | Still open. Presco 16.8%; code says 111 units (sale money kept in the total), exact trim 130 (sale money leaves). Cash still not counted. |
+| 1.6 Take-profit bookkeeping | Still open. |
+| 1.7 Minor code | Peak date fixed (history now sorted by date). 20-day signs have enough rows. DANGCEM's 5 Nov row is still the unofficial Mansa figure (NGX published nothing that day). |
+| 2.3, 2.4, 2.10, 2.15 | Their counts (triggers, backtest, lights) were on the old data; see the backtest below. |
+
+**What changed the picture:** with peaks since 1 Jan, 14 more holdings are past the 15% trailing level:
+ELLAHLAKES (−58% from peak), PZ (−39%), BUACEMENT (−35%), CUSTODIAN (−31%), DANGSUGAR (−28%),
+UBA (−26%), NB (−26%), CWG (−25%), MANSARD (−24%), GTCO (−23%), FCMB (−19%), BUAFOODS (−19%),
+ACCESSCORP (−18%), VFDGROUP (−18%), STERLINGNG (−16%). Most peaks are from February–May, when the
+market was higher. **Caveat:** for holdings bought after their peak, the trail should start later. Only
+the owner's purchase dates can settle this; until then, the default is 1 Jan 2026.
+
+**Backtest on the corrected data (2 Oct–17 Nov):** 18 holdings were already red on 2 Oct. Selling each
+at its first red close would have come out **+₦95,856 ahead of holding** (not −₦158,626). Presco alone is
++₦151,600 (sold at ₦1,840.80 on 27 Oct, now ₦1,656.80); without it, −₦55,744. Worst: WEMABANK −₦45,800,
+DANGSUGAR −₦36,972, NGXGROUP −₦35,770, MANSARD −₦30,967. Best after Presco: FIRSTHOLDCO +₦42,300,
+CWG +₦32,700, OKOMUOIL +₦20,461. Six weeks, mostly one stock: direction only, not proof.
+
+| Ticker | First red | Close then → 17 Nov | Sell vs hold |
+|---|---|---|---|
+| PRESCO | 27 Oct | 1,840.80 → 1,656.80 | +₦151,600 |
+| FIRSTHOLDCO | 12 Oct | 140.00 → 109.00 | +₦42,300 |
+| CWG | 2 Oct | 20.75 → 18.70 | +₦32,700 |
+| OKOMUOIL | 2 Oct | 1,264.70 (adj.) → 1,137.10 | +₦20,461 |
+| CUSTODIAN | 2 Oct | 70.00 → 62.00 | +₦16,909 |
+| WEMABANK | 22 Oct | 29.00 → 33.00 | −₦45,800 |
+| DANGSUGAR | 2 Oct | 68.00 → 69.00 | −₦36,972 |
+| NGXGROUP | 22 Oct | 152.50 → 175.00 | −₦35,770 |
+| MANSARD | 2 Oct | 11.40 → 14.00 | −₦30,967 |
+| BUACEMENT | 2 Oct | 297.00 → 298.00 | −₦20,820 |
+| 18 others | | | +₦2,215 net |
+| **All 28** | | | **+₦95,856** |
+
+**Open questions, updated:** 1 (Sterling) answered: 500. 3 (purchase dates): default 1 Jan 2026 is in
+use; rough purchase months would still sharpen the trailing flags. Still open: 2, 4–10.
 
 ## In plain words
 

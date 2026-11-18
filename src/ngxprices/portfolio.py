@@ -302,8 +302,10 @@ def adjusted_history(rows: list[dict], actions: list[dict]) -> list[dict]:
     """Price-history rows with closes made comparable with today's (copies; the file is not changed).
 
     For each action in ``corporate_actions.json``, rows of that ticker dated before ``ex_date`` are adjusted:
-    ``dividend`` subtracts ``amount`` from the close; ``reconstruction`` (``old_per_new`` old shares became
-    one new share) multiplies the close by ``old_per_new`` and divides the volume by it. Adjusted rows keep
+    ``dividend`` subtracts ``amount`` from the close; ``reconstruction`` or ``bonus`` (``old_per_new`` old
+    shares per new share: 10 for a 10-for-1 consolidation, 0.75 for a 1-for-3 bonus) multiplies the close by
+    ``old_per_new`` and divides the volume by it. Actions apply oldest first; on the same day, list the
+    dividend before the bonus. Adjusted rows keep
     the raw figure in ``raw_close``.
     """
     by = collections.defaultdict(list)
@@ -317,10 +319,10 @@ def adjusted_history(rows: list[dict], actions: list[dict]) -> list[dict]:
             continue
         r = dict(r, raw_close=r["close"])
         c, v = float(r["close"]), r.get("volume")
-        for a in sorted(acts, key=lambda a: a["ex_date"]):
+        for a in sorted(acts, key=lambda a: a["ex_date"]):  # stable: same-day order as listed
             if a["type"] == "dividend":
                 c -= a["amount"]
-            elif a["type"] == "reconstruction":
+            elif a["type"] in ("reconstruction", "bonus"):
                 c *= a["old_per_new"]
                 if v not in (None, ""):
                     v = float(v) / a["old_per_new"]

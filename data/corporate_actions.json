@@ -1,18 +1,73 @@
 [
  {
-  "ticker": "STERLINGNG",
-  "ex_date": "2026-10-08",
-  "type": "reconstruction",
-  "old_per_new": 10,
-  "source": "NGX Daily Official List and Shares Outstanding, 7-8 Oct 2026: shares 68,502,331,708 -> 6,850,233,171, price 7.70 -> 77.00, market cap unchanged at 527.47bn. Last trade before: 22 Sep 2026 at 7.70; trading resumed 12 Oct.",
-  "owner_confirmed": "2026-11-18: Meristem shows 500 units (was 5,000)."
+  "ticker": "AFRIPRUD",
+  "ex_date": "2026-03-13",
+  "type": "dividend",
+  "amount": 0.4,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
  },
  {
-  "ticker": "PZ",
-  "ex_date": "2026-10-12",
+  "ticker": "AFRIPRUD",
+  "ex_date": "2026-07-21",
+  "type": "dividend",
+  "amount": 0.1,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "BUACEMENT",
+  "ex_date": "2026-05-11",
+  "type": "dividend",
+  "amount": 10.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "BUAFOODS",
+  "ex_date": "2026-06-05",
+  "type": "dividend",
+  "amount": 28.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "CUSTODIAN",
+  "ex_date": "2026-04-14",
   "type": "dividend",
   "amount": 2.5,
-  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (9 Oct close 68.00, 12 Oct prev close 65.50)"
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "CUSTODIAN",
+  "ex_date": "2026-08-18",
+  "type": "dividend",
+  "amount": 0.25,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "CWG",
+  "ex_date": "2026-04-08",
+  "type": "dividend",
+  "amount": 0.7,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "DANGCEM",
+  "ex_date": "2026-06-18",
+  "type": "dividend",
+  "amount": 45.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "FCMB",
+  "ex_date": "2026-06-16",
+  "type": "dividend",
+  "amount": 0.35,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "GTCO",
+  "ex_date": "2026-04-14",
+  "type": "dividend",
+  "amount": 11.76,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
  },
  {
   "ticker": "GTCO",
@@ -22,18 +77,53 @@
   "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (12 Oct close 131.00, 13 Oct prev close 130.00)"
  },
  {
-  "ticker": "STANBIC",
-  "ex_date": "2026-10-16",
+  "ticker": "JBERGER",
+  "ex_date": "2026-06-01",
   "type": "dividend",
-  "amount": 4.5,
-  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (15 Oct close 168.00, 16 Oct prev close 163.50)"
+  "amount": 4.25,
+  "source": "NGX Daily Official List: last ex-dividend 1 Jun 2026, dividend 4.25 (the 1 Jun price list has no previous close to cross-check)"
  },
  {
-  "ticker": "ZENITHBANK",
-  "ex_date": "2026-10-26",
+  "ticker": "MTNN",
+  "ex_date": "2026-04-09",
   "type": "dividend",
-  "amount": 1.5,
-  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (23 Oct close 120.90, 26 Oct prev close 119.40)"
+  "amount": 15.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "MTNN",
+  "ex_date": "2026-08-21",
+  "type": "dividend",
+  "amount": 26.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "NGXGROUP",
+  "ex_date": "2026-04-13",
+  "type": "dividend",
+  "amount": 2.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "NGXGROUP",
+  "ex_date": "2026-04-13",
+  "type": "bonus",
+  "old_per_new": 0.75,
+  "source": "NGX official lists: 1-for-3 bonus; shares 1,964,115,918 -> 2,618,821,224 (x4/3) and previous close 139.50 = (188.00 - 2.00 dividend) x 3/4 (checked 18 Nov 2026). Applied after the same-day dividend."
+ },
+ {
+  "ticker": "NGXGROUP",
+  "ex_date": "2026-07-30",
+  "type": "dividend",
+  "amount": 1.3,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "OKOMUOIL",
+  "ex_date": "2026-04-28",
+  "type": "dividend",
+  "amount": 15.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
  },
  {
   "ticker": "OKOMUOIL",
@@ -43,10 +133,151 @@
   "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (11 Nov close 1,148.60, 12 Nov prev close 1,137.10)"
  },
  {
+  "ticker": "PRESCO",
+  "ex_date": "2026-08-10",
+  "type": "dividend",
+  "amount": 14.66,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "PRESCO",
+  "ex_date": "2026-08-17",
+  "type": "dividend",
+  "amount": 10.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "PZ",
+  "ex_date": "2026-10-12",
+  "type": "dividend",
+  "amount": 2.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (9 Oct close 68.00, 12 Oct prev close 65.50)"
+ },
+ {
+  "ticker": "SEPLAT",
+  "ex_date": "2026-05-18",
+  "type": "dividend",
+  "amount": 113.78,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "SEPLAT",
+  "ex_date": "2026-06-08",
+  "type": "dividend",
+  "amount": 122.29,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "SEPLAT",
+  "ex_date": "2026-08-14",
+  "type": "dividend",
+  "amount": 163.27,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
   "ticker": "SEPLAT",
   "ex_date": "2026-11-13",
   "type": "dividend",
   "amount": 258.1,
   "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (12 Nov close 16,500.00, 13 Nov prev close 16,241.90)"
+ },
+ {
+  "ticker": "STANBIC",
+  "ex_date": "2026-05-05",
+  "type": "dividend",
+  "amount": 4.0,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "STANBIC",
+  "ex_date": "2026-10-16",
+  "type": "dividend",
+  "amount": 4.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (15 Oct close 168.00, 16 Oct prev close 163.50)"
+ },
+ {
+  "ticker": "STERLINGNG",
+  "ex_date": "2026-10-08",
+  "type": "reconstruction",
+  "old_per_new": 10,
+  "source": "NGX Daily Official List and Shares Outstanding, 7-8 Oct 2026: shares 68,502,331,708 -> 6,850,233,171, price 7.70 -> 77.00, market cap unchanged at 527.47bn. Last trade before: 22 Sep 2026 at 7.70; trading resumed 12 Oct.",
+  "owner_confirmed": "2026-11-18: Meristem shows 500 units (was 5,000)."
+ },
+ {
+  "ticker": "TRANSCOHOT",
+  "ex_date": "2026-02-16",
+  "type": "dividend",
+  "amount": 1.2,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "TRANSCOHOT",
+  "ex_date": "2026-07-23",
+  "type": "dividend",
+  "amount": 0.1,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "TRANSCORP",
+  "ex_date": "2026-04-28",
+  "type": "dividend",
+  "amount": 1.6,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "TRANSCORP",
+  "ex_date": "2026-07-24",
+  "type": "dividend",
+  "amount": 0.4,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "UCAP",
+  "ex_date": "2026-04-08",
+  "type": "dividend",
+  "amount": 0.7,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "UCAP",
+  "ex_date": "2026-07-28",
+  "type": "dividend",
+  "amount": 0.3,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "VFDGROUP",
+  "ex_date": "2026-05-05",
+  "type": "dividend",
+  "amount": 0.25,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "VFDGROUP",
+  "ex_date": "2026-08-04",
+  "type": "dividend",
+  "amount": 0.24,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "WEMABANK",
+  "ex_date": "2026-04-30",
+  "type": "dividend",
+  "amount": 1.25,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "ex_date": "2026-04-27",
+  "type": "dividend",
+  "amount": 8.75,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount; matches the dividend in the Daily Official List (checked 18 Nov 2026)"
+ },
+ {
+  "ticker": "ZENITHBANK",
+  "ex_date": "2026-10-26",
+  "type": "dividend",
+  "amount": 1.5,
+  "source": "NGX official lists: previous close on the ex-date is the prior close minus this amount (checked 18 Nov 2026) (23 Oct close 120.90, 26 Oct prev close 119.40)"
  }
 ]

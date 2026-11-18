@@ -4,11 +4,12 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 **Mon 16 Nov 2026 close** (live-feed closes; official volumes for 16 Nov still to load). The owner (Babatunde Adebayo) works mostly from his Android phone.
 
 ## ⚠️ Open review (18 Nov 2026)
-Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Section 4 (data review) is DONE: `docs/DATA_REVIEW_2026-11-18.md`.
-Sterling had a 10-for-1 share reconstruction on 8 Oct (NGX files); owner confirmed 500 units → holdings 500 @ ₦58.70,
-daily log lowered from 9 Oct. Peaks are now dividend-adjusted via `data/corporate_actions.json` (record new dividends
-and reconstructions there). Still open: stored peaks are understated (sparse pre-Oct history; owner to choose how
-peaks work), (owner chose: peaks from purchase date, default 1 Jan 2026; combined rules with per-account lines). MTN Account 3 cost ₦169.70 confirmed 18 Nov. Next: handoff section 6 (expert critique).
+Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Data review DONE (`docs/DATA_REVIEW_2026-11-18.md`); expert critique DONE
+and reconciled with the corrected data (`docs/REVIEW_CRITIQUE_2026-11-18.md`, first section is current).
+Sterling: 10-for-1 reconstruction 8 Oct; owner confirmed 500 units (500 @ ₦58.70). Official closes back-filled
+from 2 Jan 2026. Peaks are adjusted for dividends/bonuses/reconstructions in `data/corporate_actions.json` (record new
+ones there) and count from 1 Jan 2026 or a lot's `bought_from` (owner's choice). Rules run on the combined holding,
+with each account's lot shown. Open: owner's purchase dates, and the critique's rule proposals (owner decides).
 
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):
@@ -62,7 +63,8 @@ Value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026 · day +₦67,569 
 - **Loss limit 20%:** a close ≥20% below average cost = **loser**. Early warning at −10%.
 - **Trailing 15%:** once a holding's peak close was ≥20% above cost, a close ≥15% below that peak =
   **sell-part review** (owner's view: e.g. Presco should have been part-sold as its gain fell from
-  40%+ to ~10%, then bought back lower). Peak = highest close in `price_history.json` (sparse before Oct).
+  40%+ to ~10%, then bought back lower). Peak = highest close in `price_history.json` (official from 2 Jan 2026) since 1 Jan 2026 or the lot's
+  `bought_from`, adjusted for `corporate_actions.json`.
 - **Early warning (traffic light, added 18 Nov):** red = a rule fired; amber = a tolerance signal
   (−10% on cost, −10% from peak when trailing is active, within 5% of the trigger) plus ≥1 general
   sign (fall on ≥2× 20-day volume in the last 5 days, close below the 20-day average, a −9% day in
@@ -77,10 +79,11 @@ Value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026 · day +₦67,569 
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs
   official before calling a flag. Fees ~1.8–2% each way, so a buy-back needs a fall of >~4%.
-- At 17 Nov: losers SUNUASSUR, LASACO, INTBREW, OANDO, AFRIPRUD, TRANSCORP (−30% to −46%);
-  sell-part review FIRSTHOLDCO, OKOMUOIL (June peak, checked official), UPDCREIT, PRESCO; amber UCAP,
-  LINKASSURE, ZENITHBANK (−14.1% from its dividend-adjusted peak), ELLAHLAKES, GTCO, ACCESSCORP, DANGCEM
-  (limit-down −9.99% on 17 Nov, no dividend), UBA; watch DANGSUGAR. INTBREW: capital reorganisation proposed.
+- At 17 Nov (full 2026 peaks, 18 Nov): red 25, amber 4, note 1, green 9. Losers SUNUASSUR, LASACO, INTBREW,
+  OANDO, AFRIPRUD, TRANSCORP (−30% to −46%); sell-part review ELLAHLAKES, PZ, BUACEMENT, OKOMUOIL, FIRSTHOLDCO,
+  CUSTODIAN, PRESCO, DANGSUGAR, UPDCREIT, UBA, NB, CWG, MANSARD, GTCO, FCMB, BUAFOODS, ACCESSCORP, VFDGROUP,
+  STERLINGNG; amber UCAP, LINKASSURE, ZENITHBANK (−14.1% from its dividend-adjusted peak), DANGCEM (limit-down
+  −9.99% on 17 Nov, no dividend). INTBREW: capital reorganisation proposed.
 
 ## ₦2.2M plan (from 12 Oct 2026)
 Buy now: Seplat ₦500K, Dangote Cement ₦400K, Zenith ₦200K, MTN ₦200K.
