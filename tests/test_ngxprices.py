@@ -167,3 +167,16 @@ def test_list_files_network():
     from ngxprices import list_files
     assert list_files("2025-12-31")
     assert list_files("2025-12-25") == []  # Christmas
+
+
+def test_prev_close_without_prices1(sources, shares):
+    """NGX left PRICES1.pdf out of the 19 Nov 2026 zip: changes come from the previous day's close."""
+    dol, _, pl2 = sources
+    sym = dol[0]["symbol"]
+    close = dol[0]["close"]
+    flat = {r["symbol"]: r for r in merge("2025-12-31", dol, {}, pl2, shares=shares)}
+    assert flat[sym]["prev_close"] == close and flat[sym]["change"] == 0
+    rows = {r["symbol"]: r for r in merge("2025-12-31", dol, {}, pl2, shares=shares, prev_closes={sym: close / 2})}
+    assert rows[sym]["prev_close"] == close / 2
+    assert rows[sym]["change"] == pytest.approx(close / 2)
+    assert rows[sym]["pct_change"] == pytest.approx(100.0, abs=0.01)
