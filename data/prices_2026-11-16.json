@@ -7,9 +7,9 @@
   "chg_7d_pct": -1.82,
   "as_of": "2026-11-16",
   "prev_close": 27.0,
-  "volume": 203621268,
-  "trades": 1488,
-  "value_ngn": 5494790258.85
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "AFRIPRUD",
@@ -19,9 +19,9 @@
   "chg_7d_pct": 1.49,
   "as_of": "2026-11-16",
   "prev_close": 10.2,
-  "volume": 557636,
-  "trades": 127,
-  "value_ngn": 5875475.9
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "ARADEL",
@@ -31,9 +31,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 1296.0,
-  "volume": 548620,
-  "trades": 1045,
-  "value_ngn": 639917870.0
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "BUACEMENT",
@@ -43,9 +43,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 298.0,
-  "volume": 1560918,
-  "trades": 882,
-  "value_ngn": 450958992.9
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "BUAFOODS",
@@ -55,9 +55,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 760.6,
-  "volume": 57314,
-  "trades": 525,
-  "value_ngn": 39512696.0
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "CADBURY",
@@ -67,9 +67,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 57.0,
-  "volume": 539834,
-  "trades": 266,
-  "value_ngn": 33447223.5
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "CUSTODIAN",
@@ -79,9 +79,9 @@
   "chg_7d_pct": -1.59,
   "as_of": "2026-11-16",
   "prev_close": 62.0,
-  "volume": 560974,
-  "trades": 185,
-  "value_ngn": 34238987.65
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "CWG",
@@ -91,9 +91,9 @@
   "chg_7d_pct": 3.69,
   "as_of": "2026-11-16",
   "prev_close": 17.5,
-  "volume": 927255,
-  "trades": 136,
-  "value_ngn": 16872136.1
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "DANGCEM",
@@ -103,9 +103,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 1469.9,
-  "volume": 121987,
-  "trades": 500,
-  "value_ngn": 161388801.0
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "DANGSUGAR",
@@ -115,9 +115,9 @@
   "chg_7d_pct": 0.23,
   "as_of": "2026-11-16",
   "prev_close": 65.15,
-  "volume": 1204290,
-  "trades": 862,
-  "value_ngn": 79533734.9
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "ELLAHLAKES",
@@ -127,9 +127,9 @@
   "chg_7d_pct": -5.41,
   "as_of": "2026-11-16",
   "prev_close": 7.2,
-  "volume": 5521473,
-  "trades": 200,
-  "value_ngn": 38942841.15
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "FCMB",
@@ -139,9 +139,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 10.9,
-  "volume": 73781104,
-  "trades": 430,
-  "value_ngn": 804510405.75
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "FIDELITYBK",
@@ -151,9 +151,9 @@
   "chg_7d_pct": -7.82,
   "as_of": "2026-11-16",
   "prev_close": 24.0,
-  "volume": 10483249,
-  "trades": 494,
-  "value_ngn": 242646328.75
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "FIRSTHOLDCO",
@@ -163,9 +163,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 107.0,
-  "volume": 5563319,
-  "trades": 1219,
-  "value_ngn": 608576065.55
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "GTCO",
@@ -175,9 +175,9 @@
   "chg_7d_pct": -1.42,
   "as_of": "2026-11-16",
   "prev_close": 119.2,
-  "volume": 45447063,
-  "trades": 2695,
-  "value_ngn": 5391837226.3
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "GUINNESS",
@@ -187,9 +187,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 416.0,
-  "volume": 203918,
-  "trades": 245,
-  "value_ngn": 76434307.7
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "HONYFLOUR",
@@ -199,9 +199,9 @@
   "chg_7d_pct": 16.72,
   "as_of": "2026-11-16",
   "prev_close": 33.55,
-  "volume": 9528428,
-  "trades": 745,
-  "value_ngn": 322587528.4
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "INTBREW",
@@ -211,9 +211,9 @@
   "chg_7d_pct": 1.66,
   "as_of": "2026-11-16",
   "prev_close": 8.4,
-  "volume": 3576449,
-  "trades": 165,
-  "value_ngn": 32693756.9
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "JBERGER",
@@ -223,9 +223,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 310.8,
-  "volume": 2529,
-  "trades": 28,
-  "value_ngn": 707614.2
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "LASACO",
@@ -235,9 +235,9 @@
   "chg_7d_pct": 8.72,
   "as_of": "2026-11-16",
   "prev_close": 1.9,
-  "volume": 1836747,
-  "trades": 111,
-  "value_ngn": 3312067.6
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "LINKASSURE",
@@ -247,9 +247,9 @@
   "chg_7d_pct": 1.32,
   "as_of": "2026-11-16",
   "prev_close": 1.56,
-  "volume": 1759001,
-  "trades": 50,
-  "value_ngn": 2695725.55
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "MANSARD",
@@ -259,9 +259,9 @@
   "chg_7d_pct": 7.72,
   "as_of": "2026-11-16",
   "prev_close": 13.7,
-  "volume": 2109646,
-  "trades": 247,
-  "value_ngn": 29047363.75
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "MTNN",
@@ -271,9 +271,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 837.0,
-  "volume": 1167716,
-  "trades": 3139,
-  "value_ngn": 965869646.5
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "NB",
@@ -283,9 +283,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 70.0,
-  "volume": 961467,
-  "trades": 260,
-  "value_ngn": 67073301.7
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "NESTLE",
@@ -295,9 +295,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 2650.0,
-  "volume": 25764,
-  "trades": 162,
-  "value_ngn": 67491313.6
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "NGXGROUP",
@@ -307,9 +307,9 @@
   "chg_7d_pct": 11.21,
   "as_of": "2026-11-16",
   "prev_close": 166.0,
-  "volume": 15097006,
-  "trades": 1760,
-  "value_ngn": 2703784678.8
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "NNFM",
@@ -319,9 +319,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 79.4,
-  "volume": 335,
-  "trades": 6,
-  "value_ngn": 23952.5
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "OANDO",
@@ -331,9 +331,9 @@
   "chg_7d_pct": 2.23,
   "as_of": "2026-11-16",
   "prev_close": 38.0,
-  "volume": 2857724,
-  "trades": 440,
-  "value_ngn": 105709748.1
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "OKOMUOIL",
@@ -343,9 +343,9 @@
   "chg_7d_pct": -10.9,
   "as_of": "2026-11-16",
   "prev_close": 1137.1,
-  "volume": 35573,
-  "trades": 152,
-  "value_ngn": 36405408.2
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "PRESCO",
@@ -355,9 +355,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 1656.8,
-  "volume": 16517,
-  "trades": 143,
-  "value_ngn": 24630150.4
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "PZ",
@@ -367,9 +367,9 @@
   "chg_7d_pct": -2.01,
   "as_of": "2026-11-16",
   "prev_close": 64.8,
-  "volume": 520564,
-  "trades": 187,
-  "value_ngn": 33068546.9
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "SEPLAT",
@@ -379,9 +379,9 @@
   "chg_7d_pct": 1.51,
   "as_of": "2026-11-16",
   "prev_close": 16241.9,
-  "volume": 9462,
-  "trades": 405,
-  "value_ngn": 150166810.5
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "STANBIC",
@@ -391,9 +391,9 @@
   "chg_7d_pct": 1.54,
   "as_of": "2026-11-16",
   "prev_close": 165.0,
-  "volume": 1328289,
-  "trades": 473,
-  "value_ngn": 219006131.3
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "STERLINGNG",
@@ -403,9 +403,9 @@
   "chg_7d_pct": -1.25,
   "as_of": "2026-11-16",
   "prev_close": 75.0,
-  "volume": 2816273,
-  "trades": 203,
-  "value_ngn": 209880923.75
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "SUNUASSUR",
@@ -415,9 +415,9 @@
   "chg_7d_pct": 11.11,
   "as_of": "2026-11-16",
   "prev_close": 2.9,
-  "volume": 539528,
-  "trades": 41,
-  "value_ngn": 1591805.22
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "TRANSCOHOT",
@@ -427,9 +427,9 @@
   "chg_7d_pct": 0.0,
   "as_of": "2026-11-16",
   "prev_close": 290.5,
-  "volume": 110957,
-  "trades": 59,
-  "value_ngn": 29054260.4
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "TRANSCORP",
@@ -439,9 +439,9 @@
   "chg_7d_pct": 6.67,
   "as_of": "2026-11-16",
   "prev_close": 32.3,
-  "volume": 685833,
-  "trades": 155,
-  "value_ngn": 21923095.25
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "UBA",
@@ -451,9 +451,9 @@
   "chg_7d_pct": -3.81,
   "as_of": "2026-11-16",
   "prev_close": 42.0,
-  "volume": 3238595,
-  "trades": 910,
-  "value_ngn": 131877182.4
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "UCAP",
@@ -463,9 +463,9 @@
   "chg_7d_pct": 0.3,
   "as_of": "2026-11-16",
   "prev_close": 16.55,
-  "volume": 5550574,
-  "trades": 395,
-  "value_ngn": 91639617.0
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "UPDCREIT",
@@ -475,9 +475,9 @@
   "chg_7d_pct": -3.74,
   "as_of": "2026-11-16",
   "prev_close": 19.3,
-  "volume": 1087667,
-  "trades": 390,
-  "value_ngn": 21752193.45
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "VFDGROUP",
@@ -487,9 +487,9 @@
   "chg_7d_pct": 6.25,
   "as_of": "2026-11-16",
   "prev_close": 11.7,
-  "volume": 1689199,
-  "trades": 129,
-  "value_ngn": 19738711.0
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "WEMABANK",
@@ -499,9 +499,9 @@
   "chg_7d_pct": 3.12,
   "as_of": "2026-11-16",
   "prev_close": 32.5,
-  "volume": 13577830,
-  "trades": 414,
-  "value_ngn": 447977869.65
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  },
  {
   "ticker": "ZENITHBANK",
@@ -511,8 +511,8 @@
   "chg_7d_pct": -1.28,
   "as_of": "2026-11-16",
   "prev_close": 115.9,
-  "volume": 31363178,
-  "trades": 2598,
-  "value_ngn": 3642376035.7
+  "volume": null,
+  "trades": null,
+  "value_ngn": null
  }
 ]

@@ -231,8 +231,24 @@ def nearby_name_map(date, fetcher: Fetcher | None = None, max_days: int = 7) -> 
     return {}
 
 
+def previous_closes(date, fetcher: Fetcher | None = None, max_days: int = 7) -> dict:
+    """Symbol -> close from the closest earlier trading day with a Daily Official List.
+    Stands in for PRICES1's previous close when NGX leaves PRICES1.pdf out of the day's zip."""
+    f = _fetcher(fetcher)
+    d0 = to_date(date)
+    for k in range(1, max_days + 1):
+        d = d0 - dt.timedelta(days=k)
+        if d.weekday() >= 5:
+            continue
+        s = fetch_sources(d, f)
+        if s["dol"]:
+            rows = merge(d, s["dol"], s["prices1"], s["plist2"], shares=s["shares"])
+            return {r["symbol"]: r["close"] for r in rows if r["close"] is not None}
+    return {}
+
+
 def merge(date, dol: list[dict], prices1: dict, plist2: list[dict], name_map: dict | None = None,
-          shares: dict | None = None) -> list[dict]:
+          shares: dict | None = None, prev_closes: dict | None = None) -> list[dict]:
     """Merge parsed sources into one row per symbol.
 
     Close priority: DOL (Current Market Price) > PRICES_LIST2 Growth Board / known name map >
@@ -299,7 +315,7 @@ def merge(date, dol: list[dict], prices1: dict, plist2: list[dict], name_map: di
             out[s] = dict(date=iso, symbol=s, name=name, board=board, sector=sector, subsector=subsector,
                           close=q["close"], source="PRICES1")
     rows = sorted(out.values(), key=lambda r: r["symbol"])
-    _enrich(rows, dol, prices1, plist2, shares, so_names)
+    _enrich(rows, dol, prices1, plist2, shares, so_names, prev_closes)
     return rows
 
 
@@ -328,7 +344,7 @@ _COUNT_FIELDS = ("trades", "volume", "shares_outstanding", "last_trade_qty")
 
 
 def _enrich(rows: list[dict], dol: list[dict], prices1: dict, plist2: list[dict], shares: dict,
-            so_names: dict) -> None:
+            so_names: dict, prev_closes: dict | None = None) -> None:
     """Add activity, size, fundamental and dividend fields to merged rows (in place)."""
     dol_by = {r["symbol"]: r for r in dol}
     pl2_by = plist2_by_symbol(rows, plist2, shares, dol)
@@ -348,7 +364,9 @@ def _enrich(rows: list[dict], dol: list[dict], prices1: dict, plist2: list[dict]
         elif not have_activity:
             prev = op = hi = lo = pct = trades = volume = value = None
         else:
-            prev = op = close
+            # no PRICES1 row: previous close comes from the previous trading day when supplied
+            prev = (prev_closes or {}).get(sym, close)
+            op = close
             hi = lo = None
             pct = None
             trades = pl["trades"] if pl else 0.0
@@ -452,7 +470,10 @@ def get_daily_prices(date, fetcher: Fetcher | None = None) -> list[dict]:
     if not s["dol"] and not s["prices1"] and not s["plist2"]:
         raise RuntimeError(f"No price data parsed for {ngx_date(date)}: {s['errors']}")
     name_map = nearby_name_map(date, fetcher) if not s["dol"] else None
-    return merge(date, s["dol"], s["prices1"], s["plist2"], name_map, shares=s["shares"])
+    # NGX sometimes leaves PRICES1.pdf out of the zip (19 Nov 2026): without it there is no previous
+    # close, so every change would read 0. Take it from the previous trading day's close instead.
+    prev = previous_closes(date, fetcher) if not s["prices1"] else None
+    return merge(date, s["dol"], s["prices1"], s["plist2"], name_map, shares=s["shares"], prev_closes=prev)
 
 
 def get_range(start, end, fetcher: Fetcher | None = None, on_error: str = "warn") -> list[dict]:
