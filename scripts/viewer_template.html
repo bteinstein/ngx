@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NGX Portfolio</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--mut:#666;--card:#f4f5f7;--line:#e2e4e8;--up:#0a7d3b;--dn:#c0262d;--amb:#b7791f}
+@media(prefers-color-scheme:dark){:root{--bg:#111316;--fg:#e8e8e8;--mut:#9aa0a6;--card:#1b1e23;--line:#2b2f36;--up:#4cc27c;--dn:#ff6b72;--amb:#e0a93b}}
+*{box-sizing:border-box}body{margin:0;padding:12px 16px 40px;background:var(--bg);color:var(--fg);font:15px/1.4 system-ui,sans-serif;max-width:820px;margin:auto}
+h1{font-size:20px;margin:8px 0 2px}h2{font-size:16px;margin:22px 0 8px}.mut{color:var(--mut);font-size:13px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.k{background:var(--card);border-radius:10px;padding:10px 12px}
+.k b{display:block;font-size:18px}.up{color:var(--up)}.dn{color:var(--dn)}
+.tabs{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}.tabs button{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:7px 12px;border-radius:18px;font-size:14px}
+.tabs button.on{background:var(--fg);color:var(--bg)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}th{color:var(--mut);font-weight:500;font-size:12px;cursor:pointer}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.red{background:var(--dn)}.amber{background:var(--amb)}.watch{background:#d6b400}.note{background:#6b8bd6}.green{background:var(--up)}
+.wrap{overflow-x:auto}svg{width:100%;height:auto}.w{background:var(--card);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:13px}
+</style></head><body>
+<h1>NGX Portfolio</h1><div class="mut" id="asof"></div>
+<div class="kpis" id="kpis"></div>
+<div class="tabs" id="tabs"></div><div id="view"></div>
+<p class="mut" style="margin-top:28px">Information only, not financial advice. Rebuild with <code>python3 scripts/build_viewer.py</code>.</p>
+<script>
+const D=/*DATA*/null;
+const N=(x,d=0)=>x==null?'–':Number(x).toLocaleString('en-NG',{minimumFractionDigits:d,maximumFractionDigits:d});
+const P=(x)=>x==null?'–':(x>0?'+':'')+N(x,2)+'%';
+const cls=x=>x>0?'up':x<0?'dn':'';
+const px={};D.prices.forEach(p=>px[p.ticker]=p);
+const byT={};D.holdings.forEach(h=>{const t=byT[h.ticker]||(byT[h.ticker]={ticker:h.ticker,name:h.name,units:0,cost:0,accts:[]});t.units+=h.units;t.cost+=h.units*h.unit_cost;t.accts.push(h.account.replace('Account ','A')+': '+N(h.units))});
+const rows=Object.values(byT).map(h=>{const p=px[h.ticker]||{};const price=p.price;const val=price*h.units;return{...h,price,val,gain:val-h.cost,gp:(val/h.cost-1)*100,d1:p.chg_1d_pct,vol:p.volume,dpl:p.prev_close!=null?(price-p.prev_close)*h.units:0}});
+const tot=rows.reduce((a,r)=>({v:a.v+r.val,c:a.c+r.cost,d:a.d+r.dpl}),{v:0,c:0,d:0});
+const day=D.prices[0]?.as_of;
+document.getElementById('asof').textContent='Prices as of '+day+' · '+rows.length+' holdings';
+document.getElementById('kpis').innerHTML=[['Value','₦'+N(tot.v),''],['Cost','₦'+N(tot.c),''],['Gain','₦'+N(tot.v-tot.c),cls(tot.v-tot.c)],['Day P/L','₦'+N(tot.d)+' ('+P(tot.d/(tot.v-tot.d)*100)+')',cls(tot.d)]].map(k=>`<div class="k"><span class="mut">${k[0]}</span><b class="${k[2]}">${k[1]}</b></div>`).join('');
+let sortK='val',desc=true;
+const views={
+Holdings(){const s=[...rows].sort((a,b)=>desc?b[sortK]-a[sortK]:a[sortK]-b[sortK]);
+ const th=(k,l)=>`<th onclick="sortK='${k}';desc=!desc;show('Holdings')">${l}</th>`;
+ return `<div class="wrap"><table><tr><th>Stock</th>${th('price','Price')}${th('d1','1d')}${th('val','Value ₦')}${th('gp','Gain')}</tr>`+
+ s.map(r=>`<tr><td>${r.ticker}<div class="mut">${r.accts.join(' · ')}</div></td><td>${N(r.price,2)}</td><td class="${cls(r.d1)}">${P(r.d1)}</td><td>${N(r.val)}<div class="mut">${N(r.val/tot.v*100,1)}%</div></td><td class="${cls(r.gp)}">${P(r.gp)}</td></tr>`).join('')+'</table></div>'},
+Flags(){const o={red:0,amber:1,watch:2,note:3,green:4};const w=[...D.watchlist].sort((a,b)=>o[a.light]-o[b.light]);
+ return w.map(x=>`<div class="w"><span class="dot ${x.light}"></span><b>${x.ticker}</b> <span class="mut">${x.status} · ${x.light}</span><div>${x.note}</div></div>`).join('')},
+Movers(){const s=[...rows].sort((a,b)=>b.dpl-a.dpl);const f=r=>`<tr><td>${r.ticker}</td><td class="${cls(r.dpl)}">${N(r.dpl)}</td><td class="${cls(r.d1)}">${P(r.d1)}</td></tr>`;
+ const hv=rows.filter(r=>r.vol).sort((a,b)=>b.vol-a.vol).slice(0,5);
+ return `<h2>Up (₦ on your units)</h2><table>${s.slice(0,5).map(f).join('')}</table><h2>Down</h2><table>${s.slice(-5).reverse().map(f).join('')}</table><h2>Biggest volume</h2><table>${hv.map(r=>`<tr><td>${r.ticker}</td><td>${N(r.vol)}</td></tr>`).join('')}</table>`},
+History(){const a=D.daily;const W=600,H=220,m=8;const lo=Math.min(...a.map(r=>r.value))*0.995,hi=Math.max(...a.map(r=>r.value))*1.005;
+ const x=i=>m+i*(W-2*m)/(a.length-1),y=v=>H-m-(v-lo)/(hi-lo)*(H-2*m);
+ const pts=a.map((r,i)=>x(i)+','+y(r.value)).join(' ');
+ return `<svg viewBox="0 0 ${W} ${H}"><polyline fill="none" stroke="currentColor" stroke-width="2" points="${pts}"/></svg><div class="mut">₦${N(lo)} – ₦${N(hi)}</div>`+
+ `<div class="wrap"><table><tr><th>Date</th><th>Value ₦</th><th>Day ₦</th></tr>${[...a].reverse().map(r=>`<tr><td>${r.date}</td><td>${N(r.value)}</td><td class="${cls(r.day_pl)}">${N(r.day_pl)}</td></tr>`).join('')}</table></div>`}
+};
+function show(n){document.getElementById('view').innerHTML=views[n]();[...document.querySelectorAll('.tabs button')].forEach(b=>b.classList.toggle('on',b.textContent==n))}
+document.getElementById('tabs').innerHTML=Object.keys(views).map(n=>`<button onclick="show('${n}')">${n}</button>`).join('');
+show('Holdings');
+</script></body></html>
