@@ -60,7 +60,7 @@ All of it is on `main`. Commits, oldest first:
 take-profit lines. `refresh` writes the regenerated watchlist and an auto note in `daily_log.json`.
 Tests: `python -m pytest -q tests` (20 pass).
 
-**Dashboard** (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7): the datasets `prices`,
+**Dashboard** (https://claude.ai/artifact/QD661V95bkFogP8jifQ6kF): the datasets `prices`,
 `price_history`, `daily` and `watchlist` point at new blobs, and their descriptions explain the rules.
 The page code (`files/index.html`) was **not** changed. Known issues:
 - its "losers value / loss so far" box now sums every holding (it counts `rule !== 'cost'`);

@@ -23,19 +23,19 @@ pip install -q -e . 2>/dev/null; ngxprices portfolio refresh --json > /tmp/refre
 
 ## 2. Update the claude.ai dashboard
 
-Dashboard: https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7 (My NGX Portfolio).
+Dashboard: https://claude.ai/artifact/QD661V95bkFogP8jifQ6kF (My NGX Portfolio).
 
-1. Stage the files: `ngxprices portfolio stage --out /tmp/dash_upload` (prints three paths).
-2. Upload each file as an asset, one call each (JSON files can't be batched):
-   Artifact tool, `url` = the dashboard, `asset: true`, `file_path` = the staged file. Note each
-   returned `/_blob/<id>` url.
-3. Read the three datasets to get their versions: ArtifactData `get`, collection `datasets`, doc ids
-   `prices`, `price_history`, `daily`.
-4. One ArtifactData `batch` of three `update`s (pin each with `if_version`):
-   - `source`: `{kind: "file", name: <staged file name>, url: <blob url>, format: "json"}`
-   - `updated`: `{at: <UTC now ISO>, by: "Claude"}`, `edit`: `{via: "claude", at: <same>}`
-   - `prices.description`: one sentence: "Closes for <day> from <source kind and time>; …" (say when
-     volume is provisional).
+1. Stage the files: `ngxprices portfolio stage --out /tmp/dash_upload` (prints three paths). This dashboard
+   has two datasets, `daily` and `holdings` (not prices/price_history). `daily` takes the staged `daily_*.json`.
+   `holdings` takes a `holdings_status_<date>.json` built from `watchlist` in the refresh JSON, one row per
+   ticker (combined across accounts) with: ticker, name, sector, status, light, units, close, avg_cost, value,
+   cost, gain_pct, peak, off_peak_pct, weight_pct, signals (tolerance + general signs joined by "; "),
+   take_profit (texts joined by "; "). Check that the values sum to the portfolio value.
+2. Upload those two files as assets, one call each (Artifact tool, `url` = the dashboard, `asset: true`).
+3. ArtifactData `get` collection `datasets`, doc ids `daily` and `holdings` for their versions.
+4. One ArtifactData `batch` of two `update`s (pin each with `if_version`): `source`
+   `{kind: "file", name, url: "/_blob/<id>", format: "json"}`, `updated` `{at: <real UTC now>, by: "Claude"}`
+   (run `date -u`), and a one-sentence `description` (say when volume/prices are live).
 5. Don't change the page (`files/index.html`) unless asked.
 
 ## 3. Commit and push
