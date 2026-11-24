@@ -3,7 +3,12 @@
 Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is current to the
 **Mon 16 Nov 2026 close** (live-feed closes; official volumes for 16 Nov still to load). The owner (Babatunde Adebayo) works mostly from his Android phone.
 
-## ⚠️ Open review (18 Nov 2026)
+## ⚠️ Open (24 Nov 2026)
+Handoff: `docs/HANDOFF_2026-11-24.md` (prompt: `docs/NEXT_SESSION_PROMPT_2026-11-24.md`). Next job: a
+profit-oriented exit strategy with a short/long-term tag per holding, based on each company's financial
+statements (pull from NGX disclosures; ask the owner to confirm each term). Watch PRESCO/JBERGER block deals.
+
+## Earlier review (18 Nov 2026)
 Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Data review DONE (`docs/DATA_REVIEW_2026-11-18.md`); expert critique DONE
 and reconciled with the corrected data (`docs/REVIEW_CRITIQUE_2026-11-18.md`, first section is current).
 Sterling: 10-for-1 reconstruction 8 Oct; owner confirmed 500 units (500 @ ₦58.70). Official closes back-filled

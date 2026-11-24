@@ -312,32 +312,6 @@
   "source": "BUA Foods H1 2026 release, NGX filing"
  },
  {
-  "id": "JBERGER-H12025",
-  "ticker": "JBERGER",
-  "period": "H1 2025",
-  "seq": 1,
-  "revenue_label": "Revenue",
-  "revenue_bn": 343.4,
-  "pat_bn": 7.11,
-  "eps": 4.34,
-  "margin_label": null,
-  "margin_pct": null,
-  "source": "Julius Berger H1 2025 report via Simply Wall St"
- },
- {
-  "id": "JBERGER-H12026",
-  "ticker": "JBERGER",
-  "period": "H1 2026",
-  "seq": 2,
-  "revenue_label": "Revenue",
-  "revenue_bn": null,
-  "pat_bn": 6.06,
-  "eps": 3.69,
-  "margin_label": null,
-  "margin_pct": null,
-  "source": "Julius Berger H1 2026 report via African Financials; total revenue not found"
- },
- {
   "id": "OKOMUOIL-H12025",
   "ticker": "OKOMUOIL",
   "period": "H1 2025",
@@ -362,5 +336,70 @@
   "margin_label": "Net profit margin",
   "margin_pct": 31.7,
   "source": "Okomu H1 2026 statement via Nairametrics, CardinalStone"
+ },
+ {
+  "id": "JBERGER-H12025",
+  "ticker": "JBERGER",
+  "period": "H1 2025",
+  "seq": 1,
+  "revenue_label": "Revenue",
+  "revenue_bn": 343.4,
+  "pat_bn": 7.11,
+  "eps": 4.34,
+  "margin_label": null,
+  "margin_pct": null,
+  "source": "Julius Berger H1 2025 report via Simply Wall St"
+ },
+ {
+  "id": "JBERGER-9M2025",
+  "ticker": "JBERGER",
+  "period": "9M 2025",
+  "seq": 2,
+  "revenue_label": "Revenue",
+  "revenue_bn": 540.82,
+  "pat_bn": 18.25,
+  "eps": 11.28,
+  "margin_label": "PAT margin",
+  "margin_pct": 3.4,
+  "source": "Julius Berger Q3 2026 unaudited statements, NGX filing 28 Oct 2026 (doc 48201) (prior-year column)"
+ },
+ {
+  "id": "JBERGER-FY2025",
+  "ticker": "JBERGER",
+  "period": "FY 2025",
+  "seq": 3,
+  "revenue_label": "Revenue",
+  "revenue_bn": 759.87,
+  "pat_bn": 30.17,
+  "eps": 18.69,
+  "margin_label": "PAT margin",
+  "margin_pct": 4.0,
+  "source": "Julius Berger Q3 2026 unaudited statements, NGX filing 28 Oct 2026 (doc 48201) (audited FY 2025 column)"
+ },
+ {
+  "id": "JBERGER-H12026",
+  "ticker": "JBERGER",
+  "period": "H1 2026",
+  "seq": 4,
+  "revenue_label": "Revenue",
+  "revenue_bn": null,
+  "pat_bn": 6.06,
+  "eps": 3.69,
+  "margin_label": null,
+  "margin_pct": null,
+  "source": "Julius Berger H1 2026 report via African Financials; total revenue not found"
+ },
+ {
+  "id": "JBERGER-9M2026",
+  "ticker": "JBERGER",
+  "period": "9M 2026",
+  "seq": 5,
+  "revenue_label": "Revenue",
+  "revenue_bn": 657.15,
+  "pat_bn": 10.19,
+  "eps": 6.24,
+  "margin_label": "PAT margin",
+  "margin_pct": 1.6,
+  "source": "Julius Berger Q3 2026 unaudited statements, NGX filing 28 Oct 2026 (doc 48201); PBT +20% to ₦35.9bn but tax rose to ₦25.7bn (from ₦11.6bn); Q3 alone EPS ₦2.56 vs ₦6.91"
  }
 ]
