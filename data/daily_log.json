@@ -346,14 +346,26 @@
  },
  {
   "date": "2026-11-23",
-  "value": 9965472.15,
+  "value": 9988079.75,
   "cost": 8023767.46,
-  "gain": 1941704.69,
+  "gain": 1964312.29,
   "cash_in": 0.0,
   "holdings": 39,
-  "day_pl": -139007.55,
-  "day_pl_pct": -0.013757022046370186,
-  "note": "No trades. Prices: NGX live feed, 23 Nov at 15:56 WAT (final prices after the 14:30 close; volume provisional until NGX publishes its official files). Up: FCMB (+\u20a65.2K), LINKASSURE (+\u20a6884), AFRIPRUD (+\u20a6300). Down: JBERGER (-\u20a649.9K), VFDGROUP (-\u20a627.5K), INTBREW (-\u20a624.7K), ZENITHBANK (-\u20a66.8K), ACCESSCORP (-\u20a66.6K). Rules: past the loss limit: SUNUASSUR (-53% on cost), LASACO (-43% on cost), INTBREW (-43% on cost), OANDO (-42% on cost), TRANSCORP (-34% on cost), AFRIPRUD (-33% on cost); sell-part review: ELLAHLAKES (-60% from peak), PZ (-39% from peak), FIRSTHOLDCO (-38% from peak), BUACEMENT (-35% from peak), OKOMUOIL (-35% from peak), UBA (-33% from peak), CUSTODIAN (-31% from peak), UPDCREIT (-28% from peak), PRESCO (-28% from peak), CWG (-27% from peak), VFDGROUP (-27% from peak), DANGSUGAR (-27% from peak), GTCO (-26% from peak), NB (-26% from peak), MANSARD (-24% from peak), ACCESSCORP (-23% from peak), ZENITHBANK (-20% from peak), BUAFOODS (-19% from peak), STERLINGNG (-16% from peak); early warning (amber): UCAP, FIDELITYBK, FCMB, DANGCEM; take profit: ELLAHLAKES, PZ, FIRSTHOLDCO, BUACEMENT, OKOMUOIL, UPDCREIT, PRESCO, GTCO, DANGCEM, JBERGER, STANBIC, NGXGROUP, NNFM, TRANSCOHOT.",
+  "day_pl": -116399.95,
+  "day_pl_pct": -0.011519638166030459,
+  "note": "No trades. Prices: NGX official (Daily Official List / price list), via ngxprices. Up: FCMB (+\u20a65.2K), AFRIPRUD (+\u20a62.9K), UBA (+\u20a61.6K), LINKASSURE (+\u20a61.0K). Down: JBERGER (-\u20a649.9K), INTBREW (-\u20a624.7K), VFDGROUP (-\u20a616.2K), ZENITHBANK (-\u20a66.2K), CWG (-\u20a65.0K). Rules: past the loss limit: SUNUASSUR (-53% on cost), LASACO (-43% on cost), INTBREW (-43% on cost), OANDO (-42% on cost), TRANSCORP (-34% on cost), AFRIPRUD (-28% on cost); sell-part review: ELLAHLAKES (-60% from peak), PZ (-39% from peak), FIRSTHOLDCO (-38% from peak), BUACEMENT (-35% from peak), OKOMUOIL (-35% from peak), CUSTODIAN (-31% from peak), UBA (-29% from peak), UPDCREIT (-28% from peak), PRESCO (-28% from peak), CWG (-27% from peak), DANGSUGAR (-27% from peak), GTCO (-26% from peak), NB (-26% from peak), MANSARD (-24% from peak), VFDGROUP (-24% from peak), ACCESSCORP (-22% from peak), ZENITHBANK (-20% from peak), BUAFOODS (-19% from peak), STERLINGNG (-16% from peak); early warning (amber): UCAP, FCMB, FIDELITYBK, DANGCEM; take profit: ELLAHLAKES, PZ, FIRSTHOLDCO, BUACEMENT, OKOMUOIL, UPDCREIT, PRESCO, GTCO, DANGCEM, JBERGER, STANBIC, NGXGROUP, NNFM, TRANSCOHOT.",
+  "auto_note": true
+ },
+ {
+  "date": "2026-11-24",
+  "value": 9985537.65,
+  "cost": 8023767.46,
+  "gain": 1961770.19,
+  "cash_in": 0.0,
+  "holdings": 39,
+  "day_pl": -2542.1,
+  "day_pl_pct": -0.00025451338631932727,
+  "note": "No trades. Prices: NGX official (Daily Official List / price list), via ngxprices. Up: ACCESSCORP (+\u20a68.6K), SUNUASSUR (+\u20a67.4K), FCMB (+\u20a65.5K), TRANSCORP (+\u20a61.8K), FIRSTHOLDCO (+\u20a6825). Down: ZENITHBANK (-\u20a610.8K), CUSTODIAN (-\u20a65.1K), NB (-\u20a63.9K), CWG (-\u20a63.0K), UBA (-\u20a62.1K). Rules: past the loss limit: SUNUASSUR (-49% on cost), INTBREW (-43% on cost), LASACO (-42% on cost), OANDO (-41% on cost), TRANSCORP (-32% on cost), AFRIPRUD (-30% on cost); sell-part review: ELLAHLAKES (-60% from peak), PZ (-39% from peak), FIRSTHOLDCO (-37% from peak), BUACEMENT (-35% from peak), OKOMUOIL (-35% from peak), CUSTODIAN (-33% from peak), UBA (-31% from peak), NB (-29% from peak), UPDCREIT (-28% from peak), CWG (-28% from peak), PRESCO (-28% from peak), GTCO (-27% from peak), DANGSUGAR (-27% from peak), MANSARD (-24% from peak), VFDGROUP (-24% from peak), ZENITHBANK (-22% from peak), BUAFOODS (-19% from peak), ACCESSCORP (-18% from peak), STERLINGNG (-16% from peak); early warning (amber): UCAP, DANGCEM, STANBIC, FIDELITYBK; take profit: ELLAHLAKES, PZ, FIRSTHOLDCO, BUACEMENT, OKOMUOIL, UPDCREIT, PRESCO, GTCO, DANGCEM, STANBIC, JBERGER, NGXGROUP, NNFM, TRANSCOHOT.",
   "auto_note": true
  }
 ]
