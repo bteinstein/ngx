@@ -30,7 +30,7 @@ is put in place of the `/*__DASHBOARD_DATA__*/null` placeholder in the template:
 - `history`: closes and volumes from 1 Dec 2025 for held, plan, research and webinar stocks
   (about 370 KB in all, not the full 2.6 MB file).
 
-The refresh skill rebuilds it after every refresh, and the nightly scheduled task follows the skill,
+Published (private) at https://claude.ai/artifact/8oK5Np1GcUhFYMUvM4qq4o. The refresh skill rebuilds and republishes it after every refresh, and the nightly scheduled task follows the skill,
 so `index.html` stays current with each commit.
 
 ## Tabs

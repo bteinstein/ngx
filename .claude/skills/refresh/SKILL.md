@@ -21,7 +21,7 @@ pip install -q -e . 2>/dev/null; ngxprices portfolio refresh --json > /tmp/refre
   an auto note. A hand-written note on that day is kept.
 - If it fails with "no price for held stocks", report which and stop.
 
-## 2. Update the claude.ai dashboard
+## 2. Update the claude.ai dashboard (old; kept alongside the new page for a week from 24 Nov)
 
 Dashboard: https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7 (My NGX Portfolio).
 
@@ -45,6 +45,11 @@ ngxprices portfolio dashboard
 ```
 Writes `dashboard/index.html` (self-contained page built from `data/`; see `dashboard/README.md`).
 
+Then publish it to the owner's phone link, https://claude.ai/artifact/8oK5Np1GcUhFYMUvM4qq4o (private):
+1. Artifact tool `action: "read"`, `url` = that link (a fresh session must read it before publishing to it).
+2. Artifact tool publish: `url` = that link, `file_path` = `dashboard/index.html`. No `icon`, no `capabilities`.
+   Never publish without `url` (that makes a new link).
+
 ## 4. Commit and push
 
 ```bash
@@ -56,4 +61,4 @@ Use "Update <d Mon> closes to official" when only upgrades happened. No Claude a
 
 From the JSON: value and day P/L (₦ and %), the source (official or live, and time), the top 3 up and
 down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings, new take-profit flags; or "all within the rules"), heavy-volume stocks (≥2× their average), any
-upgraded days, and the dashboard link. Information only, no advice.
+upgraded days, and the dashboard link (https://claude.ai/artifact/8oK5Np1GcUhFYMUvM4qq4o). Information only, no advice.

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My NGX Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <!-- Template for `ngxprices portfolio dashboard`. Edit this file, not dashboard/index.html:
      the build puts the data from data/ in place of the placeholder below and writes index.html. -->
 <style>
@@ -17,9 +18,10 @@
   --bg:#101317;--card:#181c21;--ink:#e8ebef;--muted:#9aa4b0;--line:#2a3038;--soft:#20262d;
   --up:#4cc27a;--down:#ff7a6e;--accent:#7aa2ff;--amber:#f0a54a;--note:#a99cff;
   --red-bg:#3a1d1b;--amber-bg:#3a2a16;--green-bg:#17301f;--note-bg:#262240;--watch-bg:#33301a;
-  --bar:#7aa2ff;--bar2:#34507f;
+  --bar:#7aa2ff;--bar2:#34507f;color-scheme:dark;
 }}
 :root[data-theme="dark"]{
+  color-scheme:dark;
   --bg:#101317;--card:#181c21;--ink:#e8ebef;--muted:#9aa4b0;--line:#2a3038;--soft:#20262d;
   --up:#4cc27a;--down:#ff7a6e;--accent:#7aa2ff;--amber:#f0a54a;--note:#a99cff;
   --red-bg:#3a1d1b;--amber-bg:#3a2a16;--green-bg:#17301f;--note-bg:#262240;--watch-bg:#33301a;
@@ -27,12 +29,13 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:1100px;margin:0 auto;padding:12px 16px 48px}
+.wrap{max-width:1100px;margin:0 auto;padding-block:12px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header h1{font-size:1.35rem;margin:4px 0 2px}
 .sub{color:var(--muted);font-size:.85rem}
-nav{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin-bottom:6px;scrollbar-width:none}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin-bottom:6px;scrollbar-width:none}
 nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:.9rem;cursor:pointer}
 nav button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 section{display:none}section.on{display:block}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:0 0 12px}
 h2{font-size:1.05rem;margin:0 0 10px}h3{font-size:.95rem;margin:14px 0 8px}

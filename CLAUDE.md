@@ -29,7 +29,9 @@ with each account's lot shown. Open: owner's purchase dates, and the critique's 
   They are ALREADY in holdings and transactions. Do not add them again.
 - `dashboard/index.html` — the repo's own dashboard: one self-contained page built from `data/` by
   `ngxprices portfolio dashboard` (edit `dashboard/template.html`, never index.html; see
-  `dashboard/README.md`). The refresh skill rebuilds it each time.
+  `dashboard/README.md`). The refresh skill rebuilds it each time and publishes it to the owner's
+  phone link https://claude.ai/artifact/8oK5Np1GcUhFYMUvM4qq4o (private). From 24 Nov it runs beside the old
+  claude.ai dashboard (BAjKJSa87hvxs8zjAPr3b7) for a week; then the old one drops out of the refresh.
 - `dashboard/index_claude_ai_version.html` — the old claude.ai dashboard page's code, for reference
   only. It depends on claude.ai's dashboard runtime (`dash.*`) and will not run on its own.
 - `history/CONVERSATIONS.md` — summary of every past chat in the project.
