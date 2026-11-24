@@ -119,6 +119,10 @@ def _portfolio(a, f) -> int:
         for w in rows:
             if "status" in w:
                 extra = f"  {w['off_peak_pct']:+.1f}% from peak" if w["trail_level"] else ""
+                if w.get("price_note"):
+                    extra += f"\n            REAL PRICE {w['real_price']:,.2f}: {w['price_note']}"
+                for x in w.get("exit_signals", []):
+                    extra += "\n            EXIT: " + x
                 sig = w.get("tolerance_signals", []) + w.get("general_signs", [])
                 if sig and w["light"] != "red":
                     extra += "\n            " + "; ".join(sig)
@@ -126,7 +130,7 @@ def _portfolio(a, f) -> int:
                     extra += "\n            TAKE PROFIT: " + x["text"]
                 if w.get("accounts"):
                     extra += "\n            HELD IN: " + P.accounts_text(w["accounts"])
-                print(f"{w['ticker']:<11} {w['light'].upper():<6} {w['status'].upper():<6} close {w['close']:>10,.2f}  cost {w['avg_cost']:>10,.2f}"
+                print(f"{w['ticker']:<11} {(w.get('horizon') or '-')[:5]:<5} {w['light'].upper():<6} {w['status'].upper():<6} close {w['close']:>10,.2f}  cost {w['avg_cost']:>10,.2f}"
                       f" ({w['gain_pct']:+.1f}%)  {w['rule']} {w['trigger']:>10,.2f} ({w['gap_pct']:+.1f}%){extra}")
                 continue
             flag = "BELOW TRIGGER" if w["breach"] else "above"

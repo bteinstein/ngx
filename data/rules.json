@@ -36,5 +36,33 @@
  },
  "take_profit_note": "Added 18 Nov at the owner's request (sell into strength). Targets: at +50% sell 25% of the holding, at +100% another 25%. Recover cost: once up 100%, sell enough units to get back everything paid and keep the rest. Size cap: no holding above 15% of the portfolio. Sells recorded in transactions.json after 18 Nov count as targets taken / cost returned.",
  "peak_from_default": "2026-01-01",
- "peak_note": "Set 18 Nov 2026 (owner accepted the recommendation): a peak counts only from the purchase date (a holding's bought_from in holdings.json), or from 1 Jan 2026 when the purchase date is not known. Peaks are reduced by dividends and adjusted for share reconstructions after them (corporate_actions.json). Rules use the combined holding across accounts; each account's units and cost are shown next to the flags."
+ "peak_note": "Set 18 Nov 2026 (owner accepted the recommendation): a peak counts only from the purchase date (a holding's bought_from in holdings.json), or from 1 Jan 2026 when the purchase date is not known. Peaks are reduced by dividends and adjusted for share reconstructions after them (corporate_actions.json). Rules use the combined holding across accounts; each account's units and cost are shown next to the flags.",
+ "updated": "2026-11-24",
+ "liquidity": {
+  "stale_days": 5,
+  "stale_gap_pct": 3,
+  "vwap_days": 5,
+  "block_ratio": 5,
+  "block_gap_pct": 5,
+  "block_days": 10,
+  "participation_pct": 20,
+  "median_days": 30,
+  "max_gap_pct": 30
+ },
+ "liquidity_note": "Thin-market check, added 24 Nov 2026 (owner chose all four). Realistic price: when a close is unchanged 5+ days and the 5-day trade-weighted price (value/volume) is 3%+ below it, or a block (5x median volume) in the last 10 days traded 5%+ below the close, gains, targets, trailing and size cap use that lower price. Fee check: targets and cost recovery count only if the realistic price is still a gain after ~2% fees. Sellable size: about 20% of median daily volume a day; bigger sales are spread over days.",
+ "horizons": {
+  "short": {
+   "target_gain_pct": 30,
+   "target_sell_pct": 50,
+   "trail_pct": 10,
+   "time_stop_weeks": 8,
+   "earnings_stop": true
+  },
+  "long": {
+   "pe_ceiling": 25,
+   "pe_trim_pct": 25,
+   "thesis_falls": 2
+  }
+ },
+ "horizons_note": "Set 24 Nov 2026 by the owner. Each lot's horizon is in holdings.json. Short term: at +30% sell half; trail the rest 10% from the peak; earnings stop (latest EPS below the same period a year earlier: exit the rest); time stop (no new high in 8 weeks: review). Long term: no trailing while EPS is rising; thesis check when EPS fell in the last 2 reports (then the 15% trail applies; consider moving to short term); trim 25% above 25x trailing earnings; size cap 15%; recover cost at +100% kept. Untagged holdings keep the 18 Nov rules (+50%/+100% targets, 15% trail). Loss limit 20% applies to all."
 }

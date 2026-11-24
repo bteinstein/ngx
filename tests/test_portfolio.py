@@ -180,3 +180,44 @@ def test_dashboard_build(data, tmp_path):
     blob = json.loads(html.split("const DATA = ", 1)[1].rsplit(";</script>", 1)[0])
     assert blob["history"]["AAA"] == {"d": ["2026-11-13"], "c": [12.0], "v": [1000]}
     assert blob["source"] == "x" and len(blob["status"]) >= 1
+
+
+def test_realistic_price_stale_and_block():
+    hist = [{"date": f"2026-11-{d:02d}", "close": 100.0, "volume": 1000, "value_ngn": 90000.0} for d in range(1, 21)]
+    rp = P.realistic_price(100.0, hist, {})
+    assert rp["real_price"] == 90.0 and "unchanged" in rp["price_note"] and rp["max_units_day"] == 200
+    moving = [dict(x, close=100.0 + i) for i, x in enumerate(hist)]
+    assert P.realistic_price(119.0, moving, {})["real_price"] == 119.0  # close moves: not stale
+    moving[-1] = dict(moving[-1], volume=10000, value_ngn=10000 * 107.0)  # block at -10%
+    rp = P.realistic_price(119.0, moving, {})
+    assert rp["real_price"] == 107.0 and "block" in rp["price_note"]
+    junk = [dict(x, value_ngn=1.0) for x in hist]  # absurd trade prices are ignored
+    assert P.realistic_price(100.0, junk, {})["real_price"] == 100.0
+
+
+def test_eps_view_and_horizon_signals():
+    res = [{"ticker": "X", "period": p, "eps": e} for p, e in
+           [("H1 2025", 10), ("H1 2026", 8), ("9M 2025", 15), ("9M 2026", 12), ("FY 2025", 20)]]
+    v = P.eps_view(res, "X")
+    assert v["ttm_eps"] == 17 and v["latest_fell"] and v["thesis_broken"]
+    hz = {k: dict(P.HZ_DEFAULTS[k]) for k in P.HZ_DEFAULTS}
+    s = P.horizon_signals("short", v, "2026-11-20", "2026-11-24", hz)
+    assert len(s) == 1 and s[0].startswith("earnings stop")
+    assert any(x.startswith("time stop") for x in P.horizon_signals("short", v, "2026-09-01", "2026-11-24", hz))
+    assert P.horizon_signals("long", v, "2026-11-20", "2026-11-24", hz)[0].startswith("thesis check")
+    up = P.eps_view([dict(r, eps=r["eps"] * (2 if "2026" in r["period"] else 1)) for r in res], "X")
+    assert not up["thesis_broken"] and P.horizon_signals("long", up, "2026-01-01", "2026-11-24", hz) == []
+
+
+def test_take_profit_by_horizon():
+    # short term: +30% sells half; long term: no targets but recover cost and P/E ceiling
+    r = dict(close=150.0, real_price=150.0, gain_pct=50.0, horizon="short", max_units_day=100)
+    tp = P.take_profit(r, 1000, 100000.0, 1e7, [], {})["take_profit"]
+    assert tp[0]["kind"] == "target" and tp[0]["units"] == 500 and "over about 5 days" in tp[0]["text"]
+    r = dict(close=300.0, real_price=300.0, gain_pct=200.0, horizon="long", pe=30.0)
+    kinds = [x["kind"] for x in P.take_profit(r, 1000, 100000.0, 1e7, [], {})["take_profit"]]
+    assert kinds == ["recover_cost", "pe_ceiling"]
+    # fee check: a stale close shows +11% but the realistic price is break-even -> no target; size cap says loss
+    r = dict(close=1656.8, real_price=1498.0, gain_pct=0.02, horizon=None)
+    tp = P.take_profit(r, 1030, 1030 * 1497.65, 1030 * 1498 / 0.17, [], {})["take_profit"]
+    assert [x["kind"] for x in tp] == ["size_cap"] and "at a loss after fees" in tp[0]["text"]

@@ -25,6 +25,7 @@ import datetime as dt
 import glob
 import json
 import os
+import re
 import shutil
 from pathlib import Path
 
@@ -375,6 +376,12 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
                 continue
             if r["ticker"] not in peak or c > peak[r["ticker"]][0]:
                 peak[r["ticker"]] = (c, r["date"])
+    raw = collections.defaultdict(list)
+    for r in _load(data_dir, "price_history.json"):
+        if r["date"] <= date and r.get("close") not in (None, ""):
+            raw[r["ticker"]].append(r)
+    results = _load(data_dir, "company_results.json") if _p(data_dir, "company_results.json").exists() else []
+    hz_rules = {k: {**HZ_DEFAULTS[k], **rules.get("horizons", {}).get(k, {})} for k in HZ_DEFAULTS}
     out = []
     for t, n in sorted(units.items()):
         if not n:
@@ -382,35 +389,46 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
         avg = cost[t] / n
         p = prices.get(t)
         close = p["price"] if p else None
-        pk, pk_date = peak.get(t, (close, date))
-        if close is not None and close > (pk or 0):
-            pk, pk_date = close, date
+        horizon = next((h.get("horizon") for h in lots[t] if h.get("horizon")), None)
+        liq = realistic_price(close, sorted(raw[t], key=lambda x: x["date"]), rules) if close is not None else {}
+        px = liq.get("real_price", close)
+        eps = eps_view(results, t)
+        pk, pk_date = peak.get(t, (px, date))
+        if px is not None and px > (pk or 0):
+            pk, pk_date = px, date
         loss_lvl, warn_lvl = round(avg * (1 - loss), 2), round(avg * (1 - warn), 2)
         trail_on = pk is not None and pk >= avg * (1 + min_peak)
-        trail_lvl = round(pk * (1 - trail), 2) if trail_on else None
+        tr = hz_rules["short"]["trail_pct"] / 100 if horizon == "short" else trail
+        if horizon == "long":
+            trail_on = trail_on and eps["thesis_broken"]  # no trail while EPS is rising
+        trail_lvl = round(pk * (1 - tr), 2) if trail_on else None
         rule, trig = ("trailing", trail_lvl) if trail_on and trail_lvl > loss_lvl else ("loss_limit", loss_lvl)
         status = "no price"
-        if close is not None:
-            if close <= loss_lvl:
+        if px is not None:
+            if px <= loss_lvl:
                 status = "loser"
-            elif trail_on and close <= trail_lvl:
+            elif trail_on and px <= trail_lvl:
                 status = "trail"
-            elif close <= warn_lvl:
+            elif px <= warn_lvl:
                 status = "warn"
             else:
                 status = "ok"
-        out.append(dict(ticker=t, rule=rule, trigger=trig, close=close, breach=status in ("loser", "trail"),
-                        status=status, gap_pct=round((close / trig - 1) * 100, 2) if close is not None else None,
-                        avg_cost=round(avg, 2), gain_pct=round((close / avg - 1) * 100, 2) if close is not None else None,
+        exits = horizon_signals(horizon, eps, pk_date, date, hz_rules)
+        out.append(dict(ticker=t, rule=rule, trigger=trig, close=close, breach=status in ("loser", "trail") or bool(exits),
+                        status=status, gap_pct=round((px / trig - 1) * 100, 2) if px is not None else None,
+                        avg_cost=round(avg, 2), gain_pct=round((px / avg - 1) * 100, 2) if px is not None else None,
+                        real_price=px, price_note=liq.get("price_note"), max_units_day=liq.get("max_units_day"),
+                        horizon=horizon, exit_signals=exits, ttm_eps=eps["ttm_eps"],
+                        pe=round(px / eps["ttm_eps"], 1) if px and eps["ttm_eps"] and eps["ttm_eps"] > 0 else None,
                         loss_level=loss_lvl, warn_level=warn_lvl, trail_level=trail_lvl, peak=pk, peak_date=pk_date,
                         peak_gain_pct=round((pk / avg - 1) * 100, 2) if pk else None,
-                        off_peak_pct=round((close / pk - 1) * 100, 2) if close is not None and pk else None,
+                        off_peak_pct=round((px / pk - 1) * 100, 2) if px is not None and pk else None,
                         peak_from=peak_from.get(t, default_from),
                         accounts=[dict(account=h["account"], broker=short.get(h["account"], h["account"]), units=h["units"],
                                        unit_cost=h["unit_cost"],
                                        gain_pct=round((close / h["unit_cost"] - 1) * 100, 2) if close is not None else None)
                                   for h in lots[t]] if len(lots[t]) > 1 else []))
-    total = sum(units[r["ticker"]] * r["close"] for r in out if r["close"] is not None)
+    total = sum(units[r["ticker"]] * r["real_price"] for r in out if r["real_price"] is not None)
     since = rules.get("set", "0000-00-00")
     sells = collections.defaultdict(list)
     for t in _load(data_dir, "transactions.json"):
@@ -419,6 +437,8 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     for r in out:
         r.update(early_warning(r, sorted(hist[r["ticker"]], key=lambda x: x["date"]), rules, date))
         r.update(take_profit(r, units[r["ticker"]], cost[r["ticker"]], total, sells[r["ticker"]], rules))
+        if r["exit_signals"]:
+            r["light"] = "red"
     order = {"loser": 0, "trail": 1, "warn": 2, "ok": 3, "no price": 4}
     lights = {"red": 0, "amber": 1, "watch": 2, "note": 3, "green": 4}
     return sorted(out, key=lambda r: (lights[r["light"]], order[r["status"]],
@@ -430,40 +450,172 @@ TP_DEFAULTS = dict(targets=[dict(gain_pct=50, sell_pct=25), dict(gain_pct=100, s
 
 
 def take_profit(r: dict, units: float, cost: float, total: float, sells: list[dict], rules: dict) -> dict:
-    """Take-profit flags for one holding (selling into strength, not on a fall).
+    """Take-profit flags for one holding (selling into strength, not on a fall), on the realistic price.
 
-    * targets: at each gain level (default +50%, +100%) sell the given share of the holding. Sells
-      recorded in ``transactions.json`` since the rules were set count as targets taken, in order.
+    * targets: at each gain level sell the given share of the holding. Untagged holdings use
+      ``take_profit.targets`` (+50% / +100%); short-term holdings use the short-term target (+30%: sell
+      half); long-term holdings have no targets. Sells recorded in ``transactions.json`` since the rules
+      were set count as targets taken, in order.
     * recover cost: once the gain reaches ``recover_cost_gain_pct``, the units whose sale (after
       ``fee_pct`` fees) returns everything paid for the holding; skipped once sells since the rules
       were set have returned the cost.
+    * fee check: targets and cost recovery count only if the realistic price is still a gain after fees.
     * size cap: a holding over ``size_cap_pct`` of the portfolio value, and the units that bring it back.
+    * P/E ceiling (long term): above ``pe_ceiling`` times trailing earnings, trim ``pe_trim_pct``.
+    * sellable size: when the units are more than ``max_units_day`` (a share of normal daily volume),
+      the text says over how many days to spread the sale.
     """
     tp = {**TP_DEFAULTS, **rules.get("take_profit", {})}
-    close, out = r["close"], []
+    hz = r.get("horizon")
+    hzr = {**HZ_DEFAULTS.get(hz, {}), **rules.get("horizons", {}).get(hz, {})} if hz else {}
+    close, out = r.get("real_price") or r["close"], []
     weight = round(units * close / total * 100, 2) if close and total else None
     if not close or not units:
         return dict(take_profit=out, weight_pct=weight)
     net = close * (1 - tp["fee_pct"] / 100)
     gain = r["gain_pct"]
-    reached = [t for t in tp["targets"] if gain >= t["gain_pct"]]
+    in_profit = units * net > cost
+    per_day = r.get("max_units_day")
+
+    def days(n):
+        return f", over about {-(-n // per_day)} days (≤{per_day:,} a day)" if per_day and n > per_day else ""
+
+    targets = tp["targets"] if hz is None else (
+        [dict(gain_pct=hzr["target_gain_pct"], sell_pct=hzr["target_sell_pct"])] if hz == "short" else [])
+    reached = [t for t in targets if gain >= t["gain_pct"]] if in_profit else []
     pending = reached[len(sells):]
     if pending:
         pct = sum(t["sell_pct"] for t in pending)
         n = int(units * pct / 100)
         lv = " and ".join(f"+{t['gain_pct']}%" for t in pending)
         out.append(dict(kind="target", text=f"target{'s' if len(pending) > 1 else ''} {lv} reached: sell {pct}% "
-                        f"({n:,} units, about ₦{n * net:,.0f} after fees)", units=n))
+                        f"({n:,} units, about ₦{n * net:,.0f} after fees{days(n)})", units=n))
     returned = sum(float(x.get("total") or 0) for x in sells)
-    if gain >= tp["recover_cost_gain_pct"] and returned < cost:
+    if in_profit and gain >= tp["recover_cost_gain_pct"] and returned < cost:
         n = min(units, int(-(-(cost - returned) // net)))
         out.append(dict(kind="recover_cost", text=f"{'or at least, ' if pending else ''}recover your cost: sell {n:,} units ({n / units * 100:.0f}% of the "
-                        f"holding, about ₦{n * net:,.0f} after fees) and keep {units - n:,.0f} for free", units=n))
+                        f"holding, about ₦{n * net:,.0f} after fees{days(n)}) and keep {units - n:,.0f} for free", units=n))
     if weight is not None and weight > tp["size_cap_pct"]:
         n = int(-(-(units * close - tp["size_cap_pct"] / 100 * total) // close))
         out.append(dict(kind="size_cap", text=f"{weight:.1f}% of the portfolio (cap {tp['size_cap_pct']}%): sell "
-                        f"{n:,} units (about ₦{n * net:,.0f} after fees) to get back to the cap", units=n))
+                        f"{n:,} units (about ₦{n * net:,.0f} after fees{days(n)}) to get back to the cap"
+                        + ("" if in_profit else "; at this price that sale is at a loss after fees"), units=n))
+    if hz == "long" and r.get("pe") and r["pe"] > hzr["pe_ceiling"]:
+        n = int(units * hzr["pe_trim_pct"] / 100)
+        out.append(dict(kind="pe_ceiling", text=f"{r['pe']:.0f}× trailing earnings (ceiling {hzr['pe_ceiling']}×): trim "
+                        f"{hzr['pe_trim_pct']}% ({n:,} units, about ₦{n * net:,.0f} after fees{days(n)})", units=n))
     return dict(take_profit=out, weight_pct=weight)
+
+
+LIQ_DEFAULTS = dict(stale_days=5, stale_gap_pct=3, vwap_days=5, block_ratio=5, block_gap_pct=5, block_days=10,
+                    participation_pct=20, median_days=30, max_gap_pct=30)
+
+
+def realistic_price(close: float, hist: list[dict], rules: dict) -> dict:
+    """The price a sale could realistically get on a thin stock (``hist``: raw rows, oldest first).
+
+    NGX closes can stay unchanged for days while the shares that do trade go through well below them.
+    * stale close: unchanged for ``stale_days`` or more trading days while the ``vwap_days`` trade-weighted
+      price (value / volume) is ``stale_gap_pct`` or more below it -> use that trade-weighted price;
+    * block price: a day in the last ``block_days`` rows with ``block_ratio`` x the median volume of the
+      20 rows before it, at a trade price ``block_gap_pct`` or more below the close -> use that price.
+    The lower one wins; otherwise the close. Trade prices more than ``max_gap_pct`` from the close are
+    treated as data errors (NGX's daily limit is 10%). ``max_units_day`` = ``participation_pct`` of the median
+    daily volume over ``median_days`` rows (a sale bigger than that would move the price).
+    """
+    liq = {**LIQ_DEFAULTS, **rules.get("liquidity", {})}
+    out = dict(real_price=close, price_note=None, max_units_day=None)
+    vols = [float(x["volume"]) for x in hist[-liq["median_days"]:] if x.get("volume") not in (None, "")]
+    if vols:
+        med = sorted(vols)[len(vols) // 2]
+        out["max_units_day"] = max(1, int(med * liq["participation_pct"] / 100))
+    if not close or not hist:
+        return out
+    c = [float(x["close"]) for x in hist]
+    same = 0
+    for i in range(len(c) - 1, 0, -1):
+        if c[i] == c[i - 1]:
+            same += 1
+        else:
+            break
+    traded = [x for x in hist if x.get("volume") and x.get("value_ngn")]
+    cands = []
+    if same >= liq["stale_days"] and traded:
+        last = traded[-liq["vwap_days"]:]
+        vw = sum(float(x["value_ngn"]) for x in last) / sum(float(x["volume"]) for x in last)
+        if close * (1 - liq["max_gap_pct"] / 100) <= vw <= close * (1 - liq["stale_gap_pct"] / 100):
+            cands.append((vw, f"close unchanged {same} days; trades at about ₦{vw:,.2f} ({(vw / close - 1) * 100:.0f}%)"))
+    for i in range(max(0, len(hist) - liq["block_days"]), len(hist)):
+        x = hist[i]
+        if not (x.get("volume") and x.get("value_ngn")):
+            continue
+        prev = sorted(float(y["volume"]) for y in hist[max(0, i - 20):i] if y.get("volume"))
+        if not prev:
+            continue
+        vw = float(x["value_ngn"]) / float(x["volume"])
+        if float(x["volume"]) >= liq["block_ratio"] * prev[len(prev) // 2] and \
+                close * (1 - liq["max_gap_pct"] / 100) <= vw <= close * (1 - liq["block_gap_pct"] / 100):
+            cands.append((vw, f"block of {float(x['volume']):,.0f} shares on {x['date'][8:]}/{x['date'][5:7]} at about "
+                              f"₦{vw:,.2f} ({(vw / close - 1) * 100:.0f}%)"))
+    if cands:
+        vw, note = min(cands)
+        out.update(real_price=round(vw, 2), price_note=note)
+    return out
+
+
+HZ_DEFAULTS = {"short": dict(target_gain_pct=30, target_sell_pct=50, trail_pct=10, time_stop_weeks=8, earnings_stop=True),
+               "long": dict(pe_ceiling=25, pe_trim_pct=25, thesis_falls=2)}
+_PERIOD_ORDER = {"Q1": 1, "H1": 2, "Q2": 2, "9M": 3, "Q3": 3, "FY": 4}
+
+
+def _period(p: str):
+    m = re.match(r"^(Q1|Q2|Q3|H1|9M|FY)\s+(?:FY)?(\d{4})", p or "")
+    return (m.group(1), int(m.group(2))) if m else None
+
+
+def eps_view(results: list[dict], ticker: str) -> dict:
+    """EPS comparisons for one company from ``company_results.json``: each period against the same
+    period a year earlier (latest first), trailing-12-month EPS (FY + latest interim - its prior-year
+    interim) and whether the thesis broke (the last ``thesis_falls`` comparisons all fell)."""
+    rows = {}
+    for x in results:
+        if x["ticker"] == ticker and x.get("eps") is not None and _period(x["period"]):
+            rows[_period(x["period"])] = x
+    pairs = []
+    for (p, y), x in rows.items():
+        prev = rows.get((p, y - 1))
+        if prev:
+            pairs.append(dict(period=x["period"], eps=x["eps"], prior=prev["eps"], fell=x["eps"] < prev["eps"],
+                              key=(y, _PERIOD_ORDER[p])))
+    pairs.sort(key=lambda d: d["key"], reverse=True)
+    ttm = None
+    if rows:
+        (lp, ly) = max(rows, key=lambda k: (k[1], _PERIOD_ORDER[k[0]]))
+        if lp == "FY":
+            ttm = rows[(lp, ly)]["eps"]
+        elif ("FY", ly - 1) in rows and (lp, ly - 1) in rows:
+            ttm = round(rows[("FY", ly - 1)]["eps"] + rows[(lp, ly)]["eps"] - rows[(lp, ly - 1)]["eps"], 2)
+    k = HZ_DEFAULTS["long"]["thesis_falls"]
+    return dict(pairs=pairs, ttm_eps=ttm, latest_fell=bool(pairs) and pairs[0]["fell"],
+                thesis_broken=len(pairs) >= k and all(d["fell"] for d in pairs[:k]))
+
+
+def horizon_signals(horizon, eps: dict, peak_date: str, date: str, hz_rules: dict) -> list[str]:
+    """Exit signals from the owner's short/long-term rules (a signal turns the light red)."""
+    out = []
+    if horizon == "short":
+        if hz_rules["short"]["earnings_stop"] and eps["latest_fell"]:
+            d = eps["pairs"][0]
+            out.append(f"earnings stop: EPS fell ({d['period']} ₦{d['eps']:,.2f} vs ₦{d['prior']:,.2f}): exit the rest")
+        wk = hz_rules["short"]["time_stop_weeks"]
+        if peak_date and (dt.date.fromisoformat(date) - dt.date.fromisoformat(peak_date)).days > wk * 7:
+            out.append(f"time stop: no new high since {peak_date} (over {wk} weeks): review")
+    elif horizon == "long" and eps["thesis_broken"]:
+        k = hz_rules["long"]["thesis_falls"]
+        out.append("thesis check: EPS fell in the last " + str(k) + " reports ("
+                   + "; ".join(f"{d['period']} ₦{d['eps']:,.2f} vs ₦{d['prior']:,.2f}" for d in eps["pairs"][:k])
+                   + "): consider short term")
+    return out
 
 
 EW_DEFAULTS = dict(watch_off_peak_pct=10, near_trigger_pct=5, heavy_volume_ratio=2.0, avg_days=20,
@@ -552,6 +704,12 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
                 f"({r['peak_date']}, {r['peak_gain_pct']:+.1f}% on cost)")
         note += f"; trailing level {r['trail_level']:,.2f}." if r["trail_level"] else "; trailing not active (peak gain under " \
             f"{rules['trail_min_peak_gain_pct']}%)."
+        if r.get("horizon"):
+            note = f"{r['horizon'].capitalize()} term. " + note
+        if r.get("price_note"):
+            note += f" Realistic price ₦{r['real_price']:,.2f} ({r['price_note']}); rules use it, not the close."
+        if r.get("exit_signals"):
+            note += " EXIT RULE: " + "; ".join(r["exit_signals"]) + "."
         sig = r.get("tolerance_signals", []) + r.get("general_signs", [])
         if sig:
             note += " Early warning (" + r["light"] + "): " + "; ".join(sig) + "."
@@ -560,6 +718,7 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
         if r.get("accounts"):
             note += " Held in: " + accounts_text(r["accounts"]) + "."
         wl.append(dict(ticker=r["ticker"], rule=r["rule"], trigger=r["trigger"], status=r["status"], light=r.get("light"),
+                       horizon=r.get("horizon"), real_price=r.get("real_price"),
                        since=rules.get("compare_since", "2026-10-23"), note=note))
     _p(data_dir, "watchlist.json").write_text(
         "[\n" + ",\n".join(" " + json.dumps(w, ensure_ascii=False) for w in wl) + "\n]\n")
