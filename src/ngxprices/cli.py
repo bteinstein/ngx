@@ -39,6 +39,10 @@ def main(argv=None) -> int:
     q = psub.add_parser("stage", help="copy the dashboard's three data files into a folder, with dated names")
     q.add_argument("--data-dir", default="data")
     q.add_argument("--out", required=True)
+    q = psub.add_parser("dashboard", help="build the self-contained dashboard page from data/")
+    q.add_argument("--data-dir", default="data")
+    q.add_argument("--template", default="dashboard/template.html")
+    q.add_argument("--out", default="dashboard/index.html")
     p = sub.add_parser("files", help="list documents NGX published for a date")
     p.add_argument("--date", required=True)
     p = sub.add_parser("validate", help="cross-check a day's files (closes, volumes, market caps) as JSON")
@@ -100,6 +104,10 @@ def _naira(v) -> str:
 
 def _portfolio(a, f) -> int:
     from . import portfolio as P
+    if a.pcmd == "dashboard":
+        from . import dashboard as D
+        print(json.dumps(D.build(a.data_dir, a.template, a.out), indent=1))
+        return 0
     if a.pcmd == "stage":
         print(json.dumps(P.stage_dashboard_files(a.data_dir, a.out), indent=1))
         return 0

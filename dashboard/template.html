@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My NGX Portfolio</title>
+<!-- Template for `ngxprices portfolio dashboard`. Edit this file, not dashboard/index.html:
+     the build puts the data from data/ in place of the placeholder below and writes index.html. -->
+<style>
+:root{
+  --bg:#f6f7f9;--card:#fff;--ink:#16191d;--muted:#5d6672;--line:#e3e6ea;--soft:#eef1f4;
+  --up:#137a3a;--down:#b42318;--accent:#2457c5;--amber:#b25e09;--note:#6a5acd;
+  --red-bg:#fde8e7;--amber-bg:#fdf0e1;--green-bg:#e5f4ea;--note-bg:#eeecfb;--watch-bg:#fbf6d9;
+  --bar:#2457c5;--bar2:#9db5e8;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101317;--card:#181c21;--ink:#e8ebef;--muted:#9aa4b0;--line:#2a3038;--soft:#20262d;
+  --up:#4cc27a;--down:#ff7a6e;--accent:#7aa2ff;--amber:#f0a54a;--note:#a99cff;
+  --red-bg:#3a1d1b;--amber-bg:#3a2a16;--green-bg:#17301f;--note-bg:#262240;--watch-bg:#33301a;
+  --bar:#7aa2ff;--bar2:#34507f;
+}}
+:root[data-theme="dark"]{
+  --bg:#101317;--card:#181c21;--ink:#e8ebef;--muted:#9aa4b0;--line:#2a3038;--soft:#20262d;
+  --up:#4cc27a;--down:#ff7a6e;--accent:#7aa2ff;--amber:#f0a54a;--note:#a99cff;
+  --red-bg:#3a1d1b;--amber-bg:#3a2a16;--green-bg:#17301f;--note-bg:#262240;--watch-bg:#33301a;
+  --bar:#7aa2ff;--bar2:#34507f;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:12px 16px 48px}
+header h1{font-size:1.35rem;margin:4px 0 2px}
+.sub{color:var(--muted);font-size:.85rem}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin-bottom:6px;scrollbar-width:none}
+nav button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:0 0 12px}
+h2{font-size:1.05rem;margin:0 0 10px}h3{font-size:.95rem;margin:14px 0 8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.tile .k{color:var(--muted);font-size:.8rem}.tile .v{font-size:1.25rem;font-weight:650;font-variant-numeric:tabular-nums}
+.tile .s{font-size:.8rem;color:var(--muted)}
+.up{color:var(--up)}.down{color:var(--down)}
+.tbl{width:100%;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;vertical-align:top}
+th{color:var(--muted);font-weight:600;position:sticky;top:0;background:var(--card);cursor:pointer;user-select:none}
+th:first-child,td:first-child,.l{text-align:left}
+td.wrapc{white-space:normal;min-width:340px;text-align:left;color:var(--muted);font-size:.8rem}
+tr.click{cursor:pointer}tr.click:hover td{background:var(--soft)}
+.pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:.75rem;font-weight:600}
+.p-red{background:var(--red-bg);color:var(--down)}.p-amber{background:var(--amber-bg);color:var(--amber)}
+.p-green{background:var(--green-bg);color:var(--up)}.p-note{background:var(--note-bg);color:var(--note)}
+.p-watch{background:var(--watch-bg);color:var(--amber)}
+.bars .row{display:grid;grid-template-columns:minmax(90px,30%) 1fr auto;gap:8px;align-items:center;margin:5px 0;font-size:.85rem}
+.bars .track{background:var(--soft);border-radius:4px;height:12px;overflow:hidden}
+.bars .fill{background:var(--bar);height:100%}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart .ax{fill:var(--muted);font-size:10px}
+.chart .grid{stroke:var(--line)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.78rem;padding:4px 8px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-110%);display:none}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.filters button,select{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:5px 10px;font:inherit;font-size:.85rem}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.note{color:var(--muted);font-size:.8rem;margin-top:8px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.err{background:var(--red-bg);color:var(--down);padding:10px;border-radius:8px}
+footer{color:var(--muted);font-size:.75rem;margin-top:18px}
+@media (max-width:520px){th,td{padding:5px 6px}.tile .v{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>My NGX Portfolio</h1>
+  <div class="sub" id="asof"></div>
+</header>
+<nav role="tablist" id="tabs">
+  <button data-t="overview">Overview</button>
+  <button data-t="rules">Sell rules</button>
+  <button data-t="daily">Daily</button>
+  <button data-t="holdings">Holdings</button>
+  <button data-t="stock">Stock</button>
+  <button data-t="plan">₦2.2M plan</button>
+</nav>
+
+<section id="overview">
+  <div class="tiles" id="kpis"></div>
+  <div class="card"><h2>Portfolio value</h2><div class="chart" id="value-chart"></div><div class="note" id="value-note"></div></div>
+  <div class="card"><h2>Value by sector</h2><div class="bars" id="sectors"></div></div>
+  <div class="card"><h2>Largest holdings</h2><div class="bars" id="top"></div></div>
+</section>
+
+<section id="rules">
+  <div class="tiles" id="rule-tiles"></div>
+  <div class="card">
+    <h2>Every holding against your sell rules</h2>
+    <div class="filters" id="light-filter"></div>
+    <div class="tbl"><table id="rules-table"></table></div>
+    <div class="note" id="rules-note"></div>
+  </div>
+</section>
+
+<section id="daily">
+  <div class="tiles" id="day-tiles"></div>
+  <div class="card"><h2>What moved</h2><div class="tbl"><table id="movers"></table></div></div>
+  <div class="card"><h2>Heavy volume (2× the 20-day average or more)</h2><div class="tbl"><table id="volume"></table></div></div>
+  <div class="card"><h2>Daily log</h2><div class="chart" id="pl-chart"></div><div class="tbl"><table id="log"></table></div></div>
+  <div class="card"><h2>Transactions</h2><div class="tbl"><table id="tx"></table></div></div>
+</section>
+
+<section id="holdings">
+  <div class="card"><h2>Your accounts</h2><div class="tbl"><table id="accounts"></table></div></div>
+  <div class="card">
+    <h2>Holdings</h2>
+    <div class="filters" id="acct-filter"></div>
+    <div class="tbl"><table id="hold-table"></table></div>
+    <div class="note">Tap a row to open the stock. Unit cost includes fees.</div>
+  </div>
+</section>
+
+<section id="stock">
+  <div class="card">
+    <div class="filters"><select id="picker" aria-label="Stock"></select></div>
+    <h2 id="st-name"></h2><div class="sub" id="st-sub"></div>
+    <h3>Price and volume</h3><div class="chart" id="st-chart"></div>
+    <div class="note" id="st-chart-note"></div>
+    <h3>Against your rules</h3><div id="st-rule" class="sub"></div>
+    <h3>Key figures</h3><div class="facts" id="st-facts"></div>
+    <h3>Results, year on year</h3><div class="tbl"><table id="st-results"></table></div>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="tiles" id="plan-tiles"></div>
+  <div class="card"><h2>Orders</h2><div class="tbl"><table id="plan-table"></table></div>
+  <div class="note">Buy-stops: buy only on a close above the level. Aradel is not held in any account.</div></div>
+  <div class="card"><h2>Levels from the webinar</h2><div class="tbl"><table id="webinar"></table></div></div>
+</section>
+
+<footer id="foot"></footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const DATA = /*__DASHBOARD_DATA__*/null;
+</script>
+<script>
+(function () {
+"use strict";
+const $ = (s) => document.querySelector(s);
+const el = (tag, attrs, ...kids) => {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null) continue;
+    if (k === "class") e.className = v; else if (k === "text") e.textContent = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k instanceof Node ? k : document.createTextNode(String(k)));
+  return e;
+};
+if (!DATA) { document.body.prepend(el("div", { class: "err", text: "No data: build this page with `ngxprices portfolio dashboard` and open dashboard/index.html." })); return; }
+
+// ---------- formatting ----------
+const nf0 = new Intl.NumberFormat("en-NG", { maximumFractionDigits: 0 });
+const nf2 = new Intl.NumberFormat("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const N = (v) => v == null || isNaN(v) ? "—" : "₦" + nf0.format(v);
+const Ns = (v) => v == null || isNaN(v) ? "—" : (v < 0 ? "−₦" : "+₦") + nf0.format(Math.abs(v));
+const P2 = (v) => v == null || isNaN(v) ? "—" : nf2.format(v);
+const pct = (v, d = 1) => v == null || isNaN(v) ? "—" : (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(d) + "%";
+const K = (v) => { const a = Math.abs(v); return (v < 0 ? "−" : "") + (a >= 1e9 ? (a / 1e9).toFixed(2) + "bn" : a >= 1e6 ? (a / 1e6).toFixed(2) + "M" : a >= 1e3 ? (a / 1e3).toFixed(0) + "K" : nf0.format(a)); };
+const cls = (v) => v > 0 ? "up" : v < 0 ? "down" : "";
+const fdate = (s) => { if (!s) return "—"; const d = new Date(s + "T12:00:00Z"); return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }); };
+const sdate = (s) => new Date(s + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+const live = /live feed/i.test(DATA.source || "");
+
+// ---------- derived data ----------
+const price = {}; for (const p of DATA.prices) price[p.ticker] = p;
+const hist = DATA.history || {};
+const lastClose = (t) => price[t] && price[t].price != null ? price[t].price : (hist[t] ? hist[t].c[hist[t].c.length - 1] : null);
+const status = {}; for (const s of DATA.status || []) if (s.ticker) status[s.ticker] = s;
+const acctShort = {}; for (const a of DATA.accounts) acctShort[a.account] = a.short || a.account;
+
+const lots = DATA.holdings.map((h) => {
+  const px = lastClose(h.ticker), prev = price[h.ticker] ? price[h.ticker].prev_close : null;
+  const cost = h.units * h.unit_cost, value = px == null ? null : h.units * px;
+  return { ...h, price: px, prev, cost, value, gain: value == null ? null : value - cost,
+    gain_pct: value == null ? null : (value / cost - 1) * 100,
+    day: px == null || prev == null ? null : h.units * (px - prev) };
+});
+const total = lots.reduce((s, l) => s + (l.value || 0), 0);
+const totalCost = lots.reduce((s, l) => s + l.cost, 0);
+lots.forEach((l) => l.weight = l.value == null ? null : l.value / total * 100);
+
+const byTicker = {};
+for (const l of lots) {
+  const t = byTicker[l.ticker] || (byTicker[l.ticker] = { ticker: l.ticker, name: l.name, sector: l.sector, units: 0, cost: 0, value: 0, day: 0, accounts: [] });
+  t.units += l.units; t.cost += l.cost; t.value += l.value || 0; t.day += l.day || 0; t.accounts.push(acctShort[l.account] || l.account);
+}
+const positions = Object.values(byTicker).sort((a, b) => b.value - a.value);
+
+const daily = [...DATA.daily].sort((a, b) => a.date < b.date ? -1 : 1);
+const lastDay = daily[daily.length - 1];
+
+// ---------- charts ----------
+const tip = $("#tip");
+function showTip(host, x, y, text) {
+  const r = host.getBoundingClientRect();
+  tip.textContent = text; tip.style.display = "block";
+  let left = r.left + window.scrollX + x;
+  const w = tip.offsetWidth / 2, maxX = document.documentElement.clientWidth - w - 4;
+  tip.style.left = Math.max(w + 4, Math.min(maxX, left)) + "px";
+  tip.style.top = r.top + window.scrollY + y - 6 + "px";
+}
+const hideTip = () => tip.style.display = "none";
+const NS = "http://www.w3.org/2000/svg";
+const S = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+function ticks(lo, hi, n) {
+  const span = hi - lo || Math.abs(hi) || 1, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= step0);
+  const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10)); return out;
+}
+
+/** Line chart (optionally with volume bars beneath and horizontal reference lines). */
+function lineChart(host, pts, opt = {}) {
+  host.innerHTML = "";
+  if (!pts.length) { host.append(el("div", { class: "note", text: "No data." })); return; }
+  const W = Math.max(280, host.clientWidth || 600), H = opt.height || 220, vol = opt.volume && pts.some((p) => p.v);
+  const m = { l: 52, r: 10, t: 10, b: 22 }, volH = vol ? 46 : 0, ph = H - m.t - m.b - volH - (vol ? 8 : 0);
+  const ys = pts.map((p) => p.y).concat((opt.refs || []).map((r) => r.y));
+  let lo = Math.min(...ys), hi = Math.max(...ys); const pad = (hi - lo) * 0.06 || hi * 0.05 || 1; lo -= pad; hi += pad;
+  const x = (i) => m.l + (pts.length === 1 ? (W - m.l - m.r) / 2 : i * (W - m.l - m.r) / (pts.length - 1));
+  const y = (v) => m.t + ph - (v - lo) / (hi - lo) * ph;
+  const svg = S("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": opt.label || "chart" });
+  for (const t of ticks(lo, hi, 4)) {
+    svg.append(S("line", { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), class: "grid" }));
+    const tx = S("text", { x: m.l - 6, y: y(t) + 3, "text-anchor": "end", class: "ax" }); tx.textContent = opt.fmtAxis ? opt.fmtAxis(t) : K(t); svg.append(tx);
+  }
+  const nl = Math.min(6, pts.length);
+  for (let k = 0; k < nl; k++) {
+    const i = Math.round(k * (pts.length - 1) / Math.max(1, nl - 1));
+    const tx = S("text", { x: x(i), y: H - 6, "text-anchor": k === 0 ? "start" : k === nl - 1 ? "end" : "middle", class: "ax" });
+    tx.textContent = sdate(pts[i].d); svg.append(tx);
+  }
+  for (const r of opt.refs || []) {
+    svg.append(S("line", { x1: m.l, x2: W - m.r, y1: y(r.y), y2: y(r.y), stroke: r.color, "stroke-dasharray": "4 3", "stroke-width": 1.2 }));
+    const tx = S("text", { x: W - m.r, y: y(r.y) - 3, "text-anchor": "end", class: "ax", fill: r.color }); tx.style.fill = r.color; tx.textContent = r.label; svg.append(tx);
+  }
+  if (vol) {
+    const vmax = Math.max(...pts.map((p) => p.v || 0)) || 1, base = H - m.b, bw = Math.max(1, (W - m.l - m.r) / pts.length - 1);
+    pts.forEach((p, i) => { if (p.v) svg.append(S("rect", { x: x(i) - bw / 2, y: base - p.v / vmax * volH, width: bw, height: p.v / vmax * volH, fill: "var(--bar2)" })); });
+  }
+  const d = pts.map((p, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p.y).toFixed(1)).join("");
+  svg.append(S("path", { d, fill: "none", stroke: opt.color || "var(--accent)", "stroke-width": 1.8, "stroke-linejoin": "round" }));
+  const dot = S("circle", { r: 3.5, fill: opt.color || "var(--accent)", visibility: "hidden" }); svg.append(dot);
+  const hit = S("rect", { x: m.l, y: 0, width: W - m.l - m.r, height: H, fill: "transparent" }); svg.append(hit);
+  const move = (ev) => {
+    const r = svg.getBoundingClientRect(), sx = (ev.clientX - r.left) * W / r.width;
+    const i = Math.max(0, Math.min(pts.length - 1, Math.round((sx - m.l) / ((W - m.l - m.r) / Math.max(1, pts.length - 1)))));
+    dot.setAttribute("cx", x(i)); dot.setAttribute("cy", y(pts[i].y)); dot.setAttribute("visibility", "visible");
+    showTip(host, x(i) * r.width / W, y(pts[i].y) * r.height / H, opt.tip(pts[i]));
+  };
+  hit.addEventListener("pointermove", move); hit.addEventListener("pointerdown", move);
+  hit.addEventListener("pointerleave", () => { dot.setAttribute("visibility", "hidden"); hideTip(); });
+  host.append(svg);
+}
+
+/** Bar chart of signed values per day. */
+function barChart(host, pts, opt = {}) {
+  host.innerHTML = "";
+  const W = Math.max(280, host.clientWidth || 600), H = opt.height || 150, m = { l: 52, r: 10, t: 8, b: 22 };
+  const vals = pts.map((p) => p.y); let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals); if (lo === hi) hi = 1;
+  const ph = H - m.t - m.b, y = (v) => m.t + ph - (v - lo) / (hi - lo) * ph, bw = (W - m.l - m.r) / pts.length;
+  const svg = S("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": opt.label || "chart" });
+  for (const t of ticks(lo, hi, 3)) {
+    svg.append(S("line", { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), class: "grid" }));
+    const tx = S("text", { x: m.l - 6, y: y(t) + 3, "text-anchor": "end", class: "ax" }); tx.textContent = K(t); svg.append(tx);
+  }
+  pts.forEach((p, i) => {
+    const r = S("rect", { x: m.l + i * bw + 1, width: Math.max(1, bw - 2), y: Math.min(y(0), y(p.y)), height: Math.abs(y(p.y) - y(0)) || 1, fill: p.y >= 0 ? "var(--up)" : "var(--down)" });
+    const at = (ev) => { const b = svg.getBoundingClientRect(); showTip(host, (m.l + i * bw + bw / 2) * b.width / W, Math.min(y(0), y(p.y)) * b.height / H, opt.tip(p)); };
+    r.addEventListener("pointermove", at); r.addEventListener("pointerdown", at); r.addEventListener("pointerleave", hideTip);
+    svg.append(r);
+  });
+  [0, pts.length - 1].forEach((i, k) => { if (!pts[i]) return; const tx = S("text", { x: m.l + i * bw + bw / 2, y: H - 6, "text-anchor": k ? "end" : "start", class: "ax" }); tx.textContent = sdate(pts[i].d); svg.append(tx); });
+  host.append(svg);
+}
+
+function bars(host, rows) {
+  host.innerHTML = ""; const max = Math.max(...rows.map((r) => r.v), 1);
+  for (const r of rows) host.append(el("div", { class: "row", title: r.title || "" },
+    el("div", { class: "l", text: r.label }), el("div", { class: "track" }, el("div", { class: "fill", style: `width:${(r.v / max * 100).toFixed(1)}%` })),
+    el("div", { text: r.right })));
+}
+
+/** Sortable table. cols: [{h, v(row) -> sort value, f(row) -> text|Node, c(row) -> class, l (left)}] */
+function table(tbl, cols, rows, opt = {}) {
+  let sortI = opt.sort ?? null, dir = opt.dir ?? -1;
+  const draw = () => {
+    tbl.innerHTML = "";
+    const tr = el("tr");
+    cols.forEach((c, i) => tr.append(el("th", { class: c.l ? "l" : null, text: c.h + (i === sortI ? (dir < 0 ? " ↓" : " ↑") : ""),
+      onclick: () => { if (sortI === i) dir = -dir; else { sortI = i; dir = c.l ? 1 : -1; } draw(); } })));
+    tbl.append(el("thead", {}, tr));
+    let rs = rows;
+    if (sortI != null && cols[sortI].v) rs = [...rows].sort((a, b) => {
+      const x = cols[sortI].v(a), y = cols[sortI].v(b);
+      if (x == null) return 1; if (y == null) return -1; return (x < y ? -1 : x > y ? 1 : 0) * dir;
+    });
+    const tb = el("tbody");
+    for (const r of rs) {
+      const row = el("tr", { class: opt.click ? "click" : null, onclick: opt.click ? () => opt.click(r) : null });
+      for (const c of cols) { const v = c.f(r); row.append(el("td", { class: [c.l ? "l" : "", c.wrap ? "wrapc" : "", c.c ? c.c(r) : ""].join(" ").trim() || null }, v == null ? "—" : v)); }
+      tb.append(row);
+    }
+    tbl.append(tb);
+  };
+  draw();
+}
+const tile = (k, v, s, c) => el("div", { class: "tile" }, el("div", { class: "k", text: k }), el("div", { class: "v " + (c || ""), text: v }), s ? el("div", { class: "s", text: s }) : null);
+const LIGHT = { red: ["p-red", "Red"], amber: ["p-amber", "Amber"], watch: ["p-watch", "Watch"], note: ["p-note", "Note"], green: ["p-green", "Green"] };
+const pill = (light) => { const [c, t] = LIGHT[light] || ["p-note", light || "—"]; return el("span", { class: "pill " + c, text: t }); };
+const STATUS = { loser: "Loser (past 20% loss)", trail: "Sell-part review", warn: "Warning", ok: "Within rules" };
+
+// ---------- header ----------
+$("#asof").textContent = `Closes for ${fdate(DATA.date)} · ${live ? "NGX live feed (volumes provisional)" : "NGX official"}`;
+$("#foot").textContent = `Built ${DATA.built.replace("T", " ").replace("+00:00", " UTC")} from data/ by ngxprices portfolio dashboard. Source for the latest closes: ${DATA.source || "—"}. Information only, not financial advice.`;
+
+// ---------- overview ----------
+function overview() {
+  const day = lastDay && lastDay.date === DATA.date ? lastDay : null;
+  const k = $("#kpis"); k.innerHTML = "";
+  k.append(
+    tile("Value", N(total), `${lots.length} lots · ${positions.length} stocks`),
+    tile("Day", day ? Ns(day.day_pl) : "—", day && day.day_pl_pct != null ? pct(day.day_pl_pct * 100, 2) : "", day ? cls(day.day_pl) : ""),
+    tile("Gain", Ns(total - totalCost), pct((total / totalCost - 1) * 100), cls(total - totalCost)),
+    tile("Cost", N(totalCost), "fees included"));
+  const pts = daily.filter((r) => r.value != null).map((r) => ({ d: r.date, y: r.value, r }));
+  lineChart($("#value-chart"), pts, { label: "Portfolio value by day", tip: (p) => `${sdate(p.d)}: ${N(p.y)} (${p.r.day_pl == null ? "baseline" : Ns(p.r.day_pl)})`,
+    refs: [{ y: lastDay ? lastDay.cost : totalCost, label: "cost", color: "var(--muted)" }] });
+  $("#value-note").textContent = "From the daily log (9 Oct is the baseline). Dividends are not counted in the value.";
+  const sec = {}; positions.forEach((p) => sec[p.sector] = (sec[p.sector] || 0) + p.value);
+  bars($("#sectors"), Object.entries(sec).sort((a, b) => b[1] - a[1]).map(([s, v]) => ({ label: s, v, right: `${N(v)} · ${(v / total * 100).toFixed(1)}%` })));
+  bars($("#top"), positions.slice(0, 10).map((p) => ({ label: p.ticker, v: p.value, title: p.name, right: `${N(p.value)} · ${(p.value / total * 100).toFixed(1)}% · ${pct((p.value / p.cost - 1) * 100)}` })));
+}
+
+// ---------- sell rules ----------
+let lightFilter = "all";
+function rules() {
+  const st = (DATA.status || []).filter((s) => s.ticker);
+  const err = (DATA.status || []).find((s) => s.error);
+  const counts = {}; st.forEach((s) => counts[s.light] = (counts[s.light] || 0) + 1);
+  const t = $("#rule-tiles"); t.innerHTML = "";
+  t.append(tile("Losers", String(st.filter((s) => s.status === "loser").length), "≥20% below cost", "down"),
+    tile("Sell-part review", String(st.filter((s) => s.status === "trail").length), "≥15% off a peak ≥20% above cost"),
+    tile("Amber", String(counts.amber || 0), "early warning"),
+    tile("Take-profit flags", String(st.filter((s) => (s.take_profit || []).length).length), "targets, cost recovery, size cap"));
+  const f = $("#light-filter"); f.innerHTML = "";
+  ["all", "red", "amber", "watch", "note", "green"].forEach((l) => {
+    const n = l === "all" ? st.length : counts[l] || 0; if (l !== "all" && !n) return;
+    f.append(el("button", { "aria-pressed": String(lightFilter === l), text: `${l === "all" ? "All" : LIGHT[l][1]} (${n})`, onclick: () => { lightFilter = l; rules(); } }));
+  });
+  const order = { red: 0, amber: 1, watch: 2, note: 3, green: 4 };
+  const rows = st.filter((s) => lightFilter === "all" || s.light === lightFilter);
+  table($("#rules-table"), [
+    { h: "Stock", l: 1, v: (s) => s.ticker, f: (s) => s.ticker },
+    { h: "Light", l: 1, v: (s) => order[s.light], f: (s) => pill(s.light) },
+    { h: "Status", l: 1, v: (s) => s.status, f: (s) => STATUS[s.status] || s.status },
+    { h: "Close", v: (s) => s.close, f: (s) => P2(s.close) },
+    { h: "Avg cost", v: (s) => s.avg_cost, f: (s) => P2(s.avg_cost) },
+    { h: "On cost", v: (s) => s.gain_pct, f: (s) => pct(s.gain_pct), c: (s) => cls(s.gain_pct) },
+    { h: "Peak", v: (s) => s.peak, f: (s) => s.peak == null ? "—" : `${P2(s.peak)} (${sdate(s.peak_date)})` },
+    { h: "From peak", v: (s) => s.off_peak_pct, f: (s) => pct(s.off_peak_pct), c: (s) => cls(s.off_peak_pct) },
+    { h: "Trigger", v: (s) => s.trigger, f: (s) => `${P2(s.trigger)} ${s.rule === "trailing" ? "trail" : "loss"}` },
+    { h: "Weight", v: (s) => s.weight_pct, f: (s) => s.weight_pct == null ? "—" : s.weight_pct.toFixed(1) + "%" },
+    { h: "Held in", l: 1, f: (s) => (byTicker[s.ticker] ? byTicker[s.ticker].accounts : []).join(", ") },
+    { h: "Signals and take-profit", l: 1, wrap: 1, f: (s) => [...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "TAKE PROFIT: " + x.text)].join("; ") || "—" },
+  ], rows, { sort: 1, dir: 1, click: (s) => openStock(s.ticker) });
+  const r = DATA.rules || {};
+  $("#rules-note").textContent = (err ? `Rules check failed at build: ${err.error}. ` : "") +
+    `Rules set ${r.set || "—"}: loss limit ${r.loss_limit_pct}% (warning at ${r.warn_pct}%); trailing ${r.trail_pct}% once the peak was ≥${r.trail_min_peak_gain_pct}% above cost. ` +
+    "Peaks are adjusted for dividends, bonuses and reconstructions. Check volume, dividend dates and live vs official before acting." + (live ? " Latest closes are from the live feed." : "");
+}
+
+// ---------- daily ----------
+function dailyTab() {
+  const t = $("#day-tiles"); t.innerHTML = "";
+  const day = lastDay;
+  const up = lots.filter((l) => l.price != null && l.prev != null && l.price > l.prev).length, dn = lots.filter((l) => l.price != null && l.prev != null && l.price < l.prev).length;
+  t.append(tile("Day", day ? Ns(day.day_pl) : "—", day && day.day_pl_pct != null ? pct(day.day_pl_pct * 100, 2) + " · " + fdate(day.date) : "", day ? cls(day.day_pl) : ""),
+    tile("Rose / fell", `${up} / ${dn}`, "lots"), tile("Value", N(day ? day.value : total), day ? `gain ${Ns(day.gain)}` : ""));
+  const mv = positions.filter((p) => price[p.ticker]).map((p) => ({ ...p, px: price[p.ticker] }));
+  table($("#movers"), [
+    { h: "Stock", l: 1, v: (p) => p.ticker, f: (p) => p.ticker },
+    { h: "Close", v: (p) => p.px.price, f: (p) => P2(p.px.price) },
+    { h: "1 day", v: (p) => p.px.chg_1d_pct, f: (p) => pct(p.px.chg_1d_pct, 2), c: (p) => cls(p.px.chg_1d_pct) },
+    { h: "7 days", v: (p) => p.px.chg_7d_pct, f: (p) => pct(p.px.chg_7d_pct), c: (p) => cls(p.px.chg_7d_pct) },
+    { h: "Your ₦ move", v: (p) => p.day, f: (p) => Ns(p.day), c: (p) => cls(p.day) },
+    { h: "Volume", v: (p) => p.px.volume, f: (p) => p.px.volume == null ? "—" : nf0.format(p.px.volume) },
+    { h: "Trades", v: (p) => p.px.trades, f: (p) => p.px.trades == null ? "—" : nf0.format(p.px.trades) },
+  ], mv, { sort: 4, dir: 1, click: (p) => openStock(p.ticker) });
+  const vrows = DATA.volume || [];
+  if (!vrows.length) $("#volume").replaceChildren(el("tbody", {}, el("tr", {}, el("td", { class: "l", text: "None today." }))));
+  else table($("#volume"), [
+    { h: "Stock", l: 1, v: (v) => v.ticker, f: (v) => v.ticker },
+    { h: "Volume", v: (v) => v.volume, f: (v) => nf0.format(v.volume) },
+    { h: "20-day avg", v: (v) => v.avg, f: (v) => nf0.format(v.avg) },
+    { h: "× avg", v: (v) => v.ratio, f: (v) => v.ratio + "×" },
+    { h: "Value", v: (v) => v.value_ngn, f: (v) => v.value_ngn == null ? "—" : "₦" + K(v.value_ngn) },
+    { h: "1 day", v: (v) => price[v.ticker] && price[v.ticker].chg_1d_pct, f: (v) => price[v.ticker] ? pct(price[v.ticker].chg_1d_pct, 2) : "—", c: (v) => price[v.ticker] ? cls(price[v.ticker].chg_1d_pct) : "" },
+  ], vrows, { sort: 3, click: (v) => openStock(v.ticker) });
+  barChart($("#pl-chart"), daily.filter((r) => r.day_pl != null).map((r) => ({ d: r.date, y: r.day_pl, r })), { label: "Day profit or loss", tip: (p) => `${sdate(p.d)}: ${Ns(p.y)} (${pct((p.r.day_pl_pct || 0) * 100, 2)})` });
+  table($("#log"), [
+    { h: "Date", l: 1, v: (r) => r.date, f: (r) => fdate(r.date) },
+    { h: "Value", v: (r) => r.value, f: (r) => N(r.value) },
+    { h: "Day", v: (r) => r.day_pl, f: (r) => r.day_pl == null ? "—" : Ns(r.day_pl), c: (r) => cls(r.day_pl) },
+    { h: "Day %", v: (r) => r.day_pl_pct, f: (r) => r.day_pl_pct == null ? "—" : pct(r.day_pl_pct * 100, 2), c: (r) => cls(r.day_pl_pct) },
+    { h: "Gain", v: (r) => r.gain, f: (r) => Ns(r.gain), c: (r) => cls(r.gain) },
+    { h: "New money", v: (r) => r.cash_in, f: (r) => r.cash_in ? N(r.cash_in) : "—" },
+    { h: "Note", l: 1, wrap: 1, f: (r) => r.note || "" },
+  ], daily, { sort: 0, dir: -1 });
+  table($("#tx"), [
+    { h: "Date", l: 1, v: (r) => r.date, f: (r) => fdate(r.date) },
+    { h: "Account", l: 1, f: (r) => acctShort[r.account] || r.account },
+    { h: "Side", l: 1, f: (r) => r.side },
+    { h: "Stock", l: 1, v: (r) => r.ticker, f: (r) => r.ticker },
+    { h: "Units", v: (r) => r.units, f: (r) => nf0.format(r.units) },
+    { h: "Price", v: (r) => r.price, f: (r) => P2(r.price) },
+    { h: "Fees", v: (r) => r.fees, f: (r) => N(r.fees) },
+    { h: "Total", v: (r) => r.total, f: (r) => N(r.total) },
+    { h: "Contract", l: 1, f: (r) => r.contract || "" },
+  ], DATA.transactions, { sort: 0, dir: -1 });
+}
+
+// ---------- holdings ----------
+let acctFilter = "all";
+function holdingsTab() {
+  const accts = DATA.accounts.map((a) => {
+    const ls = lots.filter((l) => l.account === a.account), v = ls.reduce((s, l) => s + (l.value || 0), 0), c = ls.reduce((s, l) => s + l.cost, 0);
+    return { ...a, n: ls.length, value: v, cost: c, day: ls.reduce((s, l) => s + (l.day || 0), 0) };
+  });
+  table($("#accounts"), [
+    { h: "Account", l: 1, f: (a) => `${a.account} · ${a.broker}` },
+    { h: "Stocks", v: (a) => a.n, f: (a) => String(a.n) },
+    { h: "Value", v: (a) => a.value, f: (a) => N(a.value) },
+    { h: "Cost", v: (a) => a.cost, f: (a) => N(a.cost) },
+    { h: "Gain", v: (a) => a.value - a.cost, f: (a) => `${Ns(a.value - a.cost)} (${pct((a.value / a.cost - 1) * 100)})`, c: (a) => cls(a.value - a.cost) },
+    { h: "Day", v: (a) => a.day, f: (a) => Ns(a.day), c: (a) => cls(a.day) },
+    { h: "Note", l: 1, wrap: 1, f: (a) => a.note || "" },
+  ], accts);
+  const f = $("#acct-filter"); f.innerHTML = "";
+  [["all", "All accounts"], ...DATA.accounts.map((a) => [a.account, a.short || a.account])].forEach(([k, label]) =>
+    f.append(el("button", { "aria-pressed": String(acctFilter === k), text: label, onclick: () => { acctFilter = k; holdingsTab(); } })));
+  const rows = lots.filter((l) => acctFilter === "all" || l.account === acctFilter);
+  table($("#hold-table"), [
+    { h: "Stock", l: 1, v: (l) => l.ticker, f: (l) => l.ticker },
+    { h: "Account", l: 1, v: (l) => l.account, f: (l) => acctShort[l.account] || l.account },
+    { h: "Sector", l: 1, v: (l) => l.sector, f: (l) => l.sector },
+    { h: "Units", v: (l) => l.units, f: (l) => nf0.format(l.units) },
+    { h: "Unit cost", v: (l) => l.unit_cost, f: (l) => P2(l.unit_cost) },
+    { h: "Close", v: (l) => l.price, f: (l) => P2(l.price) },
+    { h: "Value", v: (l) => l.value, f: (l) => N(l.value) },
+    { h: "Gain", v: (l) => l.gain, f: (l) => Ns(l.gain), c: (l) => cls(l.gain) },
+    { h: "Gain %", v: (l) => l.gain_pct, f: (l) => pct(l.gain_pct), c: (l) => cls(l.gain_pct) },
+    { h: "Day", v: (l) => l.day, f: (l) => Ns(l.day), c: (l) => cls(l.day) },
+    { h: "Weight", v: (l) => l.weight, f: (l) => l.weight == null ? "—" : l.weight.toFixed(1) + "%" },
+    { h: "Light", l: 1, v: (l) => status[l.ticker] ? status[l.ticker].light : null, f: (l) => status[l.ticker] ? pill(status[l.ticker].light) : "—" },
+  ], rows, { sort: 6, click: (l) => openStock(l.ticker) });
+}
+
+// ---------- stock ----------
+const allTickers = [...new Set([...positions.map((p) => p.ticker), ...Object.keys(hist)])].sort();
+const nameOf = (t) => (byTicker[t] && byTicker[t].name) || (DATA.facts.find((f) => f.ticker === t) || DATA.plan.find((f) => f.ticker === t) || DATA.webinar.find((f) => f.ticker === t) || price[t] || {}).name || t;
+const picker = $("#picker");
+allTickers.forEach((t) => picker.append(el("option", { value: t, text: `${t} — ${nameOf(t)}${byTicker[t] ? "" : " (not held)"}` })));
+picker.addEventListener("change", () => stockTab(picker.value));
+function stockTab(t) {
+  picker.value = t;
+  const pos = byTicker[t], s = status[t], px = price[t], h = hist[t];
+  $("#st-name").textContent = `${t} · ${nameOf(t)}`;
+  $("#st-sub").textContent = pos
+    ? `${nf0.format(pos.units)} units in ${pos.accounts.join(", ")} · avg cost ${P2(pos.cost / pos.units)} · value ${N(pos.value)} (${pct((pos.value / pos.cost - 1) * 100)})`
+    : "Not held.";
+  const pts = h ? h.d.map((d, i) => ({ d, y: h.c[i], v: h.v[i] })).filter((p) => p.d >= "2026-01-01") : [];
+  const refs = [];
+  if (pos) refs.push({ y: pos.cost / pos.units, label: "avg cost", color: "var(--muted)" });
+  if (s && s.trigger) refs.push({ y: s.trigger, label: s.rule === "trailing" ? "trailing level" : "loss limit", color: "var(--down)" });
+  lineChart($("#st-chart"), pts, { volume: true, height: 260, refs, label: `${t} closes`, fmtAxis: (v) => v >= 1e6 ? K(v) : v >= 100 ? nf0.format(v) : nf2.format(v),
+    tip: (p) => `${sdate(p.d)}: ${P2(p.y)}${p.v ? " · vol " + K(p.v) : ""}` });
+  $("#st-chart-note").textContent = pts.length ? `Closes from 1 Jan 2026 (unadjusted for dividends); bars are volume.${px ? ` Latest ${P2(px.price)} on ${fdate(px.as_of)} (${pct(px.chg_1d_pct, 2)}).` : ""}` : "";
+  $("#st-rule").replaceChildren(s ? el("span", {}, pill(s.light), " ", `${STATUS[s.status] || s.status}. Close ${P2(s.close)}, ${pct(s.gain_pct)} on cost, ${pct(s.off_peak_pct)} from its adjusted peak ${P2(s.peak)} (${s.peak_date ? sdate(s.peak_date) : "—"}). ` +
+    `Loss limit ${P2(s.loss_level)}, warning ${P2(s.warn_level)}${s.trail_level ? `, trailing level ${P2(s.trail_level)}` : ", trailing not active"}. ` +
+    [...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "Take profit: " + x.text)].join("; ")) : document.createTextNode("Not checked against the rules (not held)."));
+  const fx = DATA.facts.find((f) => f.ticker === t), facts = $("#st-facts"); facts.innerHTML = "";
+  const add = (k, v, sub) => facts.append(tile(k, v, sub));
+  if (px) { add("Close", P2(px.price), fdate(px.as_of)); add("7 days", pct(px.chg_7d_pct)); }
+  if (fx) {
+    if (fx.shares_bn && px) add("Market cap", "₦" + K(fx.shares_bn * 1e9 * px.price), `${fx.shares_bn}bn shares`);
+    if (fx.dividend != null) add("Dividend", P2(fx.dividend), (fx.dividend_note || "") + (px ? ` · yield ${(fx.dividend / px.price * 100).toFixed(1)}%` : ""));
+    else if (fx.dividend_note) add("Dividend", "—", fx.dividend_note);
+    if (fx.analyst_target != null) add("Analyst target", P2(fx.analyst_target), (px ? pct((fx.analyst_target / px.price - 1) * 100) + " · " : "") + (fx.target_source || ""));
+  }
+  const w = DATA.webinar.find((x) => x.ticker === t);
+  if (w) add("Webinar level", P2(w.level) + (w.level_high ? "–" + P2(w.level_high) : ""), w.note);
+  if (!facts.children.length) facts.append(el("div", { class: "note", text: "No key figures recorded." }));
+  const res = DATA.results.filter((r) => r.ticker === t).sort((a, b) => a.seq - b.seq);
+  if (!res.length) $("#st-results").replaceChildren(el("tbody", {}, el("tr", {}, el("td", { class: "l", text: "No results recorded." }))));
+  else table($("#st-results"), [
+    { h: "Period", l: 1, f: (r) => r.period },
+    { h: "Revenue (₦bn)", f: (r) => r.revenue_bn == null ? "—" : nf2.format(r.revenue_bn) },
+    { h: "PAT (₦bn)", f: (r) => r.pat_bn == null ? "—" : nf2.format(r.pat_bn) },
+    { h: "EPS", f: (r) => r.eps == null ? "—" : P2(r.eps) },
+    { h: "Margin", f: (r) => r.margin_pct == null ? "—" : `${r.margin_pct}% ${r.margin_label || ""}` },
+    { h: "Source", l: 1, wrap: 1, f: (r) => r.source || "" },
+  ], res);
+}
+function openStock(t) { stockTab(t); select("stock"); window.scrollTo(0, 0); }
+
+// ---------- plan ----------
+function planTab() {
+  const rows = DATA.plan.map((p) => {
+    const c = lastClose(p.ticker), trig = p.trigger;
+    const state = p.action === "Buy now" ? "Buy now" : trig == null ? p.action : c == null ? "No close" : c > trig ? "Above the level" : `${pct((c / trig - 1) * 100)} to go`;
+    return { ...p, close: c, state };
+  });
+  const t = $("#plan-tiles"); t.innerHTML = "";
+  const sum = (f) => rows.filter(f).reduce((s, r) => s + (r.amount || 0), 0);
+  t.append(tile("Plan", N(sum(() => true)), "started 12 Oct 2026"), tile("Buy now", N(sum((r) => r.action === "Buy now"))),
+    tile("Buy-stops", N(sum((r) => r.trigger != null))), tile("Other / cash", N(sum((r) => r.action !== "Buy now" && r.trigger == null))));
+  table($("#plan-table"), [
+    { h: "Stock", l: 1, f: (r) => r.ticker || "Cash" },
+    { h: "Action", l: 1, f: (r) => r.action },
+    { h: "Amount", v: (r) => r.amount, f: (r) => N(r.amount) },
+    { h: "Level", v: (r) => r.trigger, f: (r) => r.trigger == null ? "—" : P2(r.trigger) },
+    { h: "Latest close", v: (r) => r.close, f: (r) => P2(r.close) },
+    { h: "Status", l: 1, f: (r) => r.state },
+    { h: "Held now", f: (r) => byTicker[r.ticker] ? nf0.format(byTicker[r.ticker].units) + " units" : "—" },
+  ], rows, { click: (r) => r.ticker && hist[r.ticker] && openStock(r.ticker) });
+  table($("#webinar"), [
+    { h: "Stock", l: 1, f: (w) => w.ticker },
+    { h: "Rule", l: 1, f: (w) => (w.rule || "").replace("_", " ") },
+    { h: "Level", v: (w) => w.level, f: (w) => P2(w.level) + (w.level_high ? "–" + P2(w.level_high) : "") },
+    { h: "Close", v: (w) => lastClose(w.ticker), f: (w) => P2(lastClose(w.ticker)) },
+    { h: "vs level", v: (w) => lastClose(w.ticker) && w.level ? lastClose(w.ticker) / w.level : null, f: (w) => lastClose(w.ticker) && w.level ? pct((lastClose(w.ticker) / w.level - 1) * 100) : "—" },
+    { h: "Fair value", v: (w) => w.fair_value, f: (w) => P2(w.fair_value) },
+    { h: "Note", l: 1, wrap: 1, f: (w) => w.note || "" },
+  ], DATA.webinar, { click: (w) => hist[w.ticker] && openStock(w.ticker) });
+}
+
+// ---------- tabs ----------
+const drawn = {};
+const render = { overview, rules, daily: dailyTab, holdings: holdingsTab, stock: () => stockTab(picker.value || positions[0].ticker), plan: planTab };
+function select(t) {
+  document.querySelectorAll("#tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.t === t)));
+  document.querySelectorAll("section").forEach((s) => s.classList.toggle("on", s.id === t));
+  if (!drawn[t]) { drawn[t] = true; render[t](); }
+  try { localStorage.setItem("ngx-tab", t); } catch (e) {}
+}
+document.querySelectorAll("#tabs button").forEach((b) => b.addEventListener("click", () => select(b.dataset.t)));
+let start = "overview"; try { start = localStorage.getItem("ngx-tab") || start; } catch (e) {}
+if (!render[start]) start = "overview";
+picker.value = positions[0].ticker;
+select(start);
+let rw; window.addEventListener("resize", () => { clearTimeout(rw); rw = setTimeout(() => { const t = document.querySelector("section.on").id; render[t](); }, 200); });
+})();
+</script>
+</body>
+</html>

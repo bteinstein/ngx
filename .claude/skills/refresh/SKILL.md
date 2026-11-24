@@ -38,14 +38,21 @@ Dashboard: https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7 (My NGX Portfolio).
      volume is provisional).
 5. Don't change the page (`files/index.html`) unless asked.
 
-## 3. Commit and push
+## 3. Rebuild the repo dashboard
 
 ```bash
-git add data && git commit -m "Add <d Mon> closes (<official|live feed>)" && git push -u origin HEAD
+ngxprices portfolio dashboard
+```
+Writes `dashboard/index.html` (self-contained page built from `data/`; see `dashboard/README.md`).
+
+## 4. Commit and push
+
+```bash
+git add data dashboard/index.html && git commit -m "Add <d Mon> closes (<official|live feed>)" && git push -u origin HEAD
 ```
 Use "Update <d Mon> closes to official" when only upgrades happened. No Claude attribution lines.
 
-## 4. Report (short; the owner reads on a phone)
+## 5. Report (short; the owner reads on a phone)
 
 From the JSON: value and day P/L (₦ and %), the source (official or live, and time), the top 3 up and
 down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings, new take-profit flags; or "all within the rules"), heavy-volume stocks (≥2× their average), any

@@ -27,9 +27,11 @@ with each account's lot shown. Open: owner's purchase dates, and the critique's 
   - `_dataset_descriptions/` — the original notes on each dataset's sources and caveats. Read these.
 - `contract_notes/` — the four Meristem PDFs from 12 Oct 2026 (MTN 190 and 50, Seplat 32, Zenith 1,500).
   They are ALREADY in holdings and transactions. Do not add them again.
-- `dashboard/index_claude_ai_version.html` — the old dashboard page's code, for reference only. It
-  depends on claude.ai's dashboard runtime (`dash.*`) and will not run on its own. If a viewer is
-  needed here, build a new self-contained HTML page that reads the JSON in `data/`.
+- `dashboard/index.html` — the repo's own dashboard: one self-contained page built from `data/` by
+  `ngxprices portfolio dashboard` (edit `dashboard/template.html`, never index.html; see
+  `dashboard/README.md`). The refresh skill rebuilds it each time.
+- `dashboard/index_claude_ai_version.html` — the old claude.ai dashboard page's code, for reference
+  only. It depends on claude.ai's dashboard runtime (`dash.*`) and will not run on its own.
 - `history/CONVERSATIONS.md` — summary of every past chat in the project.
 - Research paper on collecting NGX prices (Claude Doc, still on claude.ai):
   https://claude.ai/artifact/37pd12a6W2bFwfpi5EdobX

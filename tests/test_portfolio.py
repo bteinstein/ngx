@@ -165,3 +165,18 @@ def test_peak_from_and_accounts(data):
     (data / "holdings.json").write_text(json.dumps(h))
     rows = {r["ticker"]: r for r in P.rules_status(data, "2026-11-13")}
     assert rows["BBB"]["peak"] == 200.0 and rows["BBB"]["peak_from"] == "2026-09-01"
+
+
+def test_dashboard_build(data, tmp_path):
+    from ngxprices import dashboard as D
+    (data / "accounts.json").write_text(json.dumps([{"account": "Account 1", "broker": "B", "short": "B", "cscs": "SECRET-1"}]))
+    tpl = tmp_path / "t.html"
+    tpl.write_text("<script>const DATA = " + D.MARK + ";</script>")
+    out = tmp_path / "o" / "index.html"
+    info = D.build(data, tpl, out)
+    assert info["date"] == "2026-11-13" and info["holdings"] == 3
+    html = out.read_text()
+    assert "SECRET-1" not in html and D.MARK not in html
+    blob = json.loads(html.split("const DATA = ", 1)[1].rsplit(";</script>", 1)[0])
+    assert blob["history"]["AAA"] == {"d": ["2026-11-13"], "c": [12.0], "v": [1000]}
+    assert blob["source"] == "x" and len(blob["status"]) >= 1
