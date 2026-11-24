@@ -30,14 +30,14 @@ with each account's lot shown. Open: owner's purchase dates, and the critique's 
 - `dashboard/index.html` — the repo's own dashboard: one self-contained page built from `data/` by
   `ngxprices portfolio dashboard` (edit `dashboard/template.html`, never index.html; see
   `dashboard/README.md`). The refresh skill rebuilds it each time and publishes it to the owner's
-  phone link https://claude.ai/artifact/8oK5Np1GcUhFYMUvM4qq4o (private). From 24 Nov it runs beside the old
-  claude.ai dashboard (BAjKJSa87hvxs8zjAPr3b7) for a week; then the old one drops out of the refresh.
+  phone link https://claude.ai/artifact/9NrKbJXXmo562j7y8Wi9vu (private, owned by this account; published 24 Nov). From 24 Nov it runs beside the old
+  claude.ai dashboard (BAjKJSa87hvxs8zjAPr3b7, owner's other account) for a week; then the old one drops out of the refresh.
 - `dashboard/index_claude_ai_version.html` — the old claude.ai dashboard page's code, for reference
   only. It depends on claude.ai's dashboard runtime (`dash.*`) and will not run on its own.
 - `history/CONVERSATIONS.md` — summary of every past chat in the project.
 - Research paper on collecting NGX prices (Claude Doc, still on claude.ai):
   https://claude.ai/artifact/37pd12a6W2bFwfpi5EdobX
-- ngxprices tool v0.4.0: this repo (`src/ngxprices`), incl. `ngxprices portfolio …`. Install with `pip install -e .`
+- ngxprices tool v0.4.0: this repo (`src/ngxprices`), incl. `ngxprices portfolio …`. Install with `pip install -e .` (if PyPI is blocked: add `--no-build-isolation`)
   Everything is on `main` (PR #1 and `portfolio-import` merged 16 Nov); commit new work to `main`.
   Research paper copy: `docs/research-paper.md`.
 
@@ -107,7 +107,7 @@ Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in 
 ## How the owner works
 - "refresh" / "update" / "update the dashboard" → use the `refresh` skill (`.claude/skills/refresh`):
   `ngxprices portfolio refresh` pulls the data on demand and writes `data/`, then the skill updates the
-  claude.ai dashboard (https://claude.ai/artifact/BAjKJSa87hvxs8zjAPr3b7), commits and reports value,
+  repo dashboard (https://claude.ai/artifact/9NrKbJXXmo562j7y8Wi9vu), commits and reports value,
   day P/L, movers, heavy volume and watchlist breaches. Never add contract notes twice.
 - "update my losers" → use the `losers` skill: refresh, then `ngxprices portfolio losers` (all holdings vs the sell rules).
 - A scheduled task "NGX nightly portfolio update" runs the `refresh` flow every weekday at 22:15 WAT in a
