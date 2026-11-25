@@ -9,8 +9,7 @@ Exit strategy by term APPLIED 24 Nov (owner chose; `rules.json` → `liquidity`,
 in `holdings.json`): long PRESCO, BUACEMENT, DANGCEM, FIRSTHOLDCO, STANBIC; short JBERGER, GTCO, PZ. Next: ask the
 owner the other 31 terms (AskUserQuestion, 4 at a time, with one line of evidence each) and add Q3 2026 / FY 2025
 results for the rest to `company_results.json` (NGX `XFinancial_News` recipe in `docs/HANDOFF_2026-11-24.md` §4;
-OKOMUOIL's Q3 filing is a scanned image). PRESCO: thesis check fired (EPS fell H1 and 9M, but 9M profit is flat;
-the EPS fall is from bonus shares): the owner decides whether to move it to short term. Watch PRESCO/JBERGER blocks.
+OKOMUOIL's Q3 filing is a scanned image). PRESCO: owner chose (25 Nov) to keep it long. The thesis check now compares bonus-restated prior EPS (`prior_eps_restated` in `company_results.json`; record it for any bonus issue): 9M flat, H1 −7%, so it no longer fires. Watch PRESCO/JBERGER blocks.
 
 ## Earlier review (18 Nov 2026)
 Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Data review DONE (`docs/DATA_REVIEW_2026-11-18.md`); expert critique DONE
