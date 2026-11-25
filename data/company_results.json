@@ -231,7 +231,9 @@
   "eps": 70.52,
   "margin_label": null,
   "margin_pct": null,
-  "source": "Presco H1 2026 statement via Nairametrics"
+  "source": "Presco H1 2026 statement via Nairametrics",
+  "prior_eps_restated": 76.04,
+  "restated_note": "H1 2025 EPS 88.72 restated on 1,166.7m shares after the bonus (IAS 33): 88.72 x 1,000/1,166.7"
  },
  {
   "id": "DANGSUGAR-H12025",
@@ -426,7 +428,9 @@
   "eps": 95.29,
   "margin_label": "PAT margin",
   "margin_pct": 40.2,
-  "source": "NGX filing 2026-10-30 (doc 48266); PAT flat; EPS -14% because shares rose to 1,166.7m (bonus)"
+  "source": "NGX filing 2026-10-30 (doc 48266); PAT flat; EPS -14% because shares rose to 1,166.7m (bonus)",
+  "prior_eps_restated": 94.96,
+  "restated_note": "9M 2025 EPS 110.79 restated on 1,166.7m shares after the bonus (IAS 33): 110.79 x 1,000/1,166.7"
  },
  {
   "id": "BUACEMENT-9M2025",

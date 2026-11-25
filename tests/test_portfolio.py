@@ -207,6 +207,9 @@ def test_eps_view_and_horizon_signals():
     assert P.horizon_signals("long", v, "2026-11-20", "2026-11-24", hz)[0].startswith("thesis check")
     up = P.eps_view([dict(r, eps=r["eps"] * (2 if "2026" in r["period"] else 1)) for r in res], "X")
     assert not up["thesis_broken"] and P.horizon_signals("long", up, "2026-01-01", "2026-11-24", hz) == []
+    # bonus issue: prior-year EPS restated on the new share count clears a false fall
+    bonus = [dict(r, prior_eps_restated=11) if r["period"] == "9M 2026" else r for r in res]
+    assert not P.eps_view(bonus, "X")["thesis_broken"]
 
 
 def test_take_profit_by_horizon():

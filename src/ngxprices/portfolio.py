@@ -576,7 +576,8 @@ def _period(p: str):
 def eps_view(results: list[dict], ticker: str) -> dict:
     """EPS comparisons for one company from ``company_results.json``: each period against the same
     period a year earlier (latest first), trailing-12-month EPS (FY + latest interim - its prior-year
-    interim) and whether the thesis broke (the last ``thesis_falls`` comparisons all fell)."""
+    interim) and whether the thesis broke (the last ``thesis_falls`` comparisons all fell). A row's
+    ``prior_eps_restated`` (prior-year EPS restated for a bonus issue) replaces the prior row's EPS."""
     rows = {}
     for x in results:
         if x["ticker"] == ticker and x.get("eps") is not None and _period(x["period"]):
@@ -585,7 +586,9 @@ def eps_view(results: list[dict], ticker: str) -> dict:
     for (p, y), x in rows.items():
         prev = rows.get((p, y - 1))
         if prev:
-            pairs.append(dict(period=x["period"], eps=x["eps"], prior=prev["eps"], fell=x["eps"] < prev["eps"],
+            # bonus issues: compare with the prior year restated on today's share count (IAS 33)
+            prior = x.get("prior_eps_restated") or prev["eps"]
+            pairs.append(dict(period=x["period"], eps=x["eps"], prior=prior, fell=x["eps"] < prior,
                               key=(y, _PERIOD_ORDER[p])))
     pairs.sort(key=lambda d: d["key"], reverse=True)
     ttm = None
@@ -702,8 +705,12 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
         note = (f"{_STATUS_TEXT[r['status']].format(**fmt)}. Avg cost {r['avg_cost']:,.2f}; "
                 f"loss limit {r['loss_level']:,.2f}; warning {r['warn_level']:,.2f}; peak {r['peak']:,.2f} "
                 f"({r['peak_date']}, {r['peak_gain_pct']:+.1f}% on cost)")
-        note += f"; trailing level {r['trail_level']:,.2f}." if r["trail_level"] else "; trailing not active (peak gain under " \
-            f"{rules['trail_min_peak_gain_pct']}%)."
+        if r["trail_level"]:
+            note += f"; trailing level {r['trail_level']:,.2f}."
+        elif r.get("horizon") == "long" and r["peak_gain_pct"] >= rules["trail_min_peak_gain_pct"]:
+            note += "; trailing not active (long term: no trail until the EPS thesis check fails)."
+        else:
+            note += f"; trailing not active (peak gain under {rules['trail_min_peak_gain_pct']}%)."
         if r.get("horizon"):
             note = f"{r['horizon'].capitalize()} term. " + note
         if r.get("price_note"):
