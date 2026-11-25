@@ -396,7 +396,9 @@
   "name": "Custodian Investment",
   "sector": "Insurance",
   "units": 2562,
-  "unit_cost": 64.66
+  "unit_cost": 64.66,
+  "bought_from": "2026-02-19",
+  "note": "AfriInvest asset detail (owner screenshot, 25 Nov 2026): two 3,000-unit limit buys on 19 Feb 2026, part-filled to 2,562 units."
  },
  {
   "id": "A2-CWG",
