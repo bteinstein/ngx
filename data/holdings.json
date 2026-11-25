@@ -26,7 +26,9 @@
   "units": 3000,
   "unit_cost": 161.92,
   "horizon": "long",
-  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results",
+  "bought_from": "2025-10-06",
+  "note": "Owner order sheet (25 Nov 2026): 3,000 @159.00 on 6 Oct 2025."
  },
  {
   "id": "A1-BUAFOODS",
@@ -35,7 +37,9 @@
   "name": "BUA Foods",
   "sector": "Consumer goods",
   "units": 681,
-  "unit_cost": 621.21
+  "unit_cost": 621.21,
+  "bought_from": "2025-10-06",
+  "note": "Owner order sheet (25 Nov 2026): 500 @610.00 and 181 @609.90 on 6 Oct 2025."
  },
  {
   "id": "A1-DANGCEM",
@@ -46,7 +50,9 @@
   "units": 200,
   "unit_cost": 491.38,
   "horizon": "long",
-  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results",
+  "bought_from": "2025-02-14",
+  "note": "Owner order sheet (25 Nov 2026): 150 @480.00 and 50 @508.00 on 14 Feb 2025."
  },
  {
   "id": "A1-DANGSUGAR",
@@ -55,7 +61,9 @@
   "name": "Dangote Sugar Refinery",
   "sector": "Consumer goods",
   "units": 13666,
-  "unit_cost": 65.09
+  "unit_cost": 65.09,
+  "bought_from": "2025-02-24",
+  "note": "Owner order sheet (25 Nov 2026): 1,200 @40.95 on 24 Feb 2025; 7,000 @64.20 on 6 Oct 2025 (8,200 units; holding is 13,666, rest undated)."
  },
  {
   "id": "A1-ELLAHLAKES",
@@ -180,7 +188,9 @@
   "units": 1030,
   "unit_cost": 1497.65,
   "horizon": "long",
-  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results",
+  "bought_from": "2025-01-06",
+  "note": "Owner order sheet (25 Nov 2026): 30 on 6 Jan 2025 @502.07; 400 on 3 Oct 2025 @1,399.90; 500 on 6 Oct 2025 @1,428.40 (930 units; holding is 1,030, gap of 100 not yet explained)."
  },
  {
   "id": "A1-PZ",
