@@ -18,7 +18,7 @@ and reconciled with the corrected data (`docs/REVIEW_CRITIQUE_2026-11-18.md`, fi
 Sterling: 10-for-1 reconstruction 8 Oct; owner confirmed 500 units (500 @ ₦58.70). Official closes back-filled
 from 2 Jan 2026. Peaks are adjusted for dividends/bonuses/reconstructions in `data/corporate_actions.json` (record new
 ones there) and count from 1 Jan 2026 or a lot's `bought_from` (owner's choice). Rules run on the combined holding,
-with each account's lot shown. Purchase dates DONE 25 Nov (`bought_from` + note on every lot from broker order histories, except InvestNaija MTN; all but CADBURY, CWG, WEMABANK, CUSTODIAN, A2 MANSARD are pre-2026, so peaks unchanged). Open: the critique's rule proposals (owner decides).
+with each account's lot shown. Purchase dates DONE 25 Nov (`bought_from` + note on every lot from broker order histories, MTN InvestNaija from the Dec 2021 public offer; all but CADBURY, CWG, WEMABANK, CUSTODIAN, A2 MANSARD are pre-2026, so peaks unchanged). Open: the critique's rule proposals (owner decides).
 
 ## What lives where
 - `data/` — the source of truth now (was the claude.ai dashboard database):

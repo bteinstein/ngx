@@ -485,6 +485,7 @@
   "sector": "ICT",
   "units": 105,
   "unit_cost": 169.7,
-  "note": "Confirmed 18 Nov 2026 from the owner's InvestNaija screenshot: net equity total cost 17,818.50 (105 x 169.70), value 87,885.00 (105 x 837.00, the 17 Nov close)."
+  "note": "Confirmed 18 Nov 2026 from the owner's InvestNaija screenshot: net equity total cost 17,818.50 (105 x 169.70), value 87,885.00 (105 x 837.00, the 17 Nov close). Owner (25 Nov 2026): bought in MTN Nigeria public offer, Dec 2021 (offer price N169).",
+  "bought_from": "2021-12-01"
  }
 ]
