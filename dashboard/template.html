@@ -369,8 +369,10 @@ function rules() {
   table($("#rules-table"), [
     { h: "Stock", l: 1, v: (s) => s.ticker, f: (s) => s.ticker },
     { h: "Light", l: 1, v: (s) => order[s.light], f: (s) => pill(s.light) },
+    { h: "Term", l: 1, v: (s) => s.horizon || "", f: (s) => s.horizon ? (s.horizon === "long" ? "Long" : "Short") : "—" },
     { h: "Status", l: 1, v: (s) => s.status, f: (s) => STATUS[s.status] || s.status },
     { h: "Close", v: (s) => s.close, f: (s) => P2(s.close) },
+    { h: "Real price", v: (s) => s.real_price, f: (s) => s.price_note ? P2(s.real_price) + " *" : "—" },
     { h: "Avg cost", v: (s) => s.avg_cost, f: (s) => P2(s.avg_cost) },
     { h: "On cost", v: (s) => s.gain_pct, f: (s) => pct(s.gain_pct), c: (s) => cls(s.gain_pct) },
     { h: "Peak", v: (s) => s.peak, f: (s) => s.peak == null ? "—" : `${P2(s.peak)} (${sdate(s.peak_date)})` },
@@ -378,11 +380,12 @@ function rules() {
     { h: "Trigger", v: (s) => s.trigger, f: (s) => `${P2(s.trigger)} ${s.rule === "trailing" ? "trail" : "loss"}` },
     { h: "Weight", v: (s) => s.weight_pct, f: (s) => s.weight_pct == null ? "—" : s.weight_pct.toFixed(1) + "%" },
     { h: "Held in", l: 1, f: (s) => (byTicker[s.ticker] ? byTicker[s.ticker].accounts : []).join(", ") },
-    { h: "Signals and take-profit", l: 1, wrap: 1, f: (s) => [...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "TAKE PROFIT: " + x.text)].join("; ") || "—" },
+    { h: "Signals and take-profit", l: 1, wrap: 1, f: (s) => [...(s.exit_signals || []).map((x) => "EXIT: " + x), ...(s.price_note ? ["REAL PRICE: " + s.price_note] : []), ...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "TAKE PROFIT: " + x.text)].join("; ") || "—" },
   ], rows, { sort: 1, dir: 1, click: (s) => openStock(s.ticker) });
   const r = DATA.rules || {};
   $("#rules-note").textContent = (err ? `Rules check failed at build: ${err.error}. ` : "") +
     `Rules set ${r.set || "—"}: loss limit ${r.loss_limit_pct}% (warning at ${r.warn_pct}%); trailing ${r.trail_pct}% once the peak was ≥${r.trail_min_peak_gain_pct}% above cost. ` +
+    "Since 24 Nov: rules use the realistic price (* = trade price when the close is stale or a block traded below it); short term: +30% sell half, 10% trail, earnings stop, 8-week time stop; long term: no trail while EPS rises, thesis check after 2 falling reports, trim above 25× earnings. " +
     "Peaks are adjusted for dividends, bonuses and reconstructions. Check volume, dividend dates and live vs official before acting." + (live ? " Latest closes are from the live feed." : "");
 }
 
@@ -494,7 +497,7 @@ function stockTab(t) {
   $("#st-chart-note").textContent = pts.length ? `Closes from 1 Jan 2026 (unadjusted for dividends); bars are volume.${px ? ` Latest ${P2(px.price)} on ${fdate(px.as_of)} (${pct(px.chg_1d_pct, 2)}).` : ""}` : "";
   $("#st-rule").replaceChildren(s ? el("span", {}, pill(s.light), " ", `${STATUS[s.status] || s.status}. Close ${P2(s.close)}, ${pct(s.gain_pct)} on cost, ${pct(s.off_peak_pct)} from its adjusted peak ${P2(s.peak)} (${s.peak_date ? sdate(s.peak_date) : "—"}). ` +
     `Loss limit ${P2(s.loss_level)}, warning ${P2(s.warn_level)}${s.trail_level ? `, trailing level ${P2(s.trail_level)}` : ", trailing not active"}. ` +
-    [...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "Take profit: " + x.text)].join("; ")) : document.createTextNode("Not checked against the rules (not held)."));
+    [...(s.horizon ? [s.horizon + " term"] : []), ...(s.price_note ? ["realistic price " + P2(s.real_price) + ": " + s.price_note] : []), ...(s.exit_signals || []).map((x) => "Exit: " + x), ...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "Take profit: " + x.text)].join("; ")) : document.createTextNode("Not checked against the rules (not held)."));
   const fx = DATA.facts.find((f) => f.ticker === t), facts = $("#st-facts"); facts.innerHTML = "";
   const add = (k, v, sub) => facts.append(tile(k, v, sub));
   if (px) { add("Close", P2(px.price), fdate(px.as_of)); add("7 days", pct(px.chg_7d_pct)); }

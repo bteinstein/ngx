@@ -24,7 +24,9 @@
   "name": "BUA Cement",
   "sector": "Industrial",
   "units": 3000,
-  "unit_cost": 161.92
+  "unit_cost": 161.92,
+  "horizon": "long",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-BUAFOODS",
@@ -42,7 +44,9 @@
   "name": "Dangote Cement",
   "sector": "Industrial",
   "units": 200,
-  "unit_cost": 491.38
+  "unit_cost": 491.38,
+  "horizon": "long",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-DANGSUGAR",
@@ -87,7 +91,9 @@
   "name": "First HoldCo",
   "sector": "Banking",
   "units": 1500,
-  "unit_cost": 27.5
+  "unit_cost": 27.5,
+  "horizon": "long",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-GTCO",
@@ -96,7 +102,9 @@
   "name": "Guaranty Trust Holding",
   "sector": "Banking",
   "units": 250,
-  "unit_cost": 41.25
+  "unit_cost": 41.25,
+  "horizon": "short",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-JBERGER",
@@ -105,7 +113,9 @@
   "name": "Julius Berger",
   "sector": "Industrial",
   "units": 1610,
-  "unit_cost": 132.66
+  "unit_cost": 132.66,
+  "horizon": "short",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-LASACO",
@@ -168,7 +178,9 @@
   "name": "Presco",
   "sector": "Agriculture",
   "units": 1030,
-  "unit_cost": 1497.65
+  "unit_cost": 1497.65,
+  "horizon": "long",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-PZ",
@@ -177,7 +189,9 @@
   "name": "PZ Cussons Nigeria",
   "sector": "Consumer goods",
   "units": 2000,
-  "unit_cost": 35.63
+  "unit_cost": 35.63,
+  "horizon": "short",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-SEPLAT",
@@ -195,7 +209,9 @@
   "name": "Stanbic IBTC Holdings",
   "sector": "Banking",
   "units": 500,
-  "unit_cost": 69.8
+  "unit_cost": 69.8,
+  "horizon": "long",
+  "horizon_note": "2026-11-24 owner confirmed; based on 9M 2026 results"
  },
  {
   "id": "A1-STERLINGNG",

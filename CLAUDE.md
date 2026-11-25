@@ -3,10 +3,14 @@
 Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is current to the
 **Mon 16 Nov 2026 close** (live-feed closes; official volumes for 16 Nov still to load). The owner (Babatunde Adebayo) works mostly from his Android phone.
 
-## ⚠️ Open (24 Nov 2026)
-Handoff: `docs/HANDOFF_2026-11-24.md` (prompt: `docs/NEXT_SESSION_PROMPT_2026-11-24.md`). Next job: a
-profit-oriented exit strategy with a short/long-term tag per holding, based on each company's financial
-statements (pull from NGX disclosures; ask the owner to confirm each term). Watch PRESCO/JBERGER block deals.
+## ⚠️ Open (24 Nov 2026, evening)
+Exit strategy by term APPLIED 24 Nov (owner chose; `rules.json` → `liquidity`, `horizons`; code in
+`portfolio.py`: `realistic_price`, `eps_view`, `horizon_signals`, `take_profit`). Terms set so far (lot `horizon`
+in `holdings.json`): long PRESCO, BUACEMENT, DANGCEM, FIRSTHOLDCO, STANBIC; short JBERGER, GTCO, PZ. Next: ask the
+owner the other 31 terms (AskUserQuestion, 4 at a time, with one line of evidence each) and add Q3 2026 / FY 2025
+results for the rest to `company_results.json` (NGX `XFinancial_News` recipe in `docs/HANDOFF_2026-11-24.md` §4;
+OKOMUOIL's Q3 filing is a scanned image). PRESCO: thesis check fired (EPS fell H1 and 9M, but 9M profit is flat;
+the EPS fall is from bonus shares): the owner decides whether to move it to short term. Watch PRESCO/JBERGER blocks.
 
 ## Earlier review (18 Nov 2026)
 Handoff: `docs/REVIEW_HANDOFF_2026-11-18.md`. Data review DONE (`docs/DATA_REVIEW_2026-11-18.md`); expert critique DONE
@@ -84,6 +88,15 @@ Value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026 · day +₦67,569 
   cap 15% of portfolio. Sells in `transactions.json` after 18 Nov count as targets taken, in order.
   At 17 Nov (after the 18 Nov review): 14 holdings flagged; PRESCO is 16.8% of the portfolio (over the cap). Holdings split
   across accounts: say which account the units sit in before suggesting quantities.
+- **Thin-market check (24 Nov, all holdings):** NGX closes can sit unchanged for days while trades go through
+  ~10% lower (PRESCO, JBERGER, BUAFOODS, OKOMUOIL, NNFM, TRANSCOHOT, DANGCEM). Rules use the *realistic price*:
+  the 5-day trade-weighted price when the close is unchanged 5+ days and trades are 3%+ below it, or a recent
+  block (5× median volume) 5%+ below. Targets and cost recovery count only if still a gain after ~2% fees; a sale
+  is spread over days above ~20% of median daily volume.
+- **By term (24 Nov):** short term: +30% sell half; 10% trail; earnings stop (latest EPS below a year earlier →
+  exit the rest); time stop (no new high in 8 weeks → review). Long term: no trail while EPS rises; thesis check
+  after 2 falling EPS reports (then the 15% trail applies); trim 25% above 25× trailing earnings; size cap 15%;
+  recover cost at +100%. Untagged holdings keep the 18 Nov rules. An exit signal turns the light red.
 - Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs
