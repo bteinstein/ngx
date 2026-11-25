@@ -36,6 +36,9 @@ def main(argv=None) -> int:
     q = psub.add_parser("losers", help="watchlist stocks against their triggers (latest prices file)")
     q.add_argument("--data-dir", default="data")
     q.add_argument("--json", action="store_true")
+    q = psub.add_parser("decisions", help="every holding grouped into the owner's decisions (from the sell rules)")
+    q.add_argument("--data-dir", default="data")
+    q.add_argument("--json", action="store_true")
     q = psub.add_parser("stage", help="copy the dashboard's three data files into a folder, with dated names")
     q.add_argument("--data-dir", default="data")
     q.add_argument("--out", required=True)
@@ -110,6 +113,35 @@ def _portfolio(a, f) -> int:
         return 0
     if a.pcmd == "stage":
         print(json.dumps(P.stage_dashboard_files(a.data_dir, a.out), indent=1))
+        return 0
+    if a.pcmd == "decisions":
+        groups = P.decision_groups(P.rules_status(a.data_dir), a.data_dir)
+        if a.json:
+            print(json.dumps(groups, indent=1, ensure_ascii=False))
+            return 0
+        for n, g in enumerate(groups, 1):
+            if not g["items"]:
+                continue
+            w = sum(x["weight_pct"] or 0 for x in g["items"])
+            print(f"\n{n}. {g['title']} ({len(g['items'])} holdings, {w:.1f}% of the portfolio)\n   {g['why']}")
+            for x in g["items"]:
+                be = f", needs +{x['breakeven_gain_pct']:.0f}% to break even" if (x["breakeven_gain_pct"] or 0) >= 0.5 else ""
+                print(f"   {x['ticker']:<11} {x['gain_pct']:+.0f}%{be}; {x['weight_pct']}% of portfolio; in {' / '.join(x['held_in'])}")
+                if g["key"] == "hold":
+                    for t in x["take_profit"]:
+                        print("      note: " + t)
+                    continue
+                if x["trail"]:
+                    print("      " + x["trail"])
+                for t in x["exit_signals"]:
+                    print("      exit: " + t)
+                for t in x["take_profit"]:
+                    print("      take profit: " + t)
+                if x["signals"] and g["key"] == "long_in_loss":
+                    print("      signs: " + "; ".join(x["signals"]))
+        ba = [b for b in P.buy_alerts(a.data_dir) if b["status"] != "waiting"]
+        if ba:
+            print("\nBuy levels (closes): " + "; ".join(b["text"] for b in ba))
         return 0
     if a.pcmd == "losers":
         rows = P.watchlist_status(a.data_dir)

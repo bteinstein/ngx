@@ -841,6 +841,61 @@ def watchlist_status(data_dir, date: str | None = None, prices: dict | None = No
     return out
 
 
+DECISION_GROUPS = [
+    ("failed_trades", "Short-term trades that failed: the rules say exit everything",
+     "Past the short-term loss limit. The webinar's point: don't turn a losing trade into an investment. "
+     "Decide: sell all, or move to long term on purpose (the switch is logged)."),
+    ("winners_earnings_fell", "Short-term winners whose earnings fell: the rules say exit everything",
+     "Earnings stop fired. At the least, take the +30% target (sell half) where it shows."),
+    ("off_peak", "Short-term holdings off their peak or stalled: sell part, or move to long term",
+     "Trailing stop or 8-week time stop fired; earnings still fine."),
+    ("long_in_loss", "Long term (or untagged) in loss: sell, or keep only if you still trust the business",
+     "Past the loss limit or on warning."),
+    ("long_recover_cost", "Long-term winners up 100%+: recover your cost or not",
+     "Your rule: sell enough to get your cost back and keep the rest free. The coach: true investments are "
+     "simply held. Pick one approach for all of them."),
+    ("hold", "Hold", "Within the rules."),
+]
+
+
+def decision_groups(rows: list[dict], data_dir=None) -> list[dict]:
+    """Holdings from ``rules_status`` sorted into the owner's decisions (``DECISION_GROUPS``). Each item keeps
+    the units per account (from ``holdings.json`` when ``data_dir`` is given), gain, break-even rise, weight,
+    exit signals and take-profit lines. Information from the owner's own rules, not advice."""
+    lots = collections.defaultdict(list)
+    if data_dir is not None:
+        short = {}
+        if _p(data_dir, "accounts.json").exists():
+            short = {a["account"]: a.get("short") or a["account"] for a in _load(data_dir, "accounts.json")}
+        for h in _load(data_dir, "holdings.json"):
+            lots[h["ticker"]].append(f"{short.get(h['account'], h['account'])} {h['units']:,}")
+    out = {k: [] for k, _, _ in DECISION_GROUPS}
+    for r in rows:
+        hz, st, ex = r.get("horizon"), r.get("status"), r.get("exit_signals") or []
+        tp = r.get("take_profit") or []
+        if hz == "short" and st == "loser":
+            g = "failed_trades"
+        elif hz == "short" and any(x.startswith("earnings stop") for x in ex):
+            g = "winners_earnings_fell"
+        elif hz == "short" and (st == "trail" or ex):
+            g = "off_peak"
+        elif st in ("loser", "warn") or (hz is None and st == "trail"):
+            g = "long_in_loss"
+        elif any(x["kind"] == "recover_cost" for x in tp):
+            g = "long_recover_cost"
+        else:
+            g = "hold"
+        out[g].append(dict(ticker=r["ticker"], horizon=hz, status=st, light=r.get("light"), gain_pct=r.get("gain_pct"),
+                           breakeven_gain_pct=r.get("breakeven_gain_pct"), weight_pct=r.get("weight_pct"),
+                           held_in=lots.get(r["ticker"], []), exit_signals=ex,
+                           take_profit=[x["text"] for x in tp], max_units_day=r.get("max_units_day"),
+                           trail=(f"trailing stop: {r['off_peak_pct']:.0f}% from its peak ₦{r['peak']:,.2f}, below the "
+                                  f"₦{r['trail_level']:,.2f} trail level") if st == "trail" else None,
+                           signals=(r.get("tolerance_signals") or []) + (r.get("general_signs") or [])))
+    return [dict(key=k, title=t, why=w, items=sorted(out[k], key=lambda x: x["gain_pct"] if x["gain_pct"] is not None else 0))
+            for k, t, w in DECISION_GROUPS]
+
+
 UV_DEFAULTS = dict(ratio=2.0, avg_days=20, min_value_ngn=10_000_000)
 
 

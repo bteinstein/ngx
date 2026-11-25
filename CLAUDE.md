@@ -133,6 +133,7 @@ Cash ₦200K: keep, or buy Wema above ₦32 or NGX Group. Aradel is NOT held in 
   `ngxprices portfolio refresh` pulls the data on demand and writes `data/`, then the skill updates the
   repo dashboard (https://claude.ai/artifact/9NrKbJXXmo562j7y8Wi9vu), commits and reports value,
   day P/L, movers, heavy volume and watchlist breaches. Never add contract notes twice.
+- "what do my rules say" / "decisions" → use the `decisions` skill: `ngxprices portfolio decisions` groups every holding (exit, sell part, recover cost, hold) with units per account.
 - "update my losers" → use the `losers` skill: refresh, then `ngxprices portfolio losers` (all holdings vs the sell rules).
 - A scheduled task "NGX nightly portfolio update" runs the `refresh` flow every weekday at 22:15 WAT in a
   fresh cloud session (official closes and volumes, dashboard, commit, push notification).

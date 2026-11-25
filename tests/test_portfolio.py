@@ -291,3 +291,17 @@ def test_buy_alerts(data):
     assert ba["AAA"]["status"] == "triggered" and ba["AAA"]["since"] == "2026-11-13" and ba["AAA"]["held"]
     assert ba["BBB"]["status"] == "in range" and ba["CCC"]["status"] == "near" and ba["DDD"]["status"] == "waiting"
     assert "EEE" not in ba
+
+
+def test_decision_groups():
+    base = dict(light="red", weight_pct=1.0, breakeven_gain_pct=None, take_profit=[], off_peak_pct=-20, peak=10, trail_level=9)
+    rows = [dict(base, ticker="A", horizon="short", status="loser", gain_pct=-30, exit_signals=[]),
+            dict(base, ticker="B", horizon="short", status="trail", gain_pct=80, exit_signals=["earnings stop: x"]),
+            dict(base, ticker="C", horizon="short", status="trail", gain_pct=5, exit_signals=[]),
+            dict(base, ticker="D", horizon="long", status="loser", gain_pct=-25, exit_signals=[]),
+            dict(base, ticker="E", horizon="long", status="ok", gain_pct=150, exit_signals=[],
+                 take_profit=[dict(kind="recover_cost", text="recover")]),
+            dict(base, ticker="F", horizon="long", status="ok", gain_pct=10, exit_signals=[])]
+    g = {x["key"]: [i["ticker"] for i in x["items"]] for x in P.decision_groups(rows)}
+    assert g == {"failed_trades": ["A"], "winners_earnings_fell": ["B"], "off_peak": ["C"], "long_in_loss": ["D"],
+                 "long_recover_cost": ["E"], "hold": ["F"]}
