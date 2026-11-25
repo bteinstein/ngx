@@ -6,9 +6,10 @@ Migrated from the claude.ai project "NGX portfolio" on 16 Nov 2026. Data is curr
 ## ⚠️ Open (24 Nov 2026, evening)
 Exit strategy by term APPLIED 24 Nov (owner chose; `rules.json` → `liquidity`, `horizons`; code in
 `portfolio.py`: `realistic_price`, `eps_view`, `horizon_signals`, `take_profit`). Terms set so far (lot `horizon`
-in `holdings.json`): long PRESCO, BUACEMENT, DANGCEM, FIRSTHOLDCO, STANBIC; short JBERGER, GTCO, PZ. Next: ask the
-owner the other 31 terms (AskUserQuestion, 4 at a time, with one line of evidence each) and add Q3 2026 / FY 2025
-results for the rest to `company_results.json` (NGX `XFinancial_News` recipe in `docs/HANDOFF_2026-11-24.md` §4;
+in `holdings.json`): ALL 39 set (owner confirmed the last 31 on 25 Nov from `/mnt/project-files/ngx/term_suggestions_2026-11-25.md`).
+Short: JBERGER, GTCO, PZ, OKOMUOIL, ELLAHLAKES, NNFM, ACCESSCORP, DANGSUGAR, UBA, FIDELITYBK, LINKASSURE, CWG, TRANSCORP,
+LASACO, OANDO, INTBREW, SUNUASSUR. Long: the other 22. Q3 2026 / FY 2025 results for all holdings are in `company_results.json`
+(21 added 25 Nov from NGX filings; FIDELITYBK's H1/Q3 2026 accounts are delayed, TRANSCOHOT FY 2025 not loaded;
 OKOMUOIL's Q3 filing is a scanned image). PRESCO: owner chose (25 Nov) to keep it long. The thesis check now compares bonus-restated prior EPS (`prior_eps_restated` in `company_results.json`; record it for any bonus issue): 9M flat, H1 −7%, so it no longer fires. Watch PRESCO/JBERGER blocks.
 
 ## Earlier review (18 Nov 2026)

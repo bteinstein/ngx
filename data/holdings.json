@@ -8,7 +8,9 @@
   "units": 1604,
   "unit_cost": 20.49,
   "bought_from": "2021-02-15",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 403 on 15 Feb 2021; 1,000 on 27 Dec 2024 (1,403; holding 1,604, likely bonus/rights)."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 403 on 15 Feb 2021; 1,000 on 27 Dec 2024 (1,403; holding 1,604, likely bonus/rights).",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-AFRIPRUD",
@@ -19,7 +21,9 @@
   "units": 3000,
   "unit_cost": 16.25,
   "bought_from": "2025-08-04",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 3,000 on 4 Aug 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 3,000 on 4 Aug 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-BUACEMENT",
@@ -43,7 +47,9 @@
   "units": 681,
   "unit_cost": 621.21,
   "bought_from": "2025-10-06",
-  "note": "Owner order sheet (25 Nov 2026): 500 @610.00 and 181 @609.90 on 6 Oct 2025."
+  "note": "Owner order sheet (25 Nov 2026): 500 @610.00 and 181 @609.90 on 6 Oct 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-DANGCEM",
@@ -67,7 +73,9 @@
   "units": 13666,
   "unit_cost": 65.09,
   "bought_from": "2025-02-24",
-  "note": "Owner order sheet (25 Nov 2026): 1,200 @40.95 on 24 Feb 2025; 7,000 @64.20 on 6 Oct 2025 (8,200 units; holding is 13,666, rest undated)."
+  "note": "Owner order sheet (25 Nov 2026): 1,200 @40.95 on 24 Feb 2025; 7,000 @64.20 on 6 Oct 2025 (8,200 units; holding is 13,666, rest undated).",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-ELLAHLAKES",
@@ -78,7 +86,9 @@
   "units": 10000,
   "unit_cost": 3.36,
   "bought_from": "2025-02-07",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 17,000 on 7 Feb 2025; sold 7,000 on 27 Jun 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 17,000 on 7 Feb 2025; sold 7,000 on 27 Jun 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-FCMB",
@@ -89,7 +99,9 @@
   "units": 6500,
   "unit_cost": 9.99,
   "bought_from": "2025-05-29",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 3,000 on 29 May 2025; 3,500 on 21 Jul 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 3,000 on 29 May 2025; 3,500 on 21 Jul 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-FIDELITYBK",
@@ -100,7 +112,9 @@
   "units": 2600,
   "unit_cost": 19.3,
   "bought_from": "2025-03-27",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 2,600 on 27 Mar 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 2,600 on 27 Mar 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-FIRSTHOLDCO",
@@ -150,7 +164,9 @@
   "units": 5000,
   "unit_cost": 3.01,
   "bought_from": "2025-06-03",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 5,000 on 3 Jun 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 5,000 on 3 Jun 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-LINKASSURE",
@@ -161,7 +177,9 @@
   "units": 6800,
   "unit_cost": 1.75,
   "bought_from": "2025-03-27",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 34,000 on 27 Mar 2025; sold 34,000 on 14 May 2026; 6,800 left (likely bonus units)."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 34,000 on 27 Mar 2025; sold 34,000 on 14 May 2026; 6,800 left (likely bonus units).",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-MANSARD",
@@ -172,7 +190,9 @@
   "units": 3750,
   "unit_cost": 8.18,
   "bought_from": "2021-01-19",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 6,000 on 19 Jan 2021, sold 1,000 on 5 Feb 2021; 2,500 on 7 Jul 2025 (7,500; holding 3,750, not reconciled)."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 6,000 on 19 Jan 2021, sold 1,000 on 5 Feb 2021; 2,500 on 7 Jul 2025 (7,500; holding 3,750, not reconciled).",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-NNFM",
@@ -183,7 +203,9 @@
   "units": 600,
   "unit_cost": 41.25,
   "bought_from": "2024-12-16",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 1,000 on 16 Dec 2024; sold 400 on 4 Feb 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 1,000 on 16 Dec 2024; sold 400 on 4 Feb 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-OANDO",
@@ -194,7 +216,9 @@
   "units": 1648,
   "unit_cost": 56.15,
   "bought_from": "2025-02-12",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 1,100 (12 Feb 2025), 1,700 part-filled (13 Feb), 1,200 (11 Aug 2025); sold 1,000 (24 Feb) and 1,600 (9 May 2025). Units not reconciled."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 1,100 (12 Feb 2025), 1,700 part-filled (13 Feb), 1,200 (11 Aug 2025); sold 1,000 (24 Feb) and 1,600 (9 May 2025). Units not reconciled.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-OKOMUOIL",
@@ -205,7 +229,9 @@
   "units": 200,
   "unit_cost": 381.89,
   "bought_from": "2024-12-16",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 200 on 16 Dec 2024."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 200 on 16 Dec 2024.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-PRESCO",
@@ -242,7 +268,9 @@
   "units": 50,
   "unit_cost": 11395.063,
   "bought_from": "2025-07-21",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 18 on 21 Jul 2025; 32 on 12 Oct 2026."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 18 on 21 Jul 2025; 32 on 12 Oct 2026.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-STANBIC",
@@ -266,7 +294,9 @@
   "units": 500,
   "unit_cost": 58.7,
   "note": "10-for-1 share reconstruction on 8 Oct 2026: 5,000 units at 5.87 became 500 at 58.70 (same total cost 29,350). Owner confirmed 500 units on Meristem, 18 Nov 2026. Meristem order history (owner screenshot, 25 Nov 2026): 15,000 on 9-12 May 2025; sold 10,000 on 14 May 2026; 5,000 became 500 in the 10-for-1 reconstruction.",
-  "bought_from": "2025-05-09"
+  "bought_from": "2025-05-09",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-SUNUASSUR",
@@ -277,7 +307,9 @@
   "units": 28500,
   "unit_cost": 5.58,
   "bought_from": "2025-03-27",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 8,000 (27 Mar), 3,500 (7 Jul), 4,000 (11 Aug), 12,000 (31 Dec 2025) = 27,500; holding 28,500."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 8,000 (27 Mar), 3,500 (7 Jul), 4,000 (11 Aug), 12,000 (31 Dec 2025) = 27,500; holding 28,500.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-TRANSCOHOT",
@@ -288,7 +320,9 @@
   "units": 700,
   "unit_cost": 152.05,
   "bought_from": "2025-07-30",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 700 on 30 Jul 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 700 on 30 Jul 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-TRANSCORP",
@@ -299,7 +333,9 @@
   "units": 2000,
   "unit_cost": 45.72,
   "bought_from": "2024-08-05",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 1,000 (5 Aug 2024), 250 (3 Mar 2025), 1,500 (7 Jul 2025) = 2,750; holding 2,000, not reconciled."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 1,000 (5 Aug 2024), 250 (3 Mar 2025), 1,500 (7 Jul 2025) = 2,750; holding 2,000, not reconciled.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-UBA",
@@ -310,7 +346,9 @@
   "units": 2150,
   "unit_cost": 35.04,
   "bought_from": "2024-01-30",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 500 on 30 Jan 2024; 1,650 on 7 Jul 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 500 on 30 Jan 2024; 1,650 on 7 Jul 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-UCAP",
@@ -321,7 +359,9 @@
   "units": 3950,
   "unit_cost": 19.32,
   "bought_from": "2024-11-05",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 250 (5 Nov 2024), 1,250 (11 Jun 2025), 2,450 (30 Jun 2025)."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 250 (5 Nov 2024), 1,250 (11 Jun 2025), 2,450 (30 Jun 2025).",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-UPDCREIT",
@@ -332,7 +372,9 @@
   "units": 500,
   "unit_cost": 7.18,
   "bought_from": "2025-02-12",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 8,000 on 12 Feb 2025; sold 7,500 on 14 May 2026."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): bought 8,000 on 12 Feb 2025; sold 7,500 on 14 May 2026.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-VFDGROUP",
@@ -343,7 +385,9 @@
   "units": 25000,
   "unit_cost": 11.71,
   "bought_from": "2025-10-08",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 25,000 on 8 Oct 2025."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 25,000 on 8 Oct 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-ZENITHBANK",
@@ -354,7 +398,9 @@
   "units": 3075,
   "unit_cost": 88.261454,
   "bought_from": "2020-05-07",
-  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 65 (7 May 2020), 1,000 (14 May 2025), 1,500 (12 Oct 2026) = 2,565; holding 3,075."
+  "note": "Meristem order history (owner screenshot, 25 Nov 2026): 65 (7 May 2020), 1,000 (14 May 2025), 1,500 (12 Oct 2026) = 2,565; holding 3,075.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A1-MTNN",
@@ -365,7 +411,9 @@
   "units": 240,
   "unit_cost": 856.3386,
   "bought_from": "2026-10-12",
-  "note": "All 240 units bought 12 Oct 2026 (Meristem contract notes 0008187517 and 0008187525)."
+  "note": "All 240 units bought 12 Oct 2026 (Meristem contract notes 0008187517 and 0008187525).",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-ACCESSCORP",
@@ -376,7 +424,9 @@
   "units": 5000,
   "unit_cost": 21.18,
   "bought_from": "2025-12-19",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 5,000 on 19 Dec 2025."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 5,000 on 19 Dec 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-CADBURY",
@@ -387,7 +437,9 @@
   "units": 1600,
   "unit_cost": 66.92,
   "bought_from": "2026-01-20",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 1,600 on 20 Jan 2026."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 1,600 on 20 Jan 2026.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-CUSTODIAN",
@@ -398,7 +450,9 @@
   "units": 2562,
   "unit_cost": 64.66,
   "bought_from": "2026-02-19",
-  "note": "AfriInvest asset detail (owner screenshot, 25 Nov 2026): two 3,000-unit limit buys on 19 Feb 2026, part-filled to 2,562 units."
+  "note": "AfriInvest asset detail (owner screenshot, 25 Nov 2026): two 3,000-unit limit buys on 19 Feb 2026, part-filled to 2,562 units.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-CWG",
@@ -409,7 +463,9 @@
   "units": 20000,
   "unit_cost": 19.58,
   "bought_from": "2026-01-16",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 15,000 and 5,000 on 16 Jan 2026."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 15,000 and 5,000 on 16 Jan 2026.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-DANGSUGAR",
@@ -420,7 +476,9 @@
   "units": 2000,
   "unit_cost": 54.58,
   "bought_from": "2025-12-01",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 2,000 on 1 Dec 2025."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 2,000 on 1 Dec 2025.",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-INTBREW",
@@ -431,7 +489,9 @@
   "units": 25999,
   "unit_cost": 16.06,
   "bought_from": "2025-12-29",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 6,000 + 7,000 + 12,000 on 29 Dec 2025 (25,000; holding 25,999)."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 6,000 + 7,000 + 12,000 on 29 Dec 2025 (25,000; holding 25,999).",
+  "horizon": "short",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-MANSARD",
@@ -442,7 +502,9 @@
   "units": 7200,
   "unit_cost": 15.99,
   "bought_from": "2026-02-19",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 7,200 on 19 Feb 2026."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 7,200 on 19 Feb 2026.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-NB",
@@ -453,7 +515,9 @@
   "units": 1300,
   "unit_cost": 76.89,
   "bought_from": "2025-12-17",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 1,300 on 17 Dec 2025."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 1,300 on 17 Dec 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-NGXGROUP",
@@ -464,7 +528,9 @@
   "units": 1400,
   "unit_cost": 62.93,
   "bought_from": "2025-12-09",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 1,400 on 9 Dec 2025."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 1,400 on 9 Dec 2025.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A2-WEMABANK",
@@ -475,7 +541,9 @@
   "units": 10000,
   "unit_cost": 23.28,
   "bought_from": "2026-01-16",
-  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 2,000 and 10,000 on 16 Jan 2026; sold 2,000 on 20 May 2026."
+  "note": "AfriInvest order history (owner screenshot, 25 Nov 2026): 2,000 and 10,000 on 16 Jan 2026; sold 2,000 on 20 May 2026.",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  },
  {
   "id": "A3-MTNN",
@@ -486,6 +554,8 @@
   "units": 105,
   "unit_cost": 169.7,
   "note": "Confirmed 18 Nov 2026 from the owner's InvestNaija screenshot: net equity total cost 17,818.50 (105 x 169.70), value 87,885.00 (105 x 837.00, the 17 Nov close). Owner (25 Nov 2026): bought in MTN Nigeria public offer, Dec 2021 (offer price N169).",
-  "bought_from": "2021-12-01"
+  "bought_from": "2021-12-01",
+  "horizon": "long",
+  "horizon_note": "2026-11-25 owner confirmed; based on Q3 2026 / FY 2025 NGX filings"
  }
 ]
