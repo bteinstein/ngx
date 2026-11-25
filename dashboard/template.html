@@ -108,7 +108,7 @@ footer{color:var(--muted);font-size:.75rem;margin-top:18px}
 <section id="daily">
   <div class="tiles" id="day-tiles"></div>
   <div class="card"><h2>What moved</h2><div class="tbl"><table id="movers"></table></div></div>
-  <div class="card"><h2>Heavy volume (2× the 20-day average or more)</h2><div class="tbl"><table id="volume"></table></div></div>
+  <div class="card"><h2>Unusual volume (2× the 20-day average, ₦10M+ traded)</h2><div class="tbl"><table id="volume"></table></div></div>
   <div class="card"><h2>Daily log</h2><div class="chart" id="pl-chart"></div><div class="tbl"><table id="log"></table></div></div>
   <div class="card"><h2>Transactions</h2><div class="tbl"><table id="tx"></table></div></div>
 </section>
@@ -139,7 +139,8 @@ footer{color:var(--muted);font-size:.75rem;margin-top:18px}
   <div class="tiles" id="plan-tiles"></div>
   <div class="card"><h2>Orders</h2><div class="tbl"><table id="plan-table"></table></div>
   <div class="note">Buy-stops: buy only on a close above the level. Aradel is not held in any account.</div></div>
-  <div class="card"><h2>Levels from the webinar</h2><div class="tbl"><table id="webinar"></table></div></div>
+  <div class="card"><h2>Levels from the webinar</h2><div class="tbl"><table id="webinar"></table></div>
+  <div class="note">Alerts use closing prices only (the coach wants a close comfortably above a buy-stop, not an intraday touch). Triggered = the latest close is past the level; near = within 3%. Alerts, not orders.</div></div>
 </section>
 
 <footer id="foot"></footer>
@@ -355,10 +356,12 @@ function rules() {
   const err = (DATA.status || []).find((s) => s.error);
   const counts = {}; st.forEach((s) => counts[s.light] = (counts[s.light] || 0) + 1);
   const t = $("#rule-tiles"); t.innerHTML = "";
-  t.append(tile("Losers", String(st.filter((s) => s.status === "loser").length), "≥20% below cost", "down"),
+  const buys = (DATA.buy_alerts || []).filter((b) => b.status === "triggered" || b.status === "in range");
+  t.append(tile("Losers", String(st.filter((s) => s.status === "loser").length), "past the loss limit (short 15%, long 20%)", "down"),
     tile("Sell-part review", String(st.filter((s) => s.status === "trail").length), "≥15% off a peak ≥20% above cost"),
     tile("Amber", String(counts.amber || 0), "early warning"),
-    tile("Take-profit flags", String(st.filter((s) => (s.take_profit || []).length).length), "targets, cost recovery, size cap"));
+    tile("Take-profit flags", String(st.filter((s) => (s.take_profit || []).length).length), "targets, cost recovery, size cap"),
+    tile("Buy levels hit", String(buys.length), buys.length ? buys.map((b) => b.ticker).join(", ") + " (closes; Plan tab)" : "webinar buy-stops (Plan tab)"));
   const f = $("#light-filter"); f.innerHTML = "";
   ["all", "red", "amber", "watch", "note", "green"].forEach((l) => {
     const n = l === "all" ? st.length : counts[l] || 0; if (l !== "all" && !n) return;
@@ -375,17 +378,19 @@ function rules() {
     { h: "Real price", v: (s) => s.real_price, f: (s) => s.price_note ? P2(s.real_price) + " *" : "—" },
     { h: "Avg cost", v: (s) => s.avg_cost, f: (s) => P2(s.avg_cost) },
     { h: "On cost", v: (s) => s.gain_pct, f: (s) => pct(s.gain_pct), c: (s) => cls(s.gain_pct) },
+    { h: "To break even", v: (s) => s.breakeven_gain_pct, f: (s) => s.breakeven_gain_pct == null ? "—" : "+" + s.breakeven_gain_pct.toFixed(1) + "%" },
     { h: "Peak", v: (s) => s.peak, f: (s) => s.peak == null ? "—" : `${P2(s.peak)} (${sdate(s.peak_date)})` },
     { h: "From peak", v: (s) => s.off_peak_pct, f: (s) => pct(s.off_peak_pct), c: (s) => cls(s.off_peak_pct) },
     { h: "Trigger", v: (s) => s.trigger, f: (s) => `${P2(s.trigger)} ${s.rule === "trailing" ? "trail" : "loss"}` },
     { h: "Weight", v: (s) => s.weight_pct, f: (s) => s.weight_pct == null ? "—" : s.weight_pct.toFixed(1) + "%" },
     { h: "Held in", l: 1, f: (s) => (byTicker[s.ticker] ? byTicker[s.ticker].accounts : []).join(", ") },
-    { h: "Signals and take-profit", l: 1, wrap: 1, f: (s) => [...(s.exit_signals || []).map((x) => "EXIT: " + x), ...(s.price_note ? ["REAL PRICE: " + s.price_note] : []), ...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "TAKE PROFIT: " + x.text)].join("; ") || "—" },
+    { h: "Signals and take-profit", l: 1, wrap: 1, f: (s) => [...(s.exit_signals || []).map((x) => "EXIT: " + x), ...(s.loss_limit_note ? [`LOSS LIMIT ${s.loss_limit_pct}%: ${s.loss_limit_note}`] : []), ...(s.price_note ? ["REAL PRICE: " + s.price_note] : []), ...(s.tolerance_signals || []), ...(s.general_signs || []), ...(s.take_profit || []).map((x) => "TAKE PROFIT: " + x.text)].join("; ") || "—" },
   ], rows, { sort: 1, dir: 1, click: (s) => openStock(s.ticker) });
   const r = DATA.rules || {};
   $("#rules-note").textContent = (err ? `Rules check failed at build: ${err.error}. ` : "") +
     `Rules set ${r.set || "—"}: loss limit ${r.loss_limit_pct}% (warning at ${r.warn_pct}%); trailing ${r.trail_pct}% once the peak was ≥${r.trail_min_peak_gain_pct}% above cost. ` +
     "Since 24 Nov: rules use the realistic price (* = trade price when the close is stale or a block traded below it); short term: +30% sell half, 10% trail, earnings stop, 8-week time stop; long term: no trail while EPS rises, thesis check after 2 falling reports, trim above 25× earnings. " +
+    "Since 25 Nov (webinar lessons): short-term loss limit 15% (long term 20% while EPS is not falling); 'To break even' is the rise needed to get back to cost; switching a losing trade to long term (or an investment up 50%+ to short term) is flagged. " +
     "Peaks are adjusted for dividends, bonuses and reconstructions. Check volume, dividend dates and live vs official before acting." + (live ? " Latest closes are from the live feed." : "");
 }
 
@@ -415,6 +420,8 @@ function dailyTab() {
     { h: "× avg", v: (v) => v.ratio, f: (v) => v.ratio + "×" },
     { h: "Value", v: (v) => v.value_ngn, f: (v) => v.value_ngn == null ? "—" : "₦" + K(v.value_ngn) },
     { h: "1 day", v: (v) => price[v.ticker] && price[v.ticker].chg_1d_pct, f: (v) => price[v.ticker] ? pct(price[v.ticker].chg_1d_pct, 2) : "—", c: (v) => price[v.ticker] ? cls(price[v.ticker].chg_1d_pct) : "" },
+    { h: "Side", l: 1, v: (v) => v.side || "", f: (v) => ({ buyers: "Buyers (up)", sellers: "Sellers (down)", flat: "Matched (flat)" })[v.side] || "—" },
+    { h: "Held", l: 1, v: (v) => v.held === false ? 1 : 0, f: (v) => v.held === false ? "Watchlist" : "Held" },
   ], vrows, { sort: 3, click: (v) => openStock(v.ticker) });
   barChart($("#pl-chart"), daily.filter((r) => r.day_pl != null).map((r) => ({ d: r.date, y: r.day_pl, r })), { label: "Day profit or loss", tip: (p) => `${sdate(p.d)}: ${Ns(p.y)} (${pct((p.r.day_pl_pct || 0) * 100, 2)})` });
   table($("#log"), [
@@ -543,12 +550,14 @@ function planTab() {
     { h: "Status", l: 1, f: (r) => r.state },
     { h: "Held now", f: (r) => byTicker[r.ticker] ? nf0.format(byTicker[r.ticker].units) + " units" : "—" },
   ], rows, { click: (r) => r.ticker && hist[r.ticker] && openStock(r.ticker) });
+  const alertOf = (t) => (DATA.buy_alerts || []).find((b) => b.ticker === t);
   table($("#webinar"), [
     { h: "Stock", l: 1, f: (w) => w.ticker },
     { h: "Rule", l: 1, f: (w) => (w.rule || "").replace("_", " ") },
     { h: "Level", v: (w) => w.level, f: (w) => P2(w.level) + (w.level_high ? "–" + P2(w.level_high) : "") },
     { h: "Close", v: (w) => lastClose(w.ticker), f: (w) => P2(lastClose(w.ticker)) },
     { h: "vs level", v: (w) => lastClose(w.ticker) && w.level ? lastClose(w.ticker) / w.level : null, f: (w) => lastClose(w.ticker) && w.level ? pct((lastClose(w.ticker) / w.level - 1) * 100) : "—" },
+    { h: "Alert", l: 1, v: (w) => alertOf(w.ticker) ? ["triggered", "in range", "near", "waiting"].indexOf(alertOf(w.ticker).status) : 9, f: (w) => alertOf(w.ticker) ? alertOf(w.ticker).status + (alertOf(w.ticker).since ? " since " + sdate(alertOf(w.ticker).since) : "") : "—" },
     { h: "Fair value", v: (w) => w.fair_value, f: (w) => P2(w.fair_value) },
     { h: "Note", l: 1, wrap: 1, f: (w) => w.note || "" },
   ], DATA.webinar, { click: (w) => hist[w.ticker] && openStock(w.ticker) });

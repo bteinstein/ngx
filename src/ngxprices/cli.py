@@ -119,6 +119,10 @@ def _portfolio(a, f) -> int:
         for w in rows:
             if "status" in w:
                 extra = f"  {w['off_peak_pct']:+.1f}% from peak" if w["trail_level"] else ""
+                if w.get("breakeven_gain_pct"):
+                    extra += f"  needs +{w['breakeven_gain_pct']:.1f}% to break even"
+                if w.get("loss_limit_note"):
+                    extra += f"\n            LOSS LIMIT {w['loss_limit_pct']}%: {w['loss_limit_note']}"
                 if w.get("price_note"):
                     extra += f"\n            REAL PRICE {w['real_price']:,.2f}: {w['price_note']}"
                 for x in w.get("exit_signals", []):
@@ -135,6 +139,9 @@ def _portfolio(a, f) -> int:
                 continue
             flag = "BELOW TRIGGER" if w["breach"] else "above"
             print(f"{w['ticker']:<11} close {w['close']:>10,.2f}  trigger {w['trigger'] or 0:>10,.2f}  {flag} ({w['gap_pct']:+.1f}%)")
+        ba = [b for b in P.buy_alerts(a.data_dir) if b["status"] != "waiting"]
+        if ba:
+            print("Buy levels:", "; ".join(b["text"] for b in ba))
         return 0
     s = P.refresh(a.date, a.data_dir, f)
     if a.json:
@@ -151,7 +158,11 @@ def _portfolio(a, f) -> int:
     print("Watchlist:", "; ".join(f"{w['ticker']} {w.get('status', '')} {w['close']} vs {w['trigger']}" for w in br)
           if br else "all within their triggers")
     if s["volume"]:
-        print("Heavy volume:", ", ".join(f"{v['ticker']} {v['ratio']}x" for v in s["volume"]))
+        print("Unusual volume:", ", ".join(f"{v['ticker']} {v['ratio']}x ({v['side']}{'' if v['held'] else ', not held'})"
+                                           for v in s["volume"]))
+    ba = [b for b in s.get("buy_alerts", []) if b["status"] != "waiting"]
+    if ba:
+        print("Buy levels:", "; ".join(b["text"] for b in ba))
     return 0
 
 

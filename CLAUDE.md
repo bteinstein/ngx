@@ -97,6 +97,12 @@ Value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026 · day +₦67,569 
   exit the rest); time stop (no new high in 8 weeks → review). Long term: no trail while EPS rises; thesis check
   after 2 falling EPS reports (then the 15% trail applies); trim 25% above 25× trailing earnings; size cap 15%;
   recover cost at +100%. Untagged holdings keep the 18 Nov rules. An exit signal turns the light red.
+- **Webinar lessons (25 Nov, owner chose items 1, 2, 4, 6, 7 of the Globfolio Sep–Nov review; Claude Doc
+  https://claude.ai/artifact/DYVUkfwEmU7gPZ8SE88pAR):** short-term loss limit 15% (long 20% while EPS is not falling,
+  15% once the thesis check fails); every loss shows the gain needed to break even; horizon changes are logged in
+  `data/horizon_log.json` on each refresh (flag: losing trade switched to long, or an investment up 50%+ switched to
+  short); buy-stop alerts from `webinar_levels.json` on closes only (`buy_alerts`); unusual volume = 2× 20-day average
+  with ₦10M+ traded, held and watched stocks, side up = buyers / down = sellers. Still open: items 3, 5, 8–12 in the doc.
 - Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs

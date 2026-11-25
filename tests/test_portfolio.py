@@ -36,7 +36,7 @@ def data(tmp_path):
 def day(kind, aaa, bbb, vol_a=5000):
     label = P.OFFICIAL_SOURCE if kind == "official" else P.LIVE_PREFIX + ", test"
     return {"date": "2026-11-16", "kind": kind, "label": label, "rows": {
-        "AAA": {"symbol": "AAA", "name": "AAA PLC", "close": aaa, "prev_close": 12.0, "volume": vol_a, "trades": 9, "value_ngn": 1.0},
+        "AAA": {"symbol": "AAA", "name": "AAA PLC", "close": aaa, "prev_close": 12.0, "volume": vol_a, "trades": 9, "value_ngn": 5e7},
         "BBB": {"symbol": "BBB", "name": "BBB PLC", "close": bbb, "prev_close": 110.0, "volume": 10, "trades": 1, "value_ngn": 2.0},
     }}
 
@@ -53,6 +53,8 @@ def test_live_day_then_official_upgrade(data):
     assert wl["AAA"]["breach"] and not wl["BBB"]["breach"]
     assert wl["BBB"]["trigger"] == 100.0  # average cost
     assert s["volume"][0]["ticker"] == "AAA" and s["volume"][0]["ratio"] == 5.0
+    assert s["volume"][0]["side"] == "sellers" and s["volume"][0]["held"]
+    assert P.volume_highlights(data, "2026-11-16", min_value=1e8) == []  # under the value floor
     log = json.loads((data / "daily_log.json").read_text())
     assert log[0]["note"] == "hand-written" and log[1]["auto_note"] and "AAA 10.00 below 11.00" in log[1]["note"]
     # official figures replace the live rows, no duplicates, auto note regenerated
@@ -224,3 +226,68 @@ def test_take_profit_by_horizon():
     r = dict(close=1656.8, real_price=1498.0, gain_pct=0.02, horizon=None)
     tp = P.take_profit(r, 1030, 1030 * 1497.65, 1030 * 1498 / 0.17, [], {})["take_profit"]
     assert [x["kind"] for x in tp] == ["size_cap"] and "at a loss after fees" in tp[0]["text"]
+
+
+def test_breakeven_and_horizon_loss_limits():
+    assert P.breakeven_gain(90, 100) == 11.1 and P.breakeven_gain(50, 100) == 100.0
+    assert P.breakeven_gain(80, 100) == 25.0 and P.breakeven_gain(110, 100) is None
+    rules = {"loss_limit_pct": 20, "warn_pct": 10,
+             "horizons": {"short": {"loss_limit_pct": 15, "warn_pct": 10}, "long": {"loss_limit_pct": 20}}}
+    assert P.loss_limit_for("short", {}, rules)["loss_limit_pct"] == 15
+    assert P.loss_limit_for("long", {"thesis_broken": False}, rules)["loss_limit_pct"] == 20
+    lim = P.loss_limit_for("long", {"thesis_broken": True}, rules)
+    assert lim["loss_limit_pct"] == 15 and lim["note"]
+    assert P.loss_limit_for(None, {}, rules)["loss_limit_pct"] == 20
+
+
+def test_short_term_loss_limit_in_rules(data):
+    rules = {"set": "2026-11-18", "loss_limit_pct": 20, "warn_pct": 10, "trail_pct": 15, "trail_min_peak_gain_pct": 20,
+             "horizons": {"short": {"loss_limit_pct": 15, "warn_pct": 10}}}
+    h = json.loads((data / "holdings.json").read_text())
+    for x in h:
+        if x["ticker"] == "BBB":
+            x["horizon"] = "short"
+    (data / "holdings.json").write_text(json.dumps(h))
+    px = {"AAA": {"price": 12.0, "as_of": "2026-11-13"}, "BBB": {"price": 84.0, "as_of": "2026-11-13"}}
+    st = {r["ticker"]: r for r in P.rules_status(data, "2026-11-13", px, rules)}
+    assert st["BBB"]["status"] == "loser" and st["BBB"]["loss_level"] == 85.0  # -16%: past 15%, not 20%
+    assert st["BBB"]["breakeven_gain_pct"] == 19.0
+
+
+def test_horizon_log_and_switch_warning(data):
+    h = json.loads((data / "holdings.json").read_text())
+    for x in h:
+        x["horizon"], x["horizon_note"] = "short", "first"
+    (data / "holdings.json").write_text(json.dumps(h))
+    new = P.update_horizon_log(data, "2026-11-13", [{"ticker": "AAA", "gain_pct": 5.0}, {"ticker": "BBB", "gain_pct": -12.0}])
+    assert {e["ticker"] for e in new} == {"AAA", "BBB"} and all(e["from"] is None for e in new)
+    assert P.update_horizon_log(data, "2026-11-13", []) == []  # nothing changed
+    for x in h:
+        if x["ticker"] == "BBB":
+            x["horizon"], x["horizon_note"] = "long", "hold it"
+    (data / "holdings.json").write_text(json.dumps(h))
+    new = P.update_horizon_log(data, "2026-11-16", [{"ticker": "BBB", "gain_pct": -12.0}])
+    assert new == [{"date": "2026-11-16", "ticker": "BBB", "from": "short", "to": "long", "gain_pct": -12.0, "reason": "hold it"}]
+    sw = P.horizon_switches(json.loads((data / "horizon_log.json").read_text()), "2026-11-16")
+    assert list(sw) == ["BBB"] and "losing trade" in sw["BBB"]["warning"]
+    assert P.horizon_switches([{"date": "2026-11-16", "ticker": "X", "from": "long", "to": "short", "gain_pct": 80}],
+                              "2026-11-16")["X"]["warning"].startswith("switched from long")
+
+
+def test_buy_alerts(data):
+    (data / "webinar_levels.json").write_text(json.dumps([
+        {"ticker": "AAA", "rule": "above", "level": 11.5, "level_high": None, "target": None},
+        {"ticker": "BBB", "rule": "buy_stop", "level": 100, "level_high": 115, "target": None},
+        {"ticker": "CCC", "rule": "above", "level": 50, "level_high": None, "target": None},
+        {"ticker": "DDD", "rule": "buy_below", "level": 20, "level_high": None, "target": None},
+        {"ticker": "EEE", "rule": "none", "level": None, "level_high": None, "target": None},
+    ]))
+    ph = json.loads((data / "price_history.json").read_text())
+    ph.append({"ticker": "AAA", "date": "2026-11-12", "close": 11.0})
+    (data / "price_history.json").write_text(json.dumps(ph))
+    px = {"AAA": {"price": 12.0, "as_of": "2026-11-13"}, "BBB": {"price": 110.0, "as_of": "2026-11-13"},
+          "CCC": {"price": 49.0, "as_of": "2026-11-13"}, "DDD": {"price": 30.0, "as_of": "2026-11-13"}}
+    ba = {b["ticker"]: b for b in P.buy_alerts(data, "2026-11-13", px)}
+    assert ba["AAA"]["status"] == "triggered" and ba["AAA"]["since"] == "2026-11-13" and ba["AAA"]["held"]
+    assert ba["BBB"]["status"] == "in range" and ba["CCC"]["status"] == "near" and ba["DDD"]["status"] == "waiting"
+    assert "EEE" not in ba

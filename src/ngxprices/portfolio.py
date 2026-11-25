@@ -223,6 +223,7 @@ def upsert_day(day: dict, data_dir="data") -> dict:
                    up=[(t, round(m)) for m, t in moves[::-1][:5] if m > 0],
                    down=[(t, round(m)) for m, t in moves[:5] if m < 0],
                    watchlist=_watchlist_and_write(data_dir, date, px), volume=volume_highlights(data_dir, date),
+                   buy_alerts=buy_alerts(data_dir, date, px),
                    prices_file=str(prices_path), missing_unheld=missing)
     if existing is None or existing.get("auto_note"):
         entry["note"] = _auto_note(summary, cash_in)
@@ -240,8 +241,10 @@ def upsert_day(day: dict, data_dir="data") -> dict:
 
 
 def _watchlist_and_write(data_dir, date, px):
-    rows = watchlist_status(data_dir, date, px)
     rules = load_rules(data_dir)
+    if rules:
+        update_horizon_log(data_dir, date, rules_status(data_dir, date, px, rules))
+    rows = watchlist_status(data_dir, date, px)
     if rules:
         write_rules_watchlist(data_dir, rows, rules)
     return rows
@@ -349,7 +352,7 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     rules = rules or load_rules(data_dir)
     prices = _prices_for(data_dir, date, prices)
     date = date or next(iter(prices.values()))["as_of"]
-    loss, warn, trail = rules["loss_limit_pct"] / 100, rules["warn_pct"] / 100, rules["trail_pct"] / 100
+    trail = rules["trail_pct"] / 100
     min_peak = rules["trail_min_peak_gain_pct"] / 100
     units, _ = units_and_cost(data_dir, date)
     cost = collections.Counter()
@@ -396,7 +399,8 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
         pk, pk_date = peak.get(t, (px, date))
         if px is not None and px > (pk or 0):
             pk, pk_date = px, date
-        loss_lvl, warn_lvl = round(avg * (1 - loss), 2), round(avg * (1 - warn), 2)
+        lim = loss_limit_for(horizon, eps, rules)
+        loss_lvl, warn_lvl = round(avg * (1 - lim["loss_limit_pct"] / 100), 2), round(avg * (1 - lim["warn_pct"] / 100), 2)
         trail_on = pk is not None and pk >= avg * (1 + min_peak)
         tr = hz_rules["short"]["trail_pct"] / 100 if horizon == "short" else trail
         if horizon == "long":
@@ -417,6 +421,8 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
         out.append(dict(ticker=t, rule=rule, trigger=trig, close=close, breach=status in ("loser", "trail") or bool(exits),
                         status=status, gap_pct=round((px / trig - 1) * 100, 2) if px is not None else None,
                         avg_cost=round(avg, 2), gain_pct=round((px / avg - 1) * 100, 2) if px is not None else None,
+                        breakeven_gain_pct=breakeven_gain(px, avg), loss_limit_pct=lim["loss_limit_pct"],
+                        warn_pct=lim["warn_pct"], loss_limit_note=lim["note"],
                         real_price=px, price_note=liq.get("price_note"), max_units_day=liq.get("max_units_day"),
                         horizon=horizon, exit_signals=exits, ttm_eps=eps["ttm_eps"],
                         pe=round(px / eps["ttm_eps"], 1) if px and eps["ttm_eps"] and eps["ttm_eps"] > 0 else None,
@@ -434,7 +440,9 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     for t in _load(data_dir, "transactions.json"):
         if str(t["side"]).lower() == "sell" and since <= t["date"] <= date:
             sells[t["ticker"]].append(t)
+    switches = horizon_switches(_load(data_dir, "horizon_log.json") if _p(data_dir, "horizon_log.json").exists() else [], date)
     for r in out:
+        r["horizon_switch"] = switches.get(r["ticker"])
         r.update(early_warning(r, sorted(hist[r["ticker"]], key=lambda x: x["date"]), rules, date))
         r.update(take_profit(r, units[r["ticker"]], cost[r["ticker"]], total, sells[r["ticker"]], rules))
         if r["exit_signals"]:
@@ -443,6 +451,76 @@ def rules_status(data_dir, date: str | None = None, prices: dict | None = None, 
     lights = {"red": 0, "amber": 1, "watch": 2, "note": 3, "green": 4}
     return sorted(out, key=lambda r: (lights[r["light"]], order[r["status"]],
                                       r["gap_pct"] if r["gap_pct"] is not None else 1e9))
+
+
+def breakeven_gain(px, avg):
+    """The rise needed from ``px`` to get back to ``avg`` (cost), in %, when in loss; else None.
+    A 10% loss needs +11.1%, 20% needs +25%, 30% needs +42.9%, 50% needs +100%."""
+    if not px or not avg or px >= avg:
+        return None
+    return round((avg / px - 1) * 100, 1)
+
+
+def loss_limit_for(horizon, eps: dict, rules: dict) -> dict:
+    """Loss limit and warning (in %) for one holding.
+
+    Short term uses ``horizons.short.loss_limit_pct`` / ``warn_pct`` (webinar, 25 Nov: cut trades at 10-15%).
+    Long term uses ``horizons.long.loss_limit_pct`` while EPS is not falling; once the EPS thesis check
+    fails it falls back to the short-term limit. Untagged holdings use the top-level limits."""
+    base = dict(loss_limit_pct=rules["loss_limit_pct"], warn_pct=rules["warn_pct"], note=None)
+    hz = rules.get("horizons", {})
+    short = hz.get("short", {})
+    if horizon == "short" and "loss_limit_pct" in short:
+        return dict(loss_limit_pct=short["loss_limit_pct"], warn_pct=short.get("warn_pct", base["warn_pct"]),
+                    note=None)
+    if horizon == "long":
+        lng = hz.get("long", {})
+        if eps.get("thesis_broken") and "loss_limit_pct" in short:
+            return dict(loss_limit_pct=short["loss_limit_pct"], warn_pct=short.get("warn_pct", base["warn_pct"]),
+                        note="EPS falling: short-term limit applies")
+        return dict(loss_limit_pct=lng.get("loss_limit_pct", base["loss_limit_pct"]),
+                    warn_pct=lng.get("warn_pct", base["warn_pct"]), note=None)
+    return base
+
+
+def horizon_switches(log: list[dict], date: str) -> dict:
+    """The latest horizon change per ticker from ``horizon_log.json`` (entries with a ``from``), up to ``date``,
+    with a ``warning`` when a losing trade became an investment, or an investment up 50%+ became a trade
+    (webinar, 25 Nov: decide trade or invest before buying and don't switch sides)."""
+    out = {}
+    for e in sorted(log, key=lambda e: e["date"]):
+        if e["date"] > date or not e.get("from") or e["from"] == e.get("to"):
+            continue
+        g = e.get("gain_pct")
+        warn = None
+        if e["from"] == "short" and e["to"] == "long" and g is not None and g < 0:
+            warn = f"switched from short to long term while {g:+.0f}% on cost (a losing trade turned into an investment)"
+        elif e["from"] == "long" and e["to"] == "short" and g is not None and g >= 50:
+            warn = f"switched from long to short term while {g:+.0f}% on cost (an investment turned into a trade after a rise)"
+        out[e["ticker"]] = dict(e, warning=warn)
+    return out
+
+
+def update_horizon_log(data_dir, date: str, rows: list[dict]) -> list[dict]:
+    """Append to ``horizon_log.json`` every ticker whose horizon in ``holdings.json`` differs from its last
+    logged one (date, from, to, gain on cost at the change, and the lot's ``horizon_note`` as the reason).
+    Returns the new entries."""
+    f = _p(data_dir, "horizon_log.json")
+    log = json.loads(f.read_text()) if f.exists() else []
+    last = {}
+    for e in sorted(log, key=lambda e: e["date"]):
+        last[e["ticker"]] = e.get("to")
+    gain = {r["ticker"]: r.get("gain_pct") for r in rows}
+    now, reason = {}, {}
+    for h in _load(data_dir, "holdings.json"):
+        if h.get("horizon"):
+            now.setdefault(h["ticker"], h["horizon"])
+            reason.setdefault(h["ticker"], h.get("horizon_note"))
+    new = [dict(date=date, ticker=t, **{"from": last.get(t)}, to=hz, gain_pct=gain.get(t), reason=reason[t])
+           for t, hz in sorted(now.items()) if last.get(t) != hz]
+    if new:
+        f.write_text("[\n" + ",\n".join(" " + json.dumps(e, ensure_ascii=False) for e in log + new) + "\n]\n")
+    return new
 
 
 TP_DEFAULTS = dict(targets=[dict(gain_pct=50, sell_pct=25), dict(gain_pct=100, sell_pct=25)],
@@ -639,7 +717,7 @@ def early_warning(r: dict, hist: list[dict], rules: dict, date: str) -> dict:
     ew = {**EW_DEFAULTS, **rules.get("early_warning", {})}
     tol, gen = [], []
     if r["status"] == "warn":
-        tol.append(f"{r['gain_pct']:+.0f}% on cost (warning at -{rules['warn_pct']}%)")
+        tol.append(f"{r['gain_pct']:+.0f}% on cost (warning at -{r.get('warn_pct', rules['warn_pct'])}%)")
     if r["trail_level"] and r["off_peak_pct"] is not None and r["off_peak_pct"] <= -ew["watch_off_peak_pct"]:
         tol.append(f"{r['off_peak_pct']:.0f}% from peak")
     if r["gap_pct"] is not None and 0 < r["gap_pct"] <= ew["near_trigger_pct"]:
@@ -673,6 +751,9 @@ def early_warning(r: dict, hist: list[dict], rules: dict, date: str) -> dict:
                 break
         if streak >= ew["falls_in_a_row"]:
             gen.append(f"{streak} falls in a row")
+    sw = r.get("horizon_switch") or {}
+    if sw.get("warning"):
+        gen.append(sw["warning"])
     if r["status"] in ("loser", "trail"):
         light = "red"
     elif tol and gen:
@@ -699,9 +780,10 @@ def accounts_text(accounts: list[dict]) -> str:
 
 def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
     """Regenerate ``watchlist.json`` (the dashboard's watchlist) from ``rules_status`` rows."""
-    fmt = dict(loss=rules["loss_limit_pct"], warn=rules["warn_pct"], trail=rules["trail_pct"])
     wl = []
     for r in rows:
+        fmt = dict(loss=r.get("loss_limit_pct", rules["loss_limit_pct"]), warn=r.get("warn_pct", rules["warn_pct"]),
+                   trail=rules["trail_pct"])
         note = (f"{_STATUS_TEXT[r['status']].format(**fmt)}. Avg cost {r['avg_cost']:,.2f}; "
                 f"loss limit {r['loss_level']:,.2f}; warning {r['warn_level']:,.2f}; peak {r['peak']:,.2f} "
                 f"({r['peak_date']}, {r['peak_gain_pct']:+.1f}% on cost)")
@@ -711,6 +793,10 @@ def write_rules_watchlist(data_dir, rows: list[dict], rules: dict) -> None:
             note += "; trailing not active (long term: no trail until the EPS thesis check fails)."
         else:
             note += f"; trailing not active (peak gain under {rules['trail_min_peak_gain_pct']}%)."
+        if r.get("breakeven_gain_pct"):
+            note += f" Needs +{r['breakeven_gain_pct']:.1f}% to get back to cost."
+        if r.get("loss_limit_note"):
+            note += f" Loss limit {r['loss_limit_pct']}% ({r['loss_limit_note']})."
         if r.get("horizon"):
             note = f"{r['horizon'].capitalize()} term. " + note
         if r.get("price_note"):
@@ -755,26 +841,114 @@ def watchlist_status(data_dir, date: str | None = None, prices: dict | None = No
     return out
 
 
-def volume_highlights(data_dir, date: str, days: int = 20, ratio: float = 2.0) -> list[dict]:
-    """Held stocks whose volume on ``date`` is at least ``ratio`` x their average over ``days`` earlier days."""
+UV_DEFAULTS = dict(ratio=2.0, avg_days=20, min_value_ngn=10_000_000)
+
+
+def _watch_tickers(data_dir) -> set[str]:
+    """Stocks on the owner's lists that are not necessarily held: webinar levels and the buy plan."""
+    out = set()
+    for name in ("webinar_levels.json", "plan_2_2M.json"):
+        if _p(data_dir, name).exists():
+            out |= {r["ticker"] for r in _load(data_dir, name)}
+    return out
+
+
+def volume_highlights(data_dir, date: str, days: int | None = None, ratio: float | None = None,
+                      min_value: float | None = None) -> list[dict]:
+    """Unusual volume on ``date``: held and watched stocks (webinar levels, buy plan) whose volume is at least
+    ``ratio`` x their average over ``days`` earlier days, with at least ``min_value`` naira traded (thin
+    stocks can jump on a few trades). Settings in ``rules.json`` -> ``unusual_volume``. ``side`` reads the
+    day's move: up = buyers in charge, down = sellers, flat = matched. Value is estimated as volume x close
+    when the day has none (live feed)."""
+    uv = {**UV_DEFAULTS, **((load_rules(data_dir) or {}).get("unusual_volume") or {})}
+    days = days or uv["avg_days"]
+    ratio = ratio or uv["ratio"]
+    min_value = uv["min_value_ngn"] if min_value is None else min_value
     held, _ = units_and_cost(data_dir, date)
+    tickers = {t for t, n in held.items() if n} | _watch_tickers(data_dir)
     by = collections.defaultdict(list)
     for r in _load(data_dir, "price_history.json"):
-        by[r["ticker"]].append(r)
+        if r["ticker"] in tickers:
+            by[r["ticker"]].append(r)
     out = []
-    for t, n in held.items():
-        if not n:
-            continue
+    for t in tickers:
         today = next((r for r in by[t] if r["date"] == date), None)
         prev = sorted((r for r in by[t] if r["date"] < date and r.get("volume") not in (None, "")),
                       key=lambda r: r["date"], reverse=True)[:days]
         if not today or today.get("volume") in (None, "") or not prev:
             continue
         avg = sum(r["volume"] for r in prev) / len(prev)
-        if avg and today["volume"] / avg >= ratio:
-            out.append(dict(ticker=t, volume=today["volume"], avg=round(avg), ratio=round(today["volume"] / avg, 1),
-                            value_ngn=today.get("value_ngn")))
+        val = today.get("value_ngn") or (today["volume"] * today["close"] if today.get("close") else None)
+        if not avg or today["volume"] / avg < ratio or (val or 0) < min_value:
+            continue
+        pc = prev[0].get("close")
+        chg = round((today["close"] / pc - 1) * 100, 2) if pc and today.get("close") else None
+        side = "flat" if not chg else ("buyers" if chg > 0 else "sellers")
+        out.append(dict(ticker=t, volume=today["volume"], avg=round(avg), ratio=round(today["volume"] / avg, 1),
+                        value_ngn=today.get("value_ngn"), value_est=round(val) if val else None, chg_pct=chg,
+                        side=side, held=bool(held.get(t))))
     return sorted(out, key=lambda x: -x["ratio"])
+
+
+BA_DEFAULTS = dict(near_pct=3)
+
+
+def buy_alerts(data_dir, date: str | None = None, prices: dict | None = None) -> list[dict]:
+    """The webinar's buy levels (``webinar_levels.json``) against the latest closes. Closes only, never intraday
+    (the coach wants a close comfortably above a buy-stop). Alerts, not orders.
+
+    * ``above`` / ``buy_stop``: ``triggered`` when the close is above ``level`` (for a range, above
+      ``level_high``; between the two is ``in range``); ``near`` within ``near_pct`` below it.
+    * ``buy_below``: ``triggered`` at or below ``level``; ``near`` within ``near_pct`` above it.
+    * ``target``: ``triggered`` at or above ``target``.
+    ``since`` is the first close of the current run past the level."""
+    ba = {**BA_DEFAULTS, **((load_rules(data_dir) or {}).get("buy_alerts") or {})}
+    near = ba["near_pct"] / 100
+    prices = _prices_for(data_dir, date, prices)
+    date = date or next(iter(prices.values()))["as_of"]
+    held, _ = units_and_cost(data_dir, date)
+    hist = collections.defaultdict(list)
+    for r in _load(data_dir, "price_history.json"):
+        if r["date"] <= date and r.get("close") not in (None, ""):
+            hist[r["ticker"]].append(r)
+    out = []
+    for w in (_load(data_dir, "webinar_levels.json") if _p(data_dir, "webinar_levels.json").exists() else []):
+        rule, t = w.get("rule"), w["ticker"]
+        if rule in ("above", "buy_stop") and w.get("level"):
+            lvl, up = w.get("level_high") or w["level"], True
+        elif rule == "buy_below" and w.get("level"):
+            lvl, up = w["level"], False
+        elif rule == "target" and w.get("target"):
+            lvl, up = w["target"], True
+        else:
+            continue
+        p = prices.get(t)
+        close = p["price"] if p else None
+        if close is None:
+            continue
+        past = (lambda c: c > lvl) if up and rule != "target" else (lambda c: c >= lvl) if up else (lambda c: c <= lvl)
+        if past(close):
+            status = "triggered"
+        elif rule in ("above", "buy_stop") and w.get("level_high") and close > w["level"]:
+            status = "in range"
+        elif (up and close >= lvl * (1 - near)) or (not up and close <= lvl * (1 + near)):
+            status = "near"
+        else:
+            status = "waiting"
+        since = None
+        if status == "triggered":
+            for r in sorted(hist[t], key=lambda r: r["date"], reverse=True):
+                if not past(float(r["close"])):
+                    break
+                since = r["date"]
+        word = {"above": "buy-stop", "buy_stop": "buy-stop", "buy_below": "buy below", "target": "target"}[rule]
+        lv = f"₦{w['level']:,.2f}–₦{w['level_high']:,.2f}" if rule in ("above", "buy_stop") and w.get("level_high") else f"₦{lvl:,.2f}"
+        out.append(dict(ticker=t, name=w.get("name"), rule=rule, level=lvl, close=close, status=status, since=since,
+                        gap_pct=round((close / lvl - 1) * 100, 2), held=bool(held.get(t)),
+                        text=f"{t} {word} {lv}: close ₦{close:,.2f} ({(close / lvl - 1) * 100:+.1f}%), {status}"
+                             + (f" since {since}" if since and since != date else "")))
+    order = {"triggered": 0, "in range": 1, "near": 2, "waiting": 3}
+    return sorted(out, key=lambda x: (order[x["status"]], abs(x["gap_pct"])))
 
 
 # ---------------------------------------------------------------- refresh

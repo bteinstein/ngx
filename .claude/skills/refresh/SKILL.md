@@ -61,5 +61,5 @@ Use "Update <d Mon> closes to official" when only upgrades happened. No Claude a
 ## 5. Report (short; the owner reads on a phone)
 
 From the JSON: value and day P/L (₦ and %), the source (official or live, and time), the top 3 up and
-down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings, new take-profit flags; or "all within the rules"), heavy-volume stocks (≥2× their average), any
+down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings, new take-profit flags; or "all within the rules"), unusual-volume stocks (≥2× their 20-day average, ₦10M+ traded; say buyers or sellers and whether held), buy levels hit (`buy_alerts` with status triggered or in range), any
 upgraded days, and the dashboard link (https://claude.ai/artifact/9NrKbJXXmo562j7y8Wi9vu). Information only, no advice.
