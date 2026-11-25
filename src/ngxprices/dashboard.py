@@ -71,6 +71,8 @@ def build_data(data_dir="data") -> dict:
         "webinar": webinar,
         "history": _history(data_dir, tickers),
         "volume": P.volume_highlights(data_dir, date) if date else [],
+        "buy_alerts": P.buy_alerts(data_dir) if date else [],
+        "horizon_log": _load(data_dir, "horizon_log.json", []),
     }
 
 
