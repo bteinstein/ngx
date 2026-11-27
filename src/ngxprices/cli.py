@@ -36,6 +36,9 @@ def main(argv=None) -> int:
     q = psub.add_parser("losers", help="watchlist stocks against their triggers (latest prices file)")
     q.add_argument("--data-dir", default="data")
     q.add_argument("--json", action="store_true")
+    q = psub.add_parser("trades", help="short-term trade plans (data/trades.json): buy/sell alerts at the latest prices")
+    q.add_argument("--json", action="store_true")
+    q.add_argument("--data-dir", default="data")
     q = psub.add_parser("stage", help="copy the dashboard's three data files into a folder, with dated names")
     q.add_argument("--data-dir", default="data")
     q.add_argument("--out", required=True)
@@ -110,6 +113,21 @@ def _portfolio(a, f) -> int:
         return 0
     if a.pcmd == "stage":
         print(json.dumps(P.stage_dashboard_files(a.data_dir, a.out), indent=1))
+        return 0
+    if a.pcmd == "trades":
+        from .trades import trade_status
+        rows = trade_status(a.data_dir)
+        if a.json:
+            print(json.dumps(rows, indent=1, ensure_ascii=False))
+            return 0
+        if not rows:
+            print("No trade plans (data/trades.json).")
+        for r in rows:
+            lv = r["levels"]
+            print(f"{r['ticker']:<11} {r['status'].upper():<8} price {r['price']:>9,.2f}  units {r['units']:>6,}  unit cost {r['unit_cost']:>9,.2f}"
+                  f"  stop {lv['stop']:,.2f}  +{10}% {lv['target1']:,.2f}  +{20}% {lv['target2']:,.2f}")
+            for x in r["alerts"]:
+                print("            " + x["text"])
         return 0
     if a.pcmd == "losers":
         rows = P.watchlist_status(a.data_dir)

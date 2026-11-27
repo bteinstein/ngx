@@ -103,6 +103,11 @@ footer{color:var(--muted);font-size:.75rem;margin-top:18px}
     <div class="tbl"><table id="rules-table"></table></div>
     <div class="note" id="rules-note"></div>
   </div>
+  <div class="card">
+    <h2>Short-term trades: buy and sell alerts</h2>
+    <div class="tbl"><table id="trades-table"></table></div>
+    <div class="note" id="trades-note"></div>
+  </div>
 </section>
 
 <section id="daily">
@@ -387,6 +392,26 @@ function rules() {
     `Rules set ${r.set || "—"}: loss limit ${r.loss_limit_pct}% (warning at ${r.warn_pct}%); trailing ${r.trail_pct}% once the peak was ≥${r.trail_min_peak_gain_pct}% above cost. ` +
     "Since 24 Nov: rules use the realistic price (* = trade price when the close is stale or a block traded below it); short term: +30% sell half, 10% trail, earnings stop, 8-week time stop; long term: no trail while EPS rises, thesis check after 2 falling reports, trim above 25× earnings. " +
     "Peaks are adjusted for dividends, bonuses and reconstructions. Check volume, dividend dates and live vs official before acting." + (live ? " Latest closes are from the live feed." : "");
+  tradesCard();
+}
+
+function tradesCard() {
+  const rows = (DATA.trades || []).filter((t) => !t.error);
+  const err = (DATA.trades || []).find((t) => t.error);
+  table($("#trades-table"), [
+    { h: "Stock", l: 1, v: (t) => t.ticker, f: (t) => t.ticker },
+    { h: "Status", l: 1, v: (t) => t.status, f: (t) => t.status === "planned" ? "Planned" : "Open" },
+    { h: "Price", v: (t) => t.price, f: (t) => P2(t.price) },
+    { h: "Units", v: (t) => t.units, f: (t) => (t.units || 0).toLocaleString() },
+    { h: "Unit cost", v: (t) => t.unit_cost, f: (t) => P2(t.unit_cost) },
+    { h: "Stop", v: (t) => t.levels.stop, f: (t) => P2(t.levels.stop) },
+    { h: "+10% net", v: (t) => t.levels.target1, f: (t) => P2(t.levels.target1) },
+    { h: "+20% net", v: (t) => t.levels.target2, f: (t) => P2(t.levels.target2) },
+    { h: "Result", v: (t) => t.net_pl, f: (t) => t.net_pl == null ? "—" : `${P2(t.net_pl)} (${pct(t.net_pl_pct)})`, c: (t) => cls(t.net_pl) },
+    { h: "Alerts", l: 1, wrap: 1, f: (t) => (t.alerts || []).map((a) => a.text).join("; ") || "—" },
+  ], rows, { sort: 0 });
+  const p = DATA.trade_plan || {};
+  $("#trades-note").textContent = (err ? `Trade check failed at build: ${err.error}. ` : "") + (p.note || "No trade plans.");
 }
 
 // ---------- daily ----------

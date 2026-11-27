@@ -224,6 +224,8 @@ def upsert_day(day: dict, data_dir="data") -> dict:
                    down=[(t, round(m)) for m, t in moves[:5] if m < 0],
                    watchlist=_watchlist_and_write(data_dir, date, px), volume=volume_highlights(data_dir, date),
                    prices_file=str(prices_path), missing_unheld=missing)
+    from .trades import trade_status
+    summary["trades"] = trade_status(data_dir, date, px)
     if existing is None or existing.get("auto_note"):
         entry["note"] = _auto_note(summary, cash_in)
         entry["auto_note"] = True
@@ -277,6 +279,10 @@ def _auto_note(s: dict, cash_in: float) -> str:
     else:
         parts.append("Watchlist: " + ("; ".join(f"{w['ticker']} {w['close']:,.2f} below {w['trigger']:,.2f}" for w in br)
                                       if br else "all above their triggers") + ".")
+    act = [f"{r['ticker']} " + "; ".join(a["text"].split(":")[0] for a in r["alerts"])
+           for r in s.get("trades", []) if r["alerts"] and r["status"] == "open"]
+    if act:
+        parts.append("Trades: " + ", ".join(act) + ".")
     return " ".join(parts)
 
 
@@ -518,7 +524,8 @@ def realistic_price(close: float, hist: list[dict], rules: dict) -> dict:
     * stale close: unchanged for ``stale_days`` or more trading days while the ``vwap_days`` trade-weighted
       price (value / volume) is ``stale_gap_pct`` or more below it -> use that trade-weighted price;
     * block price: a day in the last ``block_days`` rows with ``block_ratio`` x the median volume of the
-      20 rows before it, at a trade price ``block_gap_pct`` or more below the close -> use that price.
+      20 rows before it, at a trade price ``block_gap_pct`` or more below both that day's close and
+      the current close -> use that price (a heavy day that traded at its own close is not a block).
     The lower one wins; otherwise the close. Trade prices more than ``max_gap_pct`` from the close are
     treated as data errors (NGX's daily limit is 10%). ``max_units_day`` = ``participation_pct`` of the median
     daily volume over ``median_days`` rows (a sale bigger than that would move the price).
@@ -554,6 +561,7 @@ def realistic_price(close: float, hist: list[dict], rules: dict) -> dict:
             continue
         vw = float(x["value_ngn"]) / float(x["volume"])
         if float(x["volume"]) >= liq["block_ratio"] * prev[len(prev) // 2] and \
+                vw <= float(x["close"]) * (1 - liq["block_gap_pct"] / 100) and \
                 close * (1 - liq["max_gap_pct"] / 100) <= vw <= close * (1 - liq["block_gap_pct"] / 100):
             cands.append((vw, f"block of {float(x['volume']):,.0f} shares on {x['date'][8:]}/{x['date'][5:7]} at about "
                               f"₦{vw:,.2f} ({(vw / close - 1) * 100:.0f}%)"))

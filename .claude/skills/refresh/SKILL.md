@@ -60,6 +60,11 @@ Use "Update <d Mon> closes to official" when only upgrades happened. No Claude a
 
 ## 5. Report (short; the owner reads on a phone)
 
+Short-term trades: the JSON's `trades` lists every plan in `data/trades.json` with its alerts (BUY/WAIT for planned;
+TAKE PROFIT 1/2, PROTECT PROFIT, SELL (stop), NEAR, ADD, DIVIDEND, REVIEW for open trades). Report every trade alert
+FIRST, as its own line, with the units and the account. Never skip them. New buys/sells from contract notes go into
+`trades.json` (`buys`/`sells`: date, units, price, total incl. fees, account) as well as `transactions.json`.
+
 From the JSON: value and day P/L (₦ and %), the source (official or live, and time), the top 3 up and
 down, any sell-rule flags (losers, sell-part reviews, new AMBER early warnings, new take-profit flags; or "all within the rules"), heavy-volume stocks (≥2× their average), any
 upgraded days, and the dashboard link (https://claude.ai/artifact/9NrKbJXXmo562j7y8Wi9vu). Information only, no advice.
