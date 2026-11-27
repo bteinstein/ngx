@@ -224,3 +224,36 @@ def test_take_profit_by_horizon():
     r = dict(close=1656.8, real_price=1498.0, gain_pct=0.02, horizon=None)
     tp = P.take_profit(r, 1030, 1030 * 1497.65, 1030 * 1498 / 0.17, [], {})["take_profit"]
     assert [x["kind"] for x in tp] == ["size_cap"] and "at a loss after fees" in tp[0]["text"]
+
+
+def test_block_at_its_own_close_is_not_a_block():
+    hist = [{"date": f"2026-11-{d:02d}", "close": 100.0 + d * 0.5, "volume": 1000, "value_ngn": 1000 * (100.0 + d * 0.5)}
+            for d in range(1, 21)]
+    hist[-2] = dict(hist[-2], close=100.0, volume=50000, value_ngn=50000 * 100.0)  # heavy day at its close
+    assert P.realistic_price(110.0, hist, {})["real_price"] == 110.0
+
+
+def test_trade_levels_and_alerts():
+    from ngxprices import trades as T
+    r = dict(T.TRADE_DEFAULTS)
+    lv = T.levels(110.976, 0.0, r)
+    assert lv["target1"] == 124.56 and lv["target2"] == 135.89 and lv["stop"] == 99.88
+    assert T.levels(110.976, 7.875, r)["target1"] == round((110.976 * 1.1 - 7.875) / 0.98, 2)
+    plan = {"id": "X", "ticker": "Z", "status": "planned", "budget": 200000, "planned_price": 108.8,
+            "dividends_expected": [{"ex_date_est": "2027-04-27", "gross_est": 8.75}]}
+    p = T.check_trade(plan, 108.8, "2026-11-27", [], {}, {"units": 3075, "cost": 3075 * 88.26})
+    assert p["units"] == 1802 and p["alerts"][0]["kind"] == "buy" and p["combined"]["units_after"] == 4877
+    assert T.check_trade(plan, 115.0, "2026-11-27", [], {})["alerts"][0]["kind"] == "wait"
+    tr = dict(plan, status="open", buys=[{"date": "2026-12-01", "units": 1000, "price": 108.8, "total": 110976.0}], sells=[])
+    k = lambda price, date="2026-12-10", **kw: [a["kind"] for a in T.check_trade(dict(tr, **kw), price, date, [], {})["alerts"]]  # noqa: E731
+    assert k(125.0) == ["target1"] and k(136.0) == ["target2"] and k(99.0) == ["stop"] and k(110.0) == []
+    sold = [{"date": "2026-12-20", "units": 500, "price": 125.0}]
+    assert k(116.0, "2026-12-21", sells=sold) == ["protect"] and k(120.0, "2026-12-21", sells=sold) == []
+    assert "review" in k(110.0, "2027-06-05")
+    assert "dividend" in k(110.0, "2027-04-01")
+    # a dividend received lowers the stop: the ex-date drop alone does not trigger it
+    acts = [{"ticker": "Z", "type": "dividend", "ex_date": "2027-04-27", "amount": 8.75}]
+    s = T.check_trade(tr, 95.0, "2027-04-28", acts, {})
+    assert s["dividend_cash"] == 7875.0 and s["levels"]["stop"] == 92.0 and "stop" not in [a["kind"] for a in s["alerts"]]
+    # reserve: a 5% dip below the entry
+    assert "add" in [a["kind"] for a in T.check_trade(tr, 103.0, "2026-12-10", [], {}, None, 100000)["alerts"]]

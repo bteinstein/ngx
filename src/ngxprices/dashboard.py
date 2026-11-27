@@ -71,7 +71,17 @@ def build_data(data_dir="data") -> dict:
         "webinar": webinar,
         "history": _history(data_dir, tickers),
         "volume": P.volume_highlights(data_dir, date) if date else [],
+        "trades": _trades(data_dir),
+        "trade_plan": _load(data_dir, "trades.json", {}),
     }
+
+
+def _trades(data_dir):
+    from .trades import trade_status
+    try:
+        return trade_status(data_dir)
+    except Exception as e:  # the page still shows everything else
+        return [{"error": f"{type(e).__name__}: {e}"}]
 
 
 def build(data_dir="data", template="dashboard/template.html", out="dashboard/index.html") -> dict:

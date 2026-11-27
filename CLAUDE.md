@@ -97,6 +97,13 @@ Value ₦10,159,793 · cost ₦8,023,767 · gain ₦2,136,026 · day +₦67,569 
   exit the rest); time stop (no new high in 8 weeks → review). Long term: no trail while EPS rises; thesis check
   after 2 falling EPS reports (then the 15% trail applies); trim 25% above 25× trailing earnings; size cap 15%;
   recover cost at +100%. Untagged holdings keep the 18 Nov rules. An exit signal turns the light red.
+- **Short-term trades (27 Nov; `data/trades.json`, code `trades.py`, `ngxprices portfolio trades`):** owner plans
+  ₦200K Zenith + ₦200K GTCO, ₦100K reserve (use only on a 5%+ dip below entry). Profit is net of ~2% fees each way and
+  includes dividends received (after 10% tax). Take profit 1 at +10% net: sell half; take profit 2 at +20% net: sell
+  the rest; protect: after TP1, sell the rest if back to +5% net; stop: 10% below all-in unit cost (lowered by dividends
+  received); review at 6 months; dividend notice 45 days before the expected ex-date (Zenith ~27 Apr, GTCO ~14 Apr).
+  Buy limit ≤1% above the planned price; wait if 5%+ above. Every refresh reports trade alerts FIRST. Trade lots are
+  separate from the older lots (their own rules); record buys/sells in both `trades.json` and `transactions.json`.
 - Every refresh checks all holdings and regenerates `data/watchlist.json` (the dashboard's list).
   The old 2-week-low triggers (to 17 Nov) were replaced the same day; the six old losers are included.
 - Goal: serious capital appreciation; loss tolerance 20%. Check volume, dividend dates and live vs

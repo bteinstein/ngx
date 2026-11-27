@@ -1,0 +1,17 @@
+{
+ "set": "2026-11-27",
+ "by": "owner",
+ "note": "Short-term trades (owner, 27 Nov 2026): ₦300-500K split into ₦200K Zenith + ₦200K GTCO now, ₦100K reserve. Profit is counted after fees (~2% each way) and includes dividends received (after 10% withholding tax). Take profit 1: +10% net, sell half. Take profit 2: +20% net, sell the rest. Protect: after take profit 1, sell the rest if the net gain falls back to +5%. Stop: sell all at 10% below the all-in unit cost (lowered by any dividend received). Hold at most 6 months, then review. Reserve: use only if a trade is 5%+ below its entry. Buy with a limit at most 1% above the planned price; if the price runs 5%+ above it, wait. Record each buy and sell here (buys/sells with date, units, price, total incl. fees, account) from the contract notes; the refresh checks every open trade.",
+ "rules": {"fee_pct": 2.0, "dividend_wht_pct": 10, "target1_net_pct": 10, "target1_sell_pct": 50, "target2_net_pct": 20,
+           "protect_net_pct": 5, "stop_pct": 10, "max_hold_days": 183, "add_on_dip_pct": 5, "near_pct": 3,
+           "dividend_notice_days": 45, "buy_limit_pct": 1, "wait_if_up_pct": 5},
+ "reserve": {"budget": 100000, "note": "Use only on a 5%+ dip below a trade's entry; mark such buys with from_reserve: true."},
+ "plans": [
+  {"id": "T1-ZENITHBANK", "ticker": "ZENITHBANK", "name": "Zenith Bank", "status": "planned", "budget": 200000,
+   "planned_price": 108.8, "account": null, "buys": [], "sells": [],
+   "dividends_expected": [{"ex_date_est": "2027-04-27", "gross_est": 8.75, "basis": "FY 2025 final ₦8.75, ex 27 Apr 2026 (estimate; FY 2026 not declared)"}]},
+  {"id": "T2-GTCO", "ticker": "GTCO", "name": "Guaranty Trust Holding", "status": "planned", "budget": 200000,
+   "planned_price": 116.0, "account": null, "buys": [], "sells": [],
+   "dividends_expected": [{"ex_date_est": "2027-04-14", "gross_est": 11.76, "basis": "FY 2025 final ₦11.76, ex 14 Apr 2026 (estimate; FY 2026 not declared)"}]}
+ ]
+}
