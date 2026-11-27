@@ -379,5 +379,29 @@
   "day_pl_pct": -0.006851348660229626,
   "note": "No trades. Prices: NGX official (Daily Official List / price list), via ngxprices. Up: SUNUASSUR (+\u20a65.1K), FCMB (+\u20a64.9K), NB (+\u20a63.8K), FIRSTHOLDCO (+\u20a61.4K), AFRIPRUD (+\u20a6900). Down: DANGSUGAR (-\u20a630.5K), MTNN (-\u20a614.0K), MANSARD (-\u20a610.9K), ACCESSCORP (-\u20a69.2K), WEMABANK (-\u20a66.0K). Rules: past the loss limit: SUNUASSUR (-52% on cost), INTBREW (-44% on cost), LASACO (-42% on cost), OANDO (-41% on cost), TRANSCORP (-34% on cost), AFRIPRUD (-29% on cost); sell-part review: ELLAHLAKES (-60% from peak), PZ (-39% from peak), OKOMUOIL (-41% from peak), CUSTODIAN (-33% from peak), UBA (-33% from peak), GTCO (-28% from peak), MANSARD (-30% from peak), DANGSUGAR (-29% from peak), UPDCREIT (-28% from peak), CWG (-28% from peak), BUAFOODS (-26% from peak), NB (-26% from peak), VFDGROUP (-24% from peak), JBERGER (-19% from peak), ZENITHBANK (-23% from peak), ACCESSCORP (-22% from peak), FCMB (-20% from peak), STERLINGNG (-16% from peak), NNFM (-15% from peak); early warning (amber): UCAP, FIDELITYBK, NGXGROUP, MTNN; take profit: ELLAHLAKES, PZ, OKOMUOIL, GTCO, UPDCREIT, JBERGER, NNFM, NGXGROUP, PRESCO, STANBIC, DANGCEM, FIRSTHOLDCO, TRANSCOHOT.",
   "auto_note": true
+ },
+ {
+  "date": "2026-11-26",
+  "value": 9949328.05,
+  "cost": 8023767.46,
+  "gain": 1925560.59,
+  "cash_in": 0.0,
+  "holdings": 39,
+  "day_pl": 32204.8,
+  "day_pl_pct": 0.003247393340604091,
+  "note": "No trades. Prices: NGX official (Daily Official List / price list), via ngxprices. Up: VFDGROUP (+\u20a615.0K), ACCESSCORP (+\u20a67.3K), OANDO (+\u20a65.4K), AFRIPRUD (+\u20a63.5K), STANBIC (+\u20a62.5K). Down: ZENITHBANK (-\u20a64.6K), NB (-\u20a62.5K), FCMB (-\u20a6975), LASACO (-\u20a6600), LINKASSURE (-\u20a6544). Rules: past the loss limit: SUNUASSUR (-52% on cost), INTBREW (-44% on cost), LASACO (-42% on cost), OANDO (-35% on cost), TRANSCORP (-34% on cost), AFRIPRUD (-22% on cost); sell-part review: ELLAHLAKES (-60% from peak), OKOMUOIL (-41% from peak), PZ (-39% from peak), UBA (-31% from peak), DANGSUGAR (-29% from peak), GTCO (-28% from peak), CWG (-28% from peak), JBERGER (-19% from peak), ACCESSCORP (-19% from peak), NNFM (-15% from peak), FIDELITYBK (-12% from peak); early warning (amber): UCAP, NB; take profit: ELLAHLAKES, OKOMUOIL, PZ, GTCO, JBERGER, NNFM, PRESCO, STANBIC, DANGCEM, UPDCREIT, FIRSTHOLDCO, NGXGROUP.",
+  "auto_note": true
+ },
+ {
+  "date": "2026-11-27",
+  "value": 9970953.05,
+  "cost": 8023767.46,
+  "gain": 1947185.59,
+  "cash_in": 0.0,
+  "holdings": 39,
+  "day_pl": 21625.0,
+  "day_pl_pct": 0.0021735136173341874,
+  "note": "No trades. Prices: NGX live feed, 27 Nov at 12:28 WAT (intraday, about 30 minutes delayed; a stock with no trade yet keeps its previous close). Up: ZENITHBANK (+\u20a620.9K), OANDO (+\u20a65.9K), FIRSTHOLDCO (+\u20a62.2K), GTCO (+\u20a61.5K), UBA (+\u20a6538). Down: ACCESSCORP (-\u20a64.6K), FCMB (-\u20a64.5K), UCAP (-\u20a6592). Rules: past the loss limit: SUNUASSUR (-52% on cost), INTBREW (-44% on cost), LASACO (-42% on cost), TRANSCORP (-34% on cost), OANDO (-29% on cost), AFRIPRUD (-22% on cost); sell-part review: ELLAHLAKES (-60% from peak), OKOMUOIL (-41% from peak), PZ (-39% from peak), UBA (-30% from peak), DANGSUGAR (-29% from peak), CWG (-28% from peak), GTCO (-24% from peak), ACCESSCORP (-21% from peak), JBERGER (-19% from peak), NNFM (-15% from peak), FIDELITYBK (-11% from peak); early warning (amber): UCAP, NB; take profit: ELLAHLAKES, OKOMUOIL, PZ, GTCO, JBERGER, NNFM, PRESCO, STANBIC, DANGCEM, UPDCREIT, NGXGROUP, FIRSTHOLDCO.",
+  "auto_note": true
  }
 ]
